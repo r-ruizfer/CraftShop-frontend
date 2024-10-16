@@ -1,11 +1,13 @@
 import React from 'react'
 import ProductList from "../components/ProductList";
-import { useState, useEffect } from 'react';
+import {useContext, useState, useEffect } from 'react';
 import axios from "axios";
-
+import {ProductsContext} from "../context/products.context.jsx";
 
 function HomePage() {
  const [products, setProducts] = useState([])
+ const { productsFromContext} = useContext(ProductsContext);
+ console.log("context", productsFromContext)
 
  useEffect(() => {
   axios
