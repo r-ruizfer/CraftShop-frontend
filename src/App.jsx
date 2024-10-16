@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
@@ -10,23 +10,32 @@ import ProductDetails from "./pages/ProductDetails";
 import Profile from "./pages/Profile";
 import Signup from "./pages/Signup";
 import WishList from "./pages/WishList";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
+
+  console.log("URL backend", import.meta.env.VITE_SERVER_URL);
+
+
   return (
-<>
-         <NavBar/>
+    <>
+      <NavBar />
       <Routes>
-        <Route path="/" element={<HomePage/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/signup" element={<Signup/>}/>
-        <Route path="/:productId" element={<ProductDetails/>}/>
-        <Route path="/cart" element={<Cart/>}/>
-        <Route path="/profile/:userId" element={<Profile/>}/>
-        <Route path="/wishlist" element={<WishList/>}/>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/:productId" element={<ProductDetails />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/profile/:userId" element={<Profile />} />
+        <Route path="/wishlist" element={<WishList />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
-</>
-  )
+      <Footer />
+    </>
+  );
 }
 
 export default App;
-{/* </> */}
+{
+  /* </> */
+}
