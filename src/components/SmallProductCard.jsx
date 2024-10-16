@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CommentBox() {
+function SmallProductCard() {
   return (
     <div>
       
@@ -8,4 +8,5 @@ function CommentBox() {
   )
 }
 
-export default CommentBox
+export default SmallProductCard
+

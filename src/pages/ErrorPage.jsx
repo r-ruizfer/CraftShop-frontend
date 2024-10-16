@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CommentBox() {
+function ErrorPage() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function CommentBox() {
   )
 }
 
-export default CommentBox
+export default ErrorPage
