@@ -32,7 +32,7 @@ function Login() {
 
       await authenticateUser();
 
-      navigate("/private-page-example");
+      navigate("/");
     } catch (error) {
       console.log(error);
       if (error.response.status === 400) {
@@ -44,7 +44,7 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="login-container">
       <h1>Log In</h1>
 
       <form onSubmit={handleLogin}>
