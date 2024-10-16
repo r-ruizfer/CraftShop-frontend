@@ -5,10 +5,10 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import Cart from "./pages/Cart";
-import Login from "./pages/Login";
+import Login from "./pages/Auth/Login";
 import ProductDetails from "./pages/ProductDetails";
 import Profile from "./pages/Profile";
-import Signup from "./pages/Signup";
+import Signup from "./pages/Auth/Signup";
 import WishList from "./pages/WishList";
 
 function App() {
