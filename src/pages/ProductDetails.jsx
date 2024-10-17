@@ -5,6 +5,9 @@ import { useContext, useState, useEffect } from "react";
 import { ProductsContext } from "../context/products.context.jsx";
 import ProductList from "../components/ProductList";
 
+import service from "../services/config";
+import { AuthContext } from "../context/auth.context";
+
 function ProductDetails(props) {
   const { productId } = useParams();
   const [currentProduct, setCurrentProduct] = useState(null);
@@ -13,6 +16,12 @@ function ProductDetails(props) {
  
 
   const { products } = useContext(ProductsContext);
+
+
+  const [userProfile, setUserProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const { user, isLoggedIn } = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState(undefined);
 
   //llamada para recibir el producto actual
   useEffect(() => {
@@ -40,11 +49,36 @@ console.log("carrito", productsInCart)
 
 // Add to wishlist
 
-const handleAddToWishlist= ()=> {
-  setWishlist([currentProduct, ...wishlist]);
-  console.log("Añadido a deseos", wishlist);
- }
- console.log("wishlist", wishlist)
+// const handleAddToWishlist= ()=> {
+//   setWishlist([currentProduct, ...wishlist]);
+//   console.log("Añadido a deseos", wishlist);
+//  }
+//  console.log("wishlist", wishlist)
+
+
+
+
+const handleAddToWishlist= async ()=> {
+  try {
+    const storedToken = localStorage.getItem("authToken");
+
+    if (storedToken && isLoggedIn && user) {
+      const response= await
+        service
+          .patch(`users/${user._id}/products/${productId}/addWishlist`)
+          
+          setUserProfile(response.data);
+          setWishlist((prevWishlist)=> [...prevWishlist, response.data.wishlistedItems]);
+    } else {setErrorMessage("User ID no available")}
+           
+  } catch (error) {
+      const errorDescription = error.response.data.message;
+      setErrorMessage(errorDescription);
+    }
+};
+
+console.log("user", user)
+console.log("logged", isLoggedIn)
 
 
   // /comments/products/:productId
@@ -73,11 +107,12 @@ const handleAddToWishlist= ()=> {
   console.log("productID params", productId);
   console.log("current", currentProduct);
   console.log(comments, "comentarios")
+  console.log(wishlist, "lista de deseos")
 
   return (
     <>
     <div id="product-detail-card">
-      <div>
+      <div className="product-detail-img">
         <img src={currentProduct.image} alt={currentProduct.title} />
         <button id="fav-button"   onClick={handleAddToWishlist} >❤</button>
       </div>
@@ -91,11 +126,11 @@ const handleAddToWishlist= ()=> {
 
     <div id="comments-list">
       <h3>Comments section</h3>
-      <p> {comments.map((eachComment) => {
+       {comments.map((eachComment) => {
             return(
-             <p>{eachComment}</p>
+             <p>{eachComment.text}</p>
             )
-        })}</p>
+        })}
     </div>
 
 

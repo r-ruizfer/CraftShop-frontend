@@ -14,7 +14,7 @@ function HomePage() {
 
   return (
     <div id="home-screen">
-      <h1>HOME</h1>
+      <h1 className="title" >HOME</h1>
       <ProductList products={products} />
       <div>
         <h1>Categorias</h1>
