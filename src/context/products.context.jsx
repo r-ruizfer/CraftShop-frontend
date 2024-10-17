@@ -8,9 +8,12 @@ const ProductsContext = createContext();
 
 function ProductsWrapper({ children }) {
   const [products, setProducts] = useState(null);
+
+
   useEffect(() => {
     getProducts();
   }, []);
+
 
   const getProducts = async () => {
     try {
@@ -22,6 +25,8 @@ function ProductsWrapper({ children }) {
       console.log(error);
     }
   };
+
+if (!products) return <p>Sorry, no products available right now.</p>;
 
   return (
     <ProductsContext.Provider value={{ products, setProducts }}>
