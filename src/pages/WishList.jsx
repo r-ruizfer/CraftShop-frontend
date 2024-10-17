@@ -2,25 +2,25 @@ import service from "../services/config";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import ProductList from "../components/ProductList";
-
+import { Link } from "react-router-dom";
 function WishList() {
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const { user, isLoggedIn } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(undefined);
-  const [products, setProducts] = useState([])
-  
+  const [products, setProducts] = useState([]);
+
   useEffect(() => {
     const getUser = () => {
       const storedToken = localStorage.getItem("authToken");
-      
+
       if (storedToken && isLoggedIn && user) {
         if (user._id) {
           service
-          .get(`/users/${user._id}`)
-          .then((response) => {
-            setUserProfile(response.data);
-            setProducts(response.data.wishlistedItems)
+            .get(`/users/${user._id}`)
+            .then((response) => {
+              setUserProfile(response.data);
+              setProducts(response.data.wishlistedItems);
               setLoading(false);
             })
             .catch((err) => {
@@ -31,15 +31,12 @@ function WishList() {
           setErrorMessage("User ID is not available.");
           setLoading(false);
         }
-      } 
+      }
     };
     getUser();
   }, [isLoggedIn, user]);
 
- 
-
   if (errorMessage) return <div>{errorMessage}</div>;
-  if (loading) return <div>Loading</div>;
   if (!userProfile) {
     return (
       <>
@@ -58,11 +55,11 @@ function WishList() {
       </>
     );
   }
+  if (loading) return <div>Loading</div>;
   return (
     <div>
-
-    <ProductList products= {products}/>
-  </div>
+      <ProductList products={products} />
+    </div>
   );
 }
 
