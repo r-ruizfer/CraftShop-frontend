@@ -1,6 +1,8 @@
 import React from 'react'
 
-function SmallProductCard() {
+function SmallProductCard(pops) {
+
+  const {eachProduct}= props
   return (
     <div>
       

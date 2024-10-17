@@ -3,7 +3,7 @@ import React from "react";
 function ProductCard(props) {
   const { eachProduct } = props;
   return (
-    <div key={eachProduct._id}>
+    <div className="product-card"  key={eachProduct._id}>
       <div>
         <img src={eachProduct.image} alt="" />
       </div>
