@@ -1,47 +1,54 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 import { useContext, useState, useEffect } from "react";
-import {
-  ProductsContext
-} from "../context/products.context.jsx";
+import { ProductsContext } from "../context/products.context.jsx";
 
 function ProductDetails() {
-  const {productId} = useParams();
-  console.log("params", productId);
-
-  const { products } = useContext(ProductsContext);
+  const { productId } = useParams();
   const [currentProduct, setCurrentProduct] = useState(null);
 
+  // const { products } = useContext(ProductsContext);
+
+  //llamada para recibir el producto actual
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_SERVER_URL}/products/:productId`)
-      .then((response) => {
+    const loadProduct = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_SERVER_URL}/products/${productId}`
+        );
         setCurrentProduct(response.data);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.log(error);
-      });
-  }, []);
+      }
+    };
+    loadProduct();
+  }, [productId]);
 
-  // useEffect(() => {
-  //   const product = products.find((eachProduct) => {
-  //     return eachProduct._id === productId;
-  //   });
-  //   setCurrentProduct(product);
-  // }, [products, productId]);
+  if (!currentProduct) return <p>Product not found</p>;
 
-  console.log("products", products);
-  console.log("currentProduct", currentProduct);
+  //CONSOLE LOGS
+  // console.log("products", products);
+  console.log("productID params", productId);
+  console.log("current", currentProduct);
 
   return (
-    <div>
+    <>
+    <div id="product-detail-card">
       <div>
-        <img src={currentProduct.image} alt="" />
+        <img src={currentProduct.image} alt={currentProduct.title} />
+        <button id="fav-button">❤</button>
       </div>
-      <h2>{currentProduct.title}</h2>
-      <p>{currentProduct.description}</p>
-      <p>{currentProduct.price}</p>
+      <div id="product-detail-info">
+      <h1>{currentProduct.price} €</h1>
+        <h2>{currentProduct.title}</h2>
+        <p>{currentProduct.description}</p>
+        <button id="add-cart-button">Add to cart</button>
+      </div>
     </div>
+
+    <div id="comments-list"></div>
+    </>
   );
 }
 

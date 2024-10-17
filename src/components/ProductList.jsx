@@ -9,7 +9,8 @@ const {products} = props
 console.log(products)
 
   return (
-    <div>
+    <>
+    <div id='product-grid'>
         {products.map((eachProduct) => {
             return(
               <Link key={eachProduct._id} to={`/${eachProduct._id}`}>
@@ -19,6 +20,7 @@ console.log(products)
         })}
       
     </div>
+    </>
   )
 }
 
