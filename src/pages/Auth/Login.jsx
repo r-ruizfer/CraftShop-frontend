@@ -23,7 +23,7 @@ function Login() {
         password,
       };
 
-      // const response = await axios.post("http://localhost:5005/api/auth/login", userCredentials)
+  
       const response = await service.post("/auth/login", userCredentials);
 
       console.log(response);

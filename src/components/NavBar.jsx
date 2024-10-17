@@ -30,10 +30,25 @@ function Navbar() {
         <Link to={"/cart"}>
           <li>Cartbutton</li>
         </Link>
-        {!isLoggedIn && <Link to="/signup">Sign Up</Link>}
-        {!isLoggedIn && <Link to="/login">Log In</Link>}
-        {isLoggedIn && <Link onClick={handleLogout}>Log Out</Link>}
-        <li>profilebutton</li>
+        {!isLoggedIn && (
+          <Link to="/signup">
+            {" "}
+            <li>Sign Up</li>
+          </Link>
+        )}
+        {!isLoggedIn && (
+          <Link to="/login">
+            <li>Log In</li>
+          </Link>
+        )}
+        {isLoggedIn && (
+          <Link onClick={handleLogout}>
+            <li>Log Out</li>
+          </Link>
+        )}
+        <Link to="/profile/">
+          <li>profilebutton</li>
+        </Link>
       </nav>
     </div>
   );

@@ -11,11 +11,10 @@ import Profile from "./pages/Profile";
 import Signup from "./pages/Auth/Signup";
 import WishList from "./pages/WishList";
 import ErrorPage from "./pages/ErrorPage";
+import Private from "./components/auth/Private";
 
 function App() {
-
   console.log("URL backend", import.meta.env.VITE_SERVER_URL);
-
 
   return (
     <>
@@ -26,7 +25,14 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/:productId" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/profile/:userId" element={<Profile />} />
+        <Route
+          path="/profile/"
+          element={
+            <Private>
+              <Profile />
+            </Private>
+          }
+        />
         <Route path="/wishlist" element={<WishList />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
