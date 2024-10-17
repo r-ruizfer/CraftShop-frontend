@@ -25,14 +25,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/:productId" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
-        <Route
-          path="/profile/"
-          element={
-            <Private>
-              <Profile />
-            </Private>
-          }
-        />
+        <Route path="/profile/" element={<Profile />} />
         <Route path="/wishlist" element={<WishList />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>

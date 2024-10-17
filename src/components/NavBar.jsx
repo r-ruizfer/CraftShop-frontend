@@ -5,7 +5,7 @@ import { AuthContext } from "../context/auth.context";
 
 function Navbar() {
   const navigate = useNavigate();
-  const { isLoggedIn, authenticateUser, isAdmin } = useContext(AuthContext);
+  const { isLoggedIn, authenticateUser} = useContext(AuthContext);
   const handleLogout = async () => {
     try {
       localStorage.removeItem("authToken");
