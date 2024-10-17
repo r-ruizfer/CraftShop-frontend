@@ -17,7 +17,7 @@ function Navbar() {
   };
   return (
     <div>
-      <nav>
+      <nav id="navbar">
         <Link to={"/"}>
           <li>Logo</li>
         </Link>

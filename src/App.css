@@ -1,8 +1,9 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  max-width: 100vh;
+  margin: 10px auto;
   padding: 2rem;
   text-align: center;
+  background-color: lightgrey;
 }
 
 .card {
@@ -18,7 +19,9 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  margin: 0;
+  margin: 30px;
+  min-height: 100vh;
+  background-color: white;
 }
 
 .signup-container {
@@ -175,9 +178,55 @@ body {
 }
 
 /* NAVBAR*/
+#navbar {
+  height: 20%;
+  display: flex;
 
 
+}
+
+#navbar li {
+  list-style-type: none;
+}
 /*HOMEPAGE*/
+#home-screen img{
+width: 60%;
+}
 
 
+.product-card {
+  width: 35%;
+}
+
+#product-grid{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
 /*PRODUCT DETAILS*/
+
+#product-detail-card {
+  border: solid red 1px;
+}
+
+#product-detail-card  img {
+  width: 30%;
+}
+
+#add-cart-button {
+  background-color: black;
+  color:  white;
+  border-radius: 10px;
+}
+
+#comments-list {
+  border: solid red 1px;
+}
+
+#see-more {
+  border: solid red 1px;
+}
+
+#see-more img {
+  width: 30%;
+}

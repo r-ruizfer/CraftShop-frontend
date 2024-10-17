@@ -18,7 +18,7 @@ function App() {
   console.log("URL backend", import.meta.env.VITE_SERVER_URL);
 
   const [productsInCart, setProductsInCart]= useState([])
-
+  const [wishlist, setWishlist]= useState([])
   return (
     <>
       <NavBar />
@@ -26,7 +26,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/:productId" element={<ProductDetails productsInCart={productsInCart} setProductsInCart={setProductsInCart} />} />
+        <Route path="/:productId" element={<ProductDetails  productsInCart={productsInCart} setProductsInCart={setProductsInCart} wishlist={wishlist} setWishlist={setWishlist} />} />
         <Route path="/cart" element={<Cart productsInCart={productsInCart} setProductsInCart={setProductsInCart} />} />
         <Route path="/profile/" element={<Profile />} />
         <Route path="/wishlist" element={<WishList />} />
