@@ -8,7 +8,7 @@ const AuthContext = createContext();
 
 function AuthWrapper(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); 
   const [user, setUser] = useState(null);
   const [authError, setAuthError] = useState(null);
 
@@ -17,33 +17,27 @@ function AuthWrapper(props) {
   };
 
   const authenticateUser = async () => {
-    // Get the stored token from the localStorage
     const storedToken = localStorage.getItem("authToken");
 
-    // If the token exists in the localStorage
     if (storedToken) {
-      // We must send the JWT token in the request's "Authorization" Headers
       try {
-        const response = await service.get(`/auth/verify`);
+        const response = await service.get(`/auth/verify`, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        });
         const user = response.data;
+
         setIsLoggedIn(true);
         setIsLoading(false);
         setUser(user);
-        console.log(response.data)
+        console.log("Usuario autenticado:", user);
       } catch (error) {
-        if (error) {
-          setAuthError(error.response.data.message);
-          return;
-          setIsLoggedIn(false);
-          setIsLoading(false);
-          setUser(null);
-        }
-        // Update state variables
+        console.error("Error al verificar el token:", error);
+        setAuthError(error.response?.data?.message || "Token invalid");
+        setIsLoggedIn(false);
+        setIsLoading(false);
+        setUser(null);
       }
-      // If the server sends an error response (invalid token)
-      // Update state variables
     } else {
-      // If the token is not available
       setIsLoggedIn(false);
       setIsLoading(false);
       setUser(null);
@@ -51,7 +45,6 @@ function AuthWrapper(props) {
   };
 
   const removeToken = () => {
-    // Upon logout, remove the token from the localStorage
     localStorage.removeItem("authToken");
   };
 
@@ -61,8 +54,6 @@ function AuthWrapper(props) {
   };
 
   useEffect(() => {
-    // Run the function after the initial render,
-    // after the components in the App render for the first time.
     authenticateUser();
   }, []);
 

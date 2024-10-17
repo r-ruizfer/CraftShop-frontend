@@ -13,6 +13,7 @@ function Signup() {
   const [profilePicture, setProfilePicture] = useState("");
   const [address, setAddress] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const { isLoggedIn } = useContext(AuthContext);
 
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handleUsernameChange = (e) => setUsername(e.target.value);
