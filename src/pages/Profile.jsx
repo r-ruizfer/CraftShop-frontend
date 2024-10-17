@@ -2,6 +2,7 @@ import service from "../services/config";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import { Link } from "react-router-dom";
+import AddProductForm from "../components/AddProductForm";
 function Profile() {
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -73,11 +74,14 @@ function Profile() {
                 <strong>Email:</strong> {userProfile.email}
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-24 mb-4 border-b pb-4">
-              <p className="text-left mb-2 border-b pb-2">
-                {userProfile.isAdmin === false ? "" : "Admin"}
-              </p>
-            </div>
+            {userProfile.isAdmin === false ? (
+              ""
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-24 mb-4 border-b pb-4">
+                <p className="text-left mb-2 border-b pb-2">Admin controls:</p>
+                <AddProductForm />
+              </div>
+            )}
           </>
         )}
       </div>

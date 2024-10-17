@@ -19,10 +19,7 @@ function HomePage() {
       <div>
         <h1>Categorias</h1>
         <h2>{products[0].category}</h2>
-        {/* {products.category.map((eachCategory, index) => {
-          return (
-          <h2 key ={index}> {eachCategory}</h2>)
-        })} */}
+       
       </div>
     </div>
   );
