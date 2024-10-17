@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import {useState } from "react";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
@@ -16,6 +17,8 @@ import Private from "./components/auth/Private";
 function App() {
   console.log("URL backend", import.meta.env.VITE_SERVER_URL);
 
+  const [productsInCart, setProductsInCart]= useState([])
+
   return (
     <>
       <NavBar />
@@ -23,8 +26,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/:productId" element={<ProductDetails />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/:productId" element={<ProductDetails productsInCart={productsInCart} setProductsInCart={setProductsInCart} />} />
+        <Route path="/cart" element={<Cart productsInCart={productsInCart} setProductsInCart={setProductsInCart} />} />
         <Route
           path="/profile/"
           element={

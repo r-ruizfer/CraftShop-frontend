@@ -4,9 +4,13 @@ import axios from "axios";
 import { useContext, useState, useEffect } from "react";
 import { ProductsContext } from "../context/products.context.jsx";
 
-function ProductDetails() {
+function ProductDetails(props) {
   const { productId } = useParams();
   const [currentProduct, setCurrentProduct] = useState(null);
+  const [prodComments, setProdComments] = useState(null);
+  const {productsInCart, setProductsInCart} = props;
+
+  
 
   // const { products } = useContext(ProductsContext);
 
@@ -27,6 +31,18 @@ function ProductDetails() {
 
   if (!currentProduct) return <p>Product not found</p>;
 
+//Add to cart 
+
+const handleAddToCart= ()=> {
+ setProductsInCart([currentProduct, ...productsInCart]);
+ console.log("Añadido al carrito", productsInCart);
+}
+console.log("carrito", productsInCart)
+
+  // /comments/products/:productId
+
+
+
   //CONSOLE LOGS
   // console.log("products", products);
   console.log("productID params", productId);
@@ -43,11 +59,13 @@ function ProductDetails() {
       <h1>{currentProduct.price} €</h1>
         <h2>{currentProduct.title}</h2>
         <p>{currentProduct.description}</p>
-        <button id="add-cart-button">Add to cart</button>
+        <button onClick={handleAddToCart} id="add-cart-button">Add to cart</button>
       </div>
     </div>
 
-    <div id="comments-list"></div>
+    <div id="comments-list">
+      <h3>Comments section</h3>
+    </div>
     </>
   );
 }
