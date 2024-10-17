@@ -1,7 +1,7 @@
 import service from "../services/config";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
-
+import { Link } from "react-router-dom";
 function Profile() {
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -28,13 +28,12 @@ function Profile() {
           setErrorMessage("User ID is not available.");
           setLoading(false);
         }
-      } 
+      }
     };
     getUser();
   }, [isLoggedIn, user]);
 
   if (errorMessage) return <div>{errorMessage}</div>;
-  if (loading) return <div>Loading</div>;
   if (!userProfile) {
     return (
       <>
@@ -53,6 +52,7 @@ function Profile() {
       </>
     );
   }
+  if (loading) return <div>Loading</div>;
   return (
     <div className="StudentDetailsPage bg-gray-100 py-6 px-4">
       <div className="bg-white p-8 rounded-lg shadow-md mb-6">
