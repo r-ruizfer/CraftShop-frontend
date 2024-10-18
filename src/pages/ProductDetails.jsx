@@ -158,6 +158,21 @@ function ProductDetails(props) {
         </>
         ) : (
           null
+          <button onClick={handleDelete} id="delete-button">
+            Delete
+          </button>
+          <AddProductForm
+            title={currentProduct.title}
+            description={currentProduct.description}
+            price={currentProduct.price}
+            image={currentProduct.image}
+            category={currentProduct.category}
+            id={productId}
+            type={"edit"}
+          />
+        </>
+        ) : (
+          null
         )}
 
       <div id="comments-list">
