@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useContext, useState, useEffect } from "react";
@@ -7,6 +8,14 @@ import ProductList from "../components/ProductList";
 import AddProductForm from "../components/AddProductForm";
 
 import service from "../services/config";
+=======
+import ProductList from "../components/ProductList";
+import CommentBox from "../components/CommentBox";
+import service from "../services/config";
+import { useParams } from "react-router-dom";
+import { useContext, useState, useEffect } from "react";
+import { ProductsContext } from "../context/products.context.jsx";
+>>>>>>> angela
 import { AuthContext } from "../context/auth.context";
 
 function ProductDetails(props) {
@@ -14,7 +23,10 @@ function ProductDetails(props) {
   const [currentProduct, setCurrentProduct] = useState(null);
   const [comments, setComments] = useState(null);
   const { productsInCart, setProductsInCart, wishlist, setWishlist } = props;
+<<<<<<< HEAD
   const navigate = useNavigate();
+=======
+>>>>>>> angela
 
   const { products } = useContext(ProductsContext);
 
@@ -27,9 +39,7 @@ function ProductDetails(props) {
   useEffect(() => {
     const loadProduct = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}/products/${productId}`
-        );
+        const response = await service.get(`products/${productId}`);
         setCurrentProduct(response.data);
         console.log(response.data._id);
         
@@ -43,6 +53,7 @@ function ProductDetails(props) {
   //Add to cart
 
   const handleAddToCart = () => {
+<<<<<<< HEAD
     setProductsInCart([currentProduct, ...productsInCart]);
     console.log("Añadido al carrito", productsInCart);
   };
@@ -65,6 +76,30 @@ function ProductDetails(props) {
           `users/${user._id}/products/${productId}/addWishlist`
         );
 
+=======
+    const currentCart = [currentProduct, ...productsInCart];
+
+    setProductsInCart(currentCart);
+
+    //guardar carrito para despues
+    localStorage.setItem("cart", JSON.stringify(currentCart));
+
+    console.log("Añadido al carrito", productsInCart);
+  };
+  console.log("carrito", productsInCart);
+
+  // Add to wishlist
+
+  const handleAddToWishlist = async () => {
+    try {
+      const storedToken = localStorage.getItem("authToken");
+
+      if (storedToken && isLoggedIn && user) {
+        const response = await service.patch(
+          `users/${user._id}/products/${productId}/addWishlist`
+        );
+
+>>>>>>> angela
         setUserProfile(response.data);
         setWishlist((prevWishlist) => [
           ...prevWishlist,
@@ -78,6 +113,7 @@ function ProductDetails(props) {
       setErrorMessage(errorDescription);
     }
   };
+<<<<<<< HEAD
 
   console.log("user", user);
   console.log("logged", isLoggedIn);
@@ -95,15 +131,18 @@ function ProductDetails(props) {
       console.log(error);
     }
   };
+=======
+
+  console.log("user", user);
+  console.log("logged", isLoggedIn);
+>>>>>>> angela
 
   // /comments/products/:productId
 
   useEffect(() => {
     const loadComments = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}/comments/products/${productId}`
-        );
+        const response = await service.get(`comments/products/${productId}`);
         setComments(response.data);
       } catch (error) {
         console.log(error);
@@ -112,12 +151,15 @@ function ProductDetails(props) {
     loadComments();
   }, [productId]);
 
+<<<<<<< HEAD
   if (!currentProduct) return <p>Product not found</p>;
 
   if (!comments) {
     return <p>No comments yet for this product</p>;
   }
 
+=======
+>>>>>>> angela
   //CONSOLE LOGS
   console.log("products", products);
   console.log("productID params", productId);
@@ -127,6 +169,7 @@ function ProductDetails(props) {
 
   return (
     <>
+<<<<<<< HEAD
       <div id="product-detail-card">
         <div className="product-detail-img">
           <img src={currentProduct.image} alt={currentProduct.title} />
@@ -172,6 +215,55 @@ function ProductDetails(props) {
       <div id="see-more">
         <h3>Discover more items</h3>
         <ProductList products={products} />
+=======
+      {!currentProduct ? (
+        <div id="product-detail-card">
+          <p>Product not found :(</p>{" "}
+        </div>
+      ) : (
+        <div id="product-detail-card">
+          <div className="product-detail-img">
+            <img src={currentProduct.image} alt={currentProduct.title} />
+            <button className="fav-button" onClick={handleAddToWishlist}>
+              ❤
+            </button>
+          </div>
+          <div id="product-detail-info">
+            <h1>{currentProduct.price} €</h1>
+            <h2>{currentProduct.title}</h2>
+            <p>{currentProduct.description}</p>
+            <button onClick={handleAddToCart} id="add-cart-button">
+              Add to cart
+            </button>
+          </div>
+        </div>
+      )}
+
+      <div id="comments-list">
+        <h3>Comments section</h3>
+        {!comments || comments.length === 0 ? (
+          <p>No comments yet for this product</p>
+        ) : (
+          comments.map((eachComment) => {
+            return <CommentBox eachComment={eachComment} />;
+          })
+        )}
+
+<div id="new-comment-box">
+<input type="text" placeholder="Say something nice here..." />
+      <button type="submit">Post</button>
+</div>
+
+      </div>
+
+      <div id="see-more">
+        <h3>Discover more items</h3>
+        {!products || products.length === 0 ? (
+          <p>No products available</p>
+        ) : (
+          <ProductList products={products} />
+      )}
+>>>>>>> angela
         {/* quitar de products el producto actual?? */}
       </div>
     </>

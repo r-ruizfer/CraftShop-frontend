@@ -1,9 +1,12 @@
 import React from 'react'
 
-function CommentBox() {
+function CommentBox(props) {
+
+  const {eachComment} = props
   return (
     <div>
-      
+      <p>{eachComment.text}</p>
+      Comentario
     </div>
   )
 }
