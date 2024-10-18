@@ -12,9 +12,18 @@ const DEFAULT_PRODUCT_FORM_VALUES = {
   image: "",
   category: "",
 };
+const DEFAULT_USER_FORM_VALUES = {
+  username: "",
+  email: "",
+  firstName: "",
+  lastName: "",
+  address: "",
+  image: "",
+};
 
 function AddProductForm(props) {
   const [product, setProduct] = useState({ ...DEFAULT_PRODUCT_FORM_VALUES });
+  const [user, setUser] = useState({ ...DEFAULT_USER_FORM_VALUES });
   const navigate = useNavigate();
   const [modalIsOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -22,6 +31,14 @@ function AddProductForm(props) {
     description: props?.description || "",
     price: props?.price || "",
     category: props?.category || "",
+  });
+  const [userFormData, setUserFormData] = useState({
+    username: props?.username || "",
+    email: props?.email || "",
+    firstName: props?.firstName || "",
+    lastName: props?.lastName || "",
+    address: props?.address || "",
+    image: props?.image || "",
   });
 
   function openModal() {
@@ -64,7 +81,26 @@ function AddProductForm(props) {
       console.log(error);
     }
   };
+  const handleUserUpdate = async (e) => {
+    e.preventDefault();
+    const { username, email, firstName, lastName, address, image } =
+      userFormData;
 
+    const updatedUser = {
+      username,
+      email,
+      firstName,
+      lastName,
+      address,
+      image,
+    };
+    try {
+      await service.patch(`/users/${props.id}`, updatedUser);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleChange = (e) => {
     const { name, value, type, checked, options, multiple } = e.target;
 
@@ -84,6 +120,14 @@ function AddProductForm(props) {
       [name]: inputValue,
     }));
     setFormData({
+      ...formData,
+      [name]: value,
+    });
+    setUser((prevuser) => ({
+      ...prevuser,
+      [name]: inputValue,
+    }));
+    setUserFormData({
       ...formData,
       [name]: value,
     });
@@ -264,6 +308,100 @@ function AddProductForm(props) {
                   name="image"
                   onChange={handleChange}
                   value={formData.image}
+                  placeholder="Image Url"
+                  required
+                />
+              </Form.Group>
+              <Button type="submit">Add</Button>
+              <Button onClick={closeModal} variant="secondary">
+                Close
+              </Button>
+            </Form>
+          </Modal.Body>
+        </Modal>
+      </>
+    );
+  } else if (props.type === "edit user") {
+    return (
+      <>
+        <Button variant="primary" onClick={openModal}>
+          Edit User Details
+        </Button>
+
+        <Modal show={modalIsOpen} onHide={closeModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit User Details</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            <Form onSubmit={handleUserUpdate}>
+              <Form.Group>
+                <Form.Label>Username:</Form.Label>
+                <Form.Control
+                  name="username"
+                  onChange={handleChange}
+                  value={userFormData.username}
+                  placeholder="Add a Username"
+                  required
+                />
+                <Form.Text className="text-muted">Edit your username</Form.Text>
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label>email:</Form.Label>
+                <Form.Control
+                  name="email"
+                  onChange={handleChange}
+                  value={userFormData.email}
+                  placeholder="add your email"
+                  required
+                />
+                <Form.Text className="text-muted">Edit your email</Form.Text>
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label>First Name:</Form.Label>
+                <Form.Control
+                  name="firstName"
+                  type="text"
+                  onChange={handleChange}
+                  value={userFormData.firstName}
+                  placeholder="Add a name"
+                />
+                <Form.Text className="text-muted">Edit your name</Form.Text>
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label>Last Name:</Form.Label>
+                <Form.Control
+                  name="lastName"
+                  type="text"
+                  onChange={handleChange}
+                  value={userFormData.lastName}
+                  placeholder="Add a surname"
+                />
+                <Form.Text className="text-muted">Edit your surname</Form.Text>
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label>Address:</Form.Label>
+                <Form.Control
+                  name="adress"
+                  type="text"
+                  onChange={handleChange}
+                  value={userFormData.address}
+                  placeholder="Add a profile picture"
+                />
+                <Form.Text className="text-muted">Edit your PFP</Form.Text>
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label>Edit the URL for the image of your PFP</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="image"
+                  onChange={handleChange}
+                  value={userFormData.image}
                   placeholder="Image Url"
                   required
                 />
