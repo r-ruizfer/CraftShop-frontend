@@ -58,7 +58,7 @@ function WishList() {
   if (loading) return <div>Loading</div>;
   return (
     <div>
-      <ProductList products={products} />
+      <ProductList products={products} type= "wishlist" />
     </div>
   );
 }

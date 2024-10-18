@@ -109,6 +109,7 @@ function AddProductForm(props) {
                   onChange={handleChange}
                   value={product.title}
                   placeholder="Add a title"
+                  required
                 />
                 <Form.Text className="text-muted">
                   Add a title to your product
@@ -122,7 +123,9 @@ function AddProductForm(props) {
                   onChange={handleChange}
                   value={product.description}
                   placeholder="Add a description"
+                  required
                 />
+
                 <Form.Text className="text-muted">
                   Add a short description to your product
                 </Form.Text>
@@ -135,7 +138,9 @@ function AddProductForm(props) {
                   onChange={handleChange}
                   value={product.price}
                   placeholder="Add a price"
+                  required
                 />
+
                 <Form.Text className="text-muted">
                   Add a price to your product
                 </Form.Text>
@@ -147,6 +152,7 @@ function AddProductForm(props) {
                   onChange={handleChange}
                   value={product.category}
                   placeholder="select a category"
+                  required
                 >
                   <option value="-">---</option>
                   <option value="Prints">Prints</option>
@@ -162,6 +168,8 @@ function AddProductForm(props) {
                   name="image"
                   onChange={handleChange}
                   value={product.image}
+                  placeholder="Image Url"
+                  required
                 />
               </Form.Group>
               <Button type="submit">Add</Button>
@@ -193,8 +201,10 @@ function AddProductForm(props) {
                   name="title"
                   onChange={handleChange}
                   value={formData.title}
-                  placeholder={props.title}
+                  placeholder="Add a title"
+                  required
                 />
+
                 <Form.Text className="text-muted">
                   Edit the title of your product
                 </Form.Text>
@@ -206,8 +216,10 @@ function AddProductForm(props) {
                   name="description"
                   onChange={handleChange}
                   value={formData.description}
-                  placeholder={props.description}
+                  placeholder="Add a descritpion"
+                  required
                 />
+
                 <Form.Text className="text-muted">
                   Edit the short description of your product
                 </Form.Text>
@@ -219,8 +231,10 @@ function AddProductForm(props) {
                   type="number"
                   onChange={handleChange}
                   value={formData.price}
-                  placeholder={props.price}
+                  placeholder="Add a price"
+                  required
                 />
+
                 <Form.Text className="text-muted">
                   Edit the price of your product
                 </Form.Text>
@@ -232,6 +246,7 @@ function AddProductForm(props) {
                   onChange={handleChange}
                   value={formData.category}
                   placeholder="select a category"
+                  required
                 >
                   <option value="-">---</option>
                   <option value="Prints">Prints</option>
@@ -249,7 +264,8 @@ function AddProductForm(props) {
                   name="image"
                   onChange={handleChange}
                   value={formData.image}
-                  placeholder={props.image}
+                  placeholder="Image Url"
+                  required
                 />
               </Form.Group>
               <Button type="submit">Add</Button>

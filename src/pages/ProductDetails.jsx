@@ -32,7 +32,6 @@ function ProductDetails(props) {
         );
         setCurrentProduct(response.data);
         console.log(response.data._id);
-        
       } catch (error) {
         console.log(error);
       }
@@ -142,23 +141,23 @@ function ProductDetails(props) {
             Add to cart
           </button>
         </div>
-        {user.isAdmin === false ? (
-          ""
-        ) : (
+        {isLoggedIn && user.isAdmin === true ? (
           <>
-            <button onClick={handleDelete} id="delete-button">
-              Delete
-            </button>
-            <AddProductForm
-              title={currentProduct.title}
-              description={currentProduct.description}
-              price={currentProduct.price}
-              image={currentProduct.image}
-              category={currentProduct.category}
-              id={productId}
-              type={"edit"}
-            />
-          </>
+          <button onClick={handleDelete} id="delete-button">
+            Delete
+          </button>
+          <AddProductForm
+            title={currentProduct.title}
+            description={currentProduct.description}
+            price={currentProduct.price}
+            image={currentProduct.image}
+            category={currentProduct.category}
+            id={productId}
+            type={"edit"}
+          />
+        </>
+        ) : (
+          null
         )}
       </div>
 
