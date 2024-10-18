@@ -1,5 +1,6 @@
 import React, { useState, useEffect, createContext } from "react";
 import axios from "axios";
+import service from "../services/config";
 
 //comparte la data de productos a traves de la app
 const ProductsContext = createContext();
@@ -17,8 +18,8 @@ function ProductsWrapper({ children }) {
 
   const getProducts = async () => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URL}/products`
+      const response = await service.get(
+        `products`
       )
       setProducts(response.data)
     } catch (error) {
