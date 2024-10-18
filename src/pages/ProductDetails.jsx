@@ -105,9 +105,7 @@ function ProductDetails(props) {
     loadComments();
   }, [productId]);
 
-
-
-  if (!currentProduct) return ( <p>Product not found :(</p>)
+  if (!currentProduct) return <p>Product not found :(</p>;
 
   //CONSOLE LOGS
   console.log("products", products);
@@ -141,8 +139,8 @@ function ProductDetails(props) {
         </div>
       )}
 
-{isLoggedIn && user.isAdmin === true ? (
-          <>
+      {isLoggedIn && user.isAdmin === true ? (
+        <>
           <button onClick={handleDelete} id="delete-button">
             Delete
           </button>
@@ -156,24 +154,7 @@ function ProductDetails(props) {
             type={"edit"}
           />
         </>
-        ) : (
-          null
-          <button onClick={handleDelete} id="delete-button">
-            Delete
-          </button>
-          <AddProductForm
-            title={currentProduct.title}
-            description={currentProduct.description}
-            price={currentProduct.price}
-            image={currentProduct.image}
-            category={currentProduct.category}
-            id={productId}
-            type={"edit"}
-          />
-        </>
-        ) : (
-          null
-        )}
+      ) : null}
 
       <div id="comments-list">
         <h3>Comments section</h3>
