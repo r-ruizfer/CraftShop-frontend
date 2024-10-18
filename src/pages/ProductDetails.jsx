@@ -1,14 +1,11 @@
 import React from "react";
 import ProductList from "../components/ProductList";
 import CommentBox from "../components/CommentBox";
+import AddProductForm from "../components/AddProductForm";
 import service from "../services/config";
 import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { ProductsContext } from "../context/products.context.jsx";
-import ProductList from "../components/ProductList";
-import AddProductForm from "../components/AddProductForm";
-
-import service from "../services/config";
 import { AuthContext } from "../context/auth.context";
 
 function ProductDetails(props) {
@@ -108,6 +105,10 @@ function ProductDetails(props) {
     loadComments();
   }, [productId]);
 
+
+
+  if (!currentProduct) return ( <p>Product not found :(</p>)
+
   //CONSOLE LOGS
   console.log("products", products);
   console.log("productID params", productId);
@@ -140,10 +141,8 @@ function ProductDetails(props) {
         </div>
       )}
 
-      {user.isAdmin === false ? (
-        ""
-      ) : (
-        <>
+{isLoggedIn && user.isAdmin === true ? (
+          <>
           <button onClick={handleDelete} id="delete-button">
             Delete
           </button>
@@ -157,7 +156,9 @@ function ProductDetails(props) {
             type={"edit"}
           />
         </>
-      )}
+        ) : (
+          null
+        )}
 
       <div id="comments-list">
         <h3>Comments section</h3>
