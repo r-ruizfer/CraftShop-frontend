@@ -11,6 +11,7 @@ import { CartContext } from "../context/cart.context.jsx";
 import { Icon } from 'react-icons-kit'
 import {ic_favorite} from 'react-icons-kit/md/ic_favorite'
 import {ic_favorite_border} from 'react-icons-kit/md/ic_favorite_border'
+import {check} from 'react-icons-kit/oct/check'
 
 function ProductDetails(props) {
   const { productId } = useParams();
@@ -128,7 +129,7 @@ function ProductDetails(props) {
       }
     };
     loadComments();
-  }, [productId]);
+  }, [productId, comments]);
 
 
 
@@ -234,8 +235,8 @@ const handleCommentTextChange= (evento) => {
 
         <div id="new-comment-box">
           <form onSubmit={postComment}>
-          <input type="text" placeholder="Say something nice here..." value= {commentText}  onChange={handleCommentTextChange} />
-          <button type="submit">Post</button>
+          <input id="post-area" type="text" placeholder="Say something nice here..." value= {commentText}  onChange={handleCommentTextChange} />
+          <button id="post-button" type="submit"><Icon icon={check} /></button>
           </form>
         </div>
       </div>
