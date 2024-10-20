@@ -4,15 +4,17 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { AuthWrapper } from "./context/auth.context.jsx";
 import { ProductsWrapper } from "./context/products.context";
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { CartWrapper } from "./context/cart.context";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 createRoot(document.getElementById("root")).render(
   <AuthWrapper>
     <ProductsWrapper>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+      <CartWrapper>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </CartWrapper>
     </ProductsWrapper>
   </AuthWrapper>
 );

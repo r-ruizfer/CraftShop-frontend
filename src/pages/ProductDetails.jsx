@@ -7,33 +7,46 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { ProductsContext } from "../context/products.context.jsx";
 import { AuthContext } from "../context/auth.context";
+import { CartContext } from "../context/cart.context.jsx";
+import { Icon } from 'react-icons-kit'
+import {ic_favorite} from 'react-icons-kit/md/ic_favorite'
+import {ic_favorite_border} from 'react-icons-kit/md/ic_favorite_border'
 
 function ProductDetails(props) {
   const { productId } = useParams();
   const [currentProduct, setCurrentProduct] = useState(null);
   const [comments, setComments] = useState(null);
-  const { productsInCart, setProductsInCart, wishlist, setWishlist } = props;
+  const { wishlist, setWishlist } = props;
   const navigate = useNavigate();
 
   const { products } = useContext(ProductsContext);
+  const { productsInCart, setProductsInCart } = useContext(CartContext);
 
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const { user, isLoggedIn } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(undefined);
+  const [isWishlisted, setIsWishlisted]= useState(false)
+  const [moreItems, setMoreItems]= useState([])
 
-  //llamada para recibir el producto actual
+    //llamada para recibir el producto actual
   useEffect(() => {
     const loadProduct = async () => {
       try {
         const response = await service.get(`products/${productId}`);
         setCurrentProduct(response.data);
+        setIsWishlisted(wishlist.some(
+          (product) => product._id === productId
+        ));
+        setMoreItems(products.filter(
+          (product) => product._id !== productId
+        ))
       } catch (error) {
         console.log(error);
       }
     };
     loadProduct();
-  }, [productId]);
+  }, [productId, wishlist]);
 
   //Add to cart
 
@@ -51,26 +64,38 @@ function ProductDetails(props) {
 
   // Add to wishlist
 
-  const handleAddToWishlist = async () => {
+
+  const handleWishlist = async (productId) => {
     try {
       const storedToken = localStorage.getItem("authToken");
 
       if (storedToken && isLoggedIn && user) {
-        const response = await service.patch(
-          `users/${user._id}/products/${productId}/addWishlist`
-        );
-
-        setUserProfile(response.data);
-        setWishlist((prevWishlist) => [
-          ...prevWishlist,
-          response.data.wishlistedItems,
-        ]);
+        
+        if (isWishlisted) {
+          const response = await service.patch(
+            `users/${user._id}/products/${productId}/removeWishlist`
+          );
+          setUserProfile(response.data);
+          setWishlist(response.data.wishlistedItems);
+          setIsWishlisted(false)
+          console.log("quitado de favoritos")
+          console.log("wishlist")
+        } else {
+          const response = await service.patch(
+            `users/${user._id}/products/${productId}/addWishlist`
+          );
+          setUserProfile(response.data);
+          setWishlist(response.data.wishlistedItems);
+          setIsWishlisted(true)
+          console.log("añadido a favoritos")
+          console.log("wishlist")
+        }
       } else {
         setErrorMessage("User ID no available");
+        alert("Sorry, you need to log in to add items to wishlist.");
       }
     } catch (error) {
-      const errorDescription = error.response.data.message;
-      setErrorMessage(errorDescription);
+      console.log(error);
     }
   };
 
@@ -105,6 +130,42 @@ function ProductDetails(props) {
     loadComments();
   }, [productId]);
 
+
+
+//publicar un comentario
+  
+const [commentText, setCommentText]= useState("")
+
+const handleCommentTextChange= (evento) => {
+    let value = evento.target.value;
+    setCommentText(value);
+  };
+ 
+  const postComment = async (event) => {
+    event.preventDefault()
+
+    const newComment= {
+      text: commentText,
+      user: user._id,
+      product: productId
+    }
+
+    try {
+      const storedToken = localStorage.getItem("authToken");
+
+      if (user && storedToken && isLoggedIn === true) {
+        await service.post(`/comments/`, newComment, {headers: { Authorization: `Bearer ${storedToken}` }});
+        setCommentText("")
+        loadComments()
+      } else {
+        console.log("usuario sin autentificación")
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   if (!currentProduct) return <p>Product not found :(</p>;
 
   //CONSOLE LOGS
@@ -124,8 +185,13 @@ function ProductDetails(props) {
         <div id="product-detail-card">
           <div className="product-detail-img">
             <img src={currentProduct.image} alt={currentProduct.title} />
-            <button className="fav-button" onClick={handleAddToWishlist}>
-              ❤
+            <button
+              className="fav-button"
+              onClick={() => handleWishlist(productId)}
+            >
+              {isWishlisted
+            ? <Icon icon={ic_favorite}/>
+            : <Icon icon={ic_favorite_border}/> }
             </button>
           </div>
           <div id="product-detail-info">
@@ -162,13 +228,15 @@ function ProductDetails(props) {
           <p>No comments yet for this product</p>
         ) : (
           comments.map((eachComment) => {
-            return <CommentBox eachComment={eachComment} />;
+            return <CommentBox key={eachComment._id} eachComment={eachComment} comments={comments}/>;
           })
         )}
 
         <div id="new-comment-box">
-          <input type="text" placeholder="Say something nice here..." />
+          <form onSubmit={postComment}>
+          <input type="text" placeholder="Say something nice here..." value= {commentText}  onChange={handleCommentTextChange} />
           <button type="submit">Post</button>
+          </form>
         </div>
       </div>
 
@@ -177,9 +245,8 @@ function ProductDetails(props) {
         {!products || products.length === 0 ? (
           <p>No products available</p>
         ) : (
-          <ProductList products={products} type="product list"/>
+          <ProductList products={moreItems} type="product list" />
         )}
-        {/* quitar de products el producto actual?? */}
       </div>
     </>
   );

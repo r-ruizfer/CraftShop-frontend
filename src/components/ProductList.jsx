@@ -2,9 +2,13 @@ import React from "react";
 import ProductCard from "../components/ProductCard";
 import SmallProductCard from "../components/SmallProductCard";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { ProductsContext } from "../context/products.context.jsx";
+
 
 function ProductList(props) {
+  // const { products } = useContext(ProductsContext);
+  
   if (props.type === "product list") {
     return (
       <>
@@ -30,7 +34,8 @@ function ProductList(props) {
             .map((eachProduct) => {
               return (
                 <Link key={eachProduct._id} to={`/${eachProduct._id}`}>
-                  {props.type === "cart" ? (<SmallProductCard eachProduct={eachProduct} type= "cart"/>) : (<SmallProductCard eachProduct={eachProduct} />)}
+                  {props.type === "cart" ? (<SmallProductCard eachProduct={eachProduct} type= "cart" />) : (<SmallProductCard eachProduct={eachProduct}  wishlist={props.products}
+              setWishlist={props.setWishlist} />)}
                   
                 </Link>
               );

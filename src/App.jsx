@@ -41,14 +41,11 @@ function App() {
         <Route
           path="/cart"
           element={
-            <Cart
-              productsInCart={productsInCart}
-              setProductsInCart={setProductsInCart}
-            />
+            <Cart />
           }
         />
         <Route path="/profile/" element={<Profile />} />
-        <Route path="/wishlist" element={<WishList />} />
+        <Route path="/wishlist" element={<WishList wishlist={wishlist} setWishlist={setWishlist} />} />
         <Route path="*" element={<ErrorPage />} />
         <Route
           path="/products/searchresults/:query"

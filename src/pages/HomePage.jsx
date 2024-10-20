@@ -15,7 +15,7 @@ function HomePage() {
   return (
     <div id="home-screen">
       <h1 className="title" >HOME</h1>
-      <ProductList products={products} type = "product list" />
+      <ProductList type = "product list" products={products} />
       <div>
         <h1>Categorias</h1>
         <h2>{products[0].category}</h2>
