@@ -21,16 +21,17 @@ function ProductList(props) {
         </div>
       </>
     );
-  } else if (props.type === "wishlist") {
+  } else if (props.type === "wishlist" || props.type === "cart") {
     return (
       <>
-        <div id="product-grid">
+        <div id="small-product-screen">
           {props.products
             .sort((a, b) => b._id.localeCompare(a._id))
             .map((eachProduct) => {
               return (
                 <Link key={eachProduct._id} to={`/${eachProduct._id}`}>
-                  <SmallProductCard eachProduct={eachProduct} />
+                  {props.type === "cart" ? (<SmallProductCard eachProduct={eachProduct} type= "cart"/>) : (<SmallProductCard eachProduct={eachProduct} />)}
+                  
                 </Link>
               );
             })}

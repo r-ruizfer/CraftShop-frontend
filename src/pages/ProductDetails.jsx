@@ -177,7 +177,7 @@ function ProductDetails(props) {
         {!products || products.length === 0 ? (
           <p>No products available</p>
         ) : (
-          <ProductList products={products} />
+          <ProductList products={products} type="product list"/>
         )}
         {/* quitar de products el producto actual?? */}
       </div>

@@ -299,13 +299,14 @@ position: absolute;
   margin: auto;
 }
 
-#cart-screen a {
-text-decoration: none;
-color: black;
-}
 
 
 /* SMALL CARD */
+#small-product-screen a {
+  text-decoration: none;
+  color: black;
+  }
+  
 
 .small-card {
   width: 80%;
