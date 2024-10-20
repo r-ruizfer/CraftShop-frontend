@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-import SmallProductCard from "../components/SmallProductCard";
+import ProductList from "../components/ProductList";
 import { Link } from "react-router-dom";
 
 function Cart(props) {
@@ -10,10 +10,9 @@ function Cart(props) {
 
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
-    console.log("savedcart", savedCart)
+    console.log("savedcart", savedCart);
     if (savedCart) {
       setProductsInCart(JSON.parse(savedCart));
-      
     }
   }, [setProductsInCart]);
 
@@ -27,17 +26,10 @@ function Cart(props) {
       </div>
     );
   console.log("carrito desde pagina cart", productsInCart);
- 
 
   return (
     <div id="cart-screen">
-      {productsInCart.map((eachProduct) => {
-        return (
-          <Link key={eachProduct._id} to={`/${eachProduct._id}`}>
-            <SmallProductCard eachProduct={eachProduct} />
-          </Link>
-        );
-      })}
+      <ProductList products={productsInCart} type="cart" />
     </div>
   );
 }
