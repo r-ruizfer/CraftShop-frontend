@@ -12,20 +12,25 @@ function CommentBox(props) {
       const storedToken = localStorage.getItem("authToken");
 
       if (storedToken && isLoggedIn && user.isAdmin === true) {
-        await service.delete(`/comments/${eachComment._id}`, {headers: { Authorization: `Bearer ${storedToken}` }})
-        console.log("borrando comentario")
-        console.log(comments)
+        await service.delete(`/comments/${eachComment._id}`, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        });
+        console.log("borrando comentario");
+        console.log(comments);
       }
     } catch (error) {
       console.log(error);
     }
   };
-  
 
   return (
-    <div>
-      <p>{eachComment.text}</p>
-      Comentario
+    <div className="comment-box">
+      <img src={eachComment.user.image} alt={eachComment.user.username} />
+      <div className="comment-info">
+        <h3>{eachComment.user.username}</h3>
+        <p>{eachComment.text}</p>
+      </div>
+
       {user && user.isAdmin === true ? (
         <div className="admin-controls">
           <button onClick={handleDeleteComment}>Delete comment</button>
