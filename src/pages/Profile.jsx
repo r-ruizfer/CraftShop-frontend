@@ -3,6 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import { Link, useNavigate } from "react-router-dom";
 import AddProductForm from "../components/AddProductForm";
+import { Button } from "react-bootstrap";
+
 function Profile() {
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -46,11 +48,16 @@ function Profile() {
 
   const handleDelete = async () => {
     try {
-      const storedToken = localStorage.getItem("authToken");
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete your account?"
+      );
+      if (confirmDelete) {
+        const storedToken = localStorage.getItem("authToken");
 
-      if (storedToken && isLoggedIn && user) {
-        await service.delete(`/users/${userProfile._id}/`);
-        handleLogout();
+        if (storedToken && isLoggedIn && user) {
+          await service.delete(`/users/${userProfile._id}/`);
+          handleLogout();
+        }
       }
     } catch (error) {
       console.log(error);
@@ -117,8 +124,10 @@ function Profile() {
               <br />
               <strong>Address: </strong> {userProfile.address}
             </div>
-            <div>
-              <button onClick={handleDelete}>Delete account</button>
+            <div className="profile-buttons">
+              <Button variant="danger" onClick={handleDelete}>
+                Delete account
+              </Button>
               <AddProductForm
                 type="edit user"
                 username={userProfile.username}

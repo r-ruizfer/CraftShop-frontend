@@ -8,10 +8,11 @@ import { useContext, useState, useEffect } from "react";
 import { ProductsContext } from "../context/products.context.jsx";
 import { AuthContext } from "../context/auth.context";
 import { CartContext } from "../context/cart.context.jsx";
-import { Icon } from 'react-icons-kit'
-import {ic_favorite} from 'react-icons-kit/md/ic_favorite'
-import {ic_favorite_border} from 'react-icons-kit/md/ic_favorite_border'
-import {check} from 'react-icons-kit/oct/check'
+import { Icon } from "react-icons-kit";
+import { ic_favorite } from "react-icons-kit/md/ic_favorite";
+import { ic_favorite_border } from "react-icons-kit/md/ic_favorite_border";
+import { check } from "react-icons-kit/oct/check";
+import { Button } from "react-bootstrap";
 
 function ProductDetails(props) {
   const { productId } = useParams();
@@ -27,21 +28,17 @@ function ProductDetails(props) {
   const [loading, setLoading] = useState(true);
   const { user, isLoggedIn } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(undefined);
-  const [isWishlisted, setIsWishlisted]= useState(false)
-  const [moreItems, setMoreItems]= useState([])
+  const [isWishlisted, setIsWishlisted] = useState(false);
+  const [moreItems, setMoreItems] = useState([]);
 
-    //llamada para recibir el producto actual
+  //llamada para recibir el producto actual
   useEffect(() => {
     const loadProduct = async () => {
       try {
         const response = await service.get(`products/${productId}`);
         setCurrentProduct(response.data);
-        setIsWishlisted(wishlist.some(
-          (product) => product._id === productId
-        ));
-        setMoreItems(products.filter(
-          (product) => product._id !== productId
-        ))
+        setIsWishlisted(wishlist.some((product) => product._id === productId));
+        setMoreItems(products.filter((product) => product._id !== productId));
       } catch (error) {
         console.log(error);
       }
@@ -65,31 +62,29 @@ function ProductDetails(props) {
 
   // Add to wishlist
 
-
   const handleWishlist = async (productId) => {
     try {
       const storedToken = localStorage.getItem("authToken");
 
       if (storedToken && isLoggedIn && user) {
-        
         if (isWishlisted) {
           const response = await service.patch(
             `users/${user._id}/products/${productId}/removeWishlist`
           );
           setUserProfile(response.data);
           setWishlist(response.data.wishlistedItems);
-          setIsWishlisted(false)
-          console.log("quitado de favoritos")
-          console.log("wishlist")
+          setIsWishlisted(false);
+          console.log("quitado de favoritos");
+          console.log("wishlist");
         } else {
           const response = await service.patch(
             `users/${user._id}/products/${productId}/addWishlist`
           );
           setUserProfile(response.data);
           setWishlist(response.data.wishlistedItems);
-          setIsWishlisted(true)
-          console.log("añadido a favoritos")
-          console.log("wishlist")
+          setIsWishlisted(true);
+          console.log("añadido a favoritos");
+          console.log("wishlist");
         }
       } else {
         setErrorMessage("User ID no available");
@@ -106,11 +101,15 @@ function ProductDetails(props) {
   const handleDelete = async () => {
     try {
       const storedToken = localStorage.getItem("authToken");
-
-      if (storedToken && isLoggedIn && user && user.isAdmin === true) {
-        const response = await service.delete(`/products/${productId}/`);
-        navigate("/");
-        window.location.reload("/");
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete this product?"
+      );
+      if (confirmDelete) {
+        if (storedToken && isLoggedIn && user && user.isAdmin === true) {
+          await service.delete(`/products/${productId}/`);
+          navigate("/");
+          window.location.reload("/");
+        }
       }
     } catch (error) {
       console.log(error);
@@ -131,41 +130,40 @@ function ProductDetails(props) {
     loadComments();
   }, [productId, comments]);
 
+  //publicar un comentario
 
+  const [commentText, setCommentText] = useState("");
 
-//publicar un comentario
-  
-const [commentText, setCommentText]= useState("")
-
-const handleCommentTextChange= (evento) => {
+  const handleCommentTextChange = (evento) => {
     let value = evento.target.value;
     setCommentText(value);
   };
- 
-  const postComment = async (event) => {
-    event.preventDefault()
 
-    const newComment= {
+  const postComment = async (event) => {
+    event.preventDefault();
+
+    const newComment = {
       text: commentText,
       user: user._id,
-      product: productId
-    }
+      product: productId,
+    };
 
     try {
       const storedToken = localStorage.getItem("authToken");
 
       if (user && storedToken && isLoggedIn === true) {
-        await service.post(`/comments/`, newComment, {headers: { Authorization: `Bearer ${storedToken}` }});
-        setCommentText("")
-        loadComments()
+        await service.post(`/comments/`, newComment, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        });
+        setCommentText("");
+        loadComments();
       } else {
-        console.log("usuario sin autentificación")
+        console.log("usuario sin autentificación");
       }
     } catch (error) {
       console.log(error);
     }
   };
-
 
   if (!currentProduct) return <p>Product not found :(</p>;
 
@@ -190,9 +188,11 @@ const handleCommentTextChange= (evento) => {
               className="fav-button"
               onClick={() => handleWishlist(productId)}
             >
-              {isWishlisted
-            ? <Icon icon={ic_favorite}/>
-            : <Icon icon={ic_favorite_border}/> }
+              {isWishlisted ? (
+                <Icon icon={ic_favorite} />
+              ) : (
+                <Icon icon={ic_favorite_border} />
+              )}
             </button>
           </div>
           <div id="product-detail-info">
@@ -207,10 +207,10 @@ const handleCommentTextChange= (evento) => {
       )}
 
       {isLoggedIn && user.isAdmin === true ? (
-        <>
-          <button onClick={handleDelete} id="delete-button">
-            Delete
-          </button>
+        <div className="profile-buttons">
+          <Button variant="danger" onClick={handleDelete}>
+            Delete Product
+          </Button>
           <AddProductForm
             title={currentProduct.title}
             description={currentProduct.description}
@@ -220,7 +220,7 @@ const handleCommentTextChange= (evento) => {
             id={productId}
             type={"edit"}
           />
-        </>
+        </div>
       ) : null}
 
       <div id="comments-list">
@@ -229,14 +229,28 @@ const handleCommentTextChange= (evento) => {
           <p>No comments yet for this product</p>
         ) : (
           comments.map((eachComment) => {
-            return <CommentBox key={eachComment._id} eachComment={eachComment} comments={comments}/>;
+            return (
+              <CommentBox
+                key={eachComment._id}
+                eachComment={eachComment}
+                comments={comments}
+              />
+            );
           })
         )}
 
         <div id="new-comment-box">
           <form onSubmit={postComment}>
-          <input id="post-area" type="text" placeholder="Say something nice here..." value= {commentText}  onChange={handleCommentTextChange} />
-          <button id="post-button" type="submit"><Icon icon={check} /></button>
+            <input
+              id="post-area"
+              type="text"
+              placeholder="Say something nice here..."
+              value={commentText}
+              onChange={handleCommentTextChange}
+            />
+            <button id="post-button" type="submit">
+              <Icon icon={check} />
+            </button>
           </form>
         </div>
       </div>
