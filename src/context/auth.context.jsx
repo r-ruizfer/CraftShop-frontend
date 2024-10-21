@@ -8,8 +8,9 @@ const AuthContext = createContext();
 
 function AuthWrapper(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(true); 
+  const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
+
   const [authError, setAuthError] = useState(null);
 
   const storeToken = (token) => {
@@ -24,6 +25,7 @@ function AuthWrapper(props) {
         const response = await service.get(`/auth/verify`, {
           headers: { Authorization: `Bearer ${storedToken}` },
         });
+        console.log(response.data)
         const user = response.data;
 
         setIsLoggedIn(true);
@@ -66,6 +68,7 @@ function AuthWrapper(props) {
         storeToken,
         authenticateUser,
         logOutUser,
+
         authError,
       }}
     >

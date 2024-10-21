@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import service from "../../services/config";
 import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context.jsx";
-
+import { Button } from "react-bootstrap";
 
 function Signup() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [lastName, setLastName] = useState("");
   const [firstName, setFirstName] = useState("");
-  const [profilePicture, setProfilePicture] = useState("");
+  const [image, setImage] = useState("");
   const [address, setAddress] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const { isLoggedIn } = useContext(AuthContext);
@@ -23,7 +23,7 @@ function Signup() {
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handleLastNameChange = (e) => setLastName(e.target.value);
   const handlefirstNameChange = (e) => setFirstName(e.target.value);
-  const handleProfilePictureChange = (e) => setProfilePicture(e.target.value);
+  const handleImageChange = (e) => setImage(e.target.value);
   const handleAddressChange = (e) => setAddress(e.target.value);
 
   const handleSignup = async (e) => {
@@ -35,10 +35,11 @@ function Signup() {
         password,
         firstName,
         lastName,
-        profilePicture,
+        image,
         address,
       };
       await service.post("/auth/signup", newUser);
+
       navigate("/login");
     } catch (error) {
       console.log(error);
@@ -49,6 +50,23 @@ function Signup() {
         navigate("*");
       }
     }
+  };
+  const handleImageUpload = () => {
+    window.cloudinary.openUploadWidget(
+      {
+        cloudName: "df3wnbw9q",
+        uploadPreset: "ppvoj5fx",
+        sources: ["local", "url", "camera"],
+        multiple: false,
+        cropping: true,
+      },
+      (error, result) => {
+        if (!error && result && result.event === "success") {
+          console.log("Image succesfully uploaded: ", result.info.secure_url);
+          setImage(result.info.secure_url);
+        }
+      }
+    );
   };
   return (
     <div className="signup-container">
@@ -109,14 +127,23 @@ function Signup() {
           onChange={handleAddressChange}
           placeholder="Enter your Address (optional)"
         />
-        <label>Profile Picture:</label>
-        <input
-          type="url"
-          name="ProfilePicture"
-          value={profilePicture}
-          onChange={handleProfilePictureChange}
-          placeholder="upload a PFP"
-        />
+        <label>Profile Picture: </label>{" "}
+        <Button variant="primary" onClick={handleImageUpload}>
+          Upload new Profile Picture
+        </Button>
+        {image && (
+          <div className="mt-3">
+            <img
+              src={image}
+              alt="Profile"
+              style={{
+                width: "100px",
+                height: "100px",
+                borderRadius: "50%",
+              }}
+            />
+          </div>
+        )}
         <br />
         <button type="submit">Sign Up</button>
       </form>

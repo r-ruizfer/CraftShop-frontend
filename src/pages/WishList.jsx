@@ -4,7 +4,6 @@ import { AuthContext } from "../context/auth.context";
 import ProductList from "../components/ProductList";
 import { Link } from "react-router-dom";
 
-
 function WishList(props) {
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -62,17 +61,20 @@ function WishList(props) {
   if (!wishlist || wishlist.length === 0)
     return (
       <div>
-        <p>No products yet in you cart</p>
+        <p>No products yet in your wishlist</p>
         <Link to={"/"}>
           <button>Keep looking</button>
         </Link>
       </div>
     );
 
-
   return (
     <div>
-      <ProductList  products={wishlist} setWishlist={setWishlist} type= "wishlist" />
+      <ProductList
+        products={wishlist}
+        setWishlist={setWishlist}
+        type="wishlist"
+      />
     </div>
   );
 }
