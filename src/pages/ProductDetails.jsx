@@ -13,6 +13,7 @@ import { ic_favorite } from "react-icons-kit/md/ic_favorite";
 import { ic_favorite_border } from "react-icons-kit/md/ic_favorite_border";
 import { check } from "react-icons-kit/oct/check";
 import { Button } from "react-bootstrap";
+import PaymentIntent from "../components/PaymentIntent";
 
 function ProductDetails(props) {
   const { productId } = useParams();
@@ -30,6 +31,8 @@ function ProductDetails(props) {
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [moreItems, setMoreItems] = useState([]);
+
+  const [showPaymentIntent, setShowPaymentIntent] = useState(false)
 
   //llamada para recibir el producto actual
   useEffect(() => {
@@ -118,15 +121,17 @@ function ProductDetails(props) {
 
   // /comments/products/:productId
 
+  const loadComments = async () => {
+    try {
+      const response = await service.get(`comments/products/${productId}`);
+      setComments(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const loadComments = async () => {
-      try {
-        const response = await service.get(`comments/products/${productId}`);
-        setComments(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    
     loadComments();
   }, [productId]);
 
@@ -202,6 +207,14 @@ function ProductDetails(props) {
             <button onClick={handleAddToCart} id="add-cart-button">
               Add to cart
             </button>
+            <div>
+          { 
+            showPaymentIntent === false
+            ? <button onClick={() => setShowPaymentIntent(true)}>Purchase</button> 
+            : <PaymentIntent productDetails={currentProduct} /> 
+          }
+          </div>
+
           </div>
         </div>
       )}

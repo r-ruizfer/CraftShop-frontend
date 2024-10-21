@@ -61,7 +61,7 @@ function CheckoutForm() {
       confirmParams: {
         // Make sure to change this to your payment completion page
         // !IMPORTANT. If using VITE, make sure you use the correct variable naming and usage (import.meta.env.VITE_VARIABLE_NAME)
-        return_url: `${import.meta.env.VITE_SERVER_URL}/payment-success`,
+        return_url: `${import.meta.env.VITE_CLIENT_URL}/payment-success`,
       },
     });
 
@@ -70,6 +70,7 @@ function CheckoutForm() {
     // your `return_url`. For some payment methods like iDEAL, your customer will
     // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
+    
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);
     } else {
