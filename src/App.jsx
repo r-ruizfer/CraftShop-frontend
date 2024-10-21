@@ -14,6 +14,7 @@ import WishList from "./pages/WishList";
 import ErrorPage from "./pages/ErrorPage";
 import Private from "./components/auth/Private";
 import SearchResults from "./pages/SearchResults";
+import PaymentSuccess from "./components/PaymentSuccess";
 function App() {
   console.log("URL backend", import.meta.env.VITE_SERVER_URL);
 
@@ -51,6 +52,8 @@ function App() {
           path="/products/searchresults/:query"
           element={<SearchResults />}
         />
+
+<Route path="/payment-success" element={ <PaymentSuccess/> }/>
       </Routes>
       <Footer />
     </>

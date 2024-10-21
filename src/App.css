@@ -316,7 +316,7 @@ body {
 .small-product-image {
   position: relative;
   margin: 0.2rem;
-  width: 40%;
+  width: 30%;
   height: 30%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -324,10 +324,11 @@ body {
 }
 
 .small-product-image img {
-  width: 20rem;
+  width: 15rem;
 }
 
 .small-card-info {
+  margin-left: 3rem;
   padding: 1rem;
   text-align: left;
 }

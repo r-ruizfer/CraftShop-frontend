@@ -33,11 +33,10 @@ function ProductList(props) {
             .sort((a, b) => b._id.localeCompare(a._id))
             .map((eachProduct) => {
               return (
-                <Link key={eachProduct._id} to={`/${eachProduct._id}`}>
+                <div key={eachProduct._id}>
                   {props.type === "cart" ? (<SmallProductCard eachProduct={eachProduct} type= "cart" />) : (<SmallProductCard eachProduct={eachProduct}  wishlist={props.products}
               setWishlist={props.setWishlist} />)}
-                  
-                </Link>
+                </div>
               );
             })}
         </div>

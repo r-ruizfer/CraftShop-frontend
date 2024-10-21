@@ -5,6 +5,8 @@ import { CartContext } from "../context/cart.context.jsx";
 import service from "../services/config";
 import { Icon } from "react-icons-kit";
 import { ic_favorite } from "react-icons-kit/md/ic_favorite";
+import PaymentIntent from "./PaymentIntent";
+import { Link } from "react-router-dom";
 
 function SmallProductCard(props) {
   const { eachProduct, type, wishlist, setWishlist } = props;
@@ -13,6 +15,8 @@ function SmallProductCard(props) {
   const [userProfile, setUserProfile] = useState(null);
   const { user, isLoggedIn } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(undefined);
+
+  const [showPaymentIntent, setShowPaymentIntent] = useState(false)
 
   const handleWishlist = async (productId) => {
     try {
@@ -64,6 +68,7 @@ function SmallProductCard(props) {
 
   return (
     <div className="small-card">
+       <Link key={eachProduct._id} to={`/${eachProduct._id}`}>
       <div
         className="small-product-image"
         style={{ backgroundImage: `url (${eachProduct.image})` }}
@@ -79,11 +84,13 @@ function SmallProductCard(props) {
           <Icon icon={ic_favorite} />
         </button>
       </div>
+      </Link>
       <div className="small-card-info">
         <h2>{eachProduct.title}</h2>
         <p>{eachProduct.price} €</p>
 
         {type === "cart" ? (
+          <>
           <button
             id="remove-item-btn"
             onClick={(event) => {
@@ -93,6 +100,16 @@ function SmallProductCard(props) {
           >
             Remove from cart
           </button>
+
+          <div>
+          { 
+            showPaymentIntent === false
+            ? <button onClick={() => setShowPaymentIntent(true)}>Purchase</button> 
+            : <PaymentIntent productDetails={eachProduct} /> 
+          }
+          </div>
+          </>
+
         ) : (
           ""
         )}

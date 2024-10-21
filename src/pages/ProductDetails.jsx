@@ -128,7 +128,7 @@ function ProductDetails(props) {
       }
     };
     loadComments();
-  }, [productId, comments]);
+  }, [productId]);
 
   //publicar un comentario
 
