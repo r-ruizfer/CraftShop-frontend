@@ -206,6 +206,8 @@ body {
 
 #searchbar {
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
 }
 #searchbar input {
@@ -621,10 +623,6 @@ body {
   #searchbar input {
     width: 100%;
     margin-right: 0;
-  }
-
-  #searchbar {
-    flex-direction: column;
   }
 
   #searchbar button {
