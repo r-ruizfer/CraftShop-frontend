@@ -26,19 +26,19 @@ function Navbar() {
   return (
     <div>
       <nav id="navbar">
-        <li>
+        {/* <li>
           <button id="burger-menu-button">
             <Icon icon={threeBars} size={15} />
           </button>
-        </li>
+        </li> */}
         <Link to={"/"}>
           <li>
             <Icon icon={basic_home} size={15} />
           </li>
         </Link>
-        <li>
+       
           <SearchBar />
-        </li>
+      
         <Link to={"/wishlist"}>
           <li>
             <Icon icon={basic_heart} size={15} />

@@ -7,6 +7,7 @@ import { Icon } from "react-icons-kit";
 import { ic_favorite } from "react-icons-kit/md/ic_favorite";
 import PaymentIntent from "./PaymentIntent";
 import { Link } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 
 function SmallProductCard(props) {
   const { eachProduct, type, wishlist, setWishlist } = props;
@@ -16,7 +17,7 @@ function SmallProductCard(props) {
   const { user, isLoggedIn } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(undefined);
 
-  const [showPaymentIntent, setShowPaymentIntent] = useState(false)
+  const [showPaymentIntent, setShowPaymentIntent] = useState(false);
 
   const handleWishlist = async (productId) => {
     try {
@@ -66,50 +67,57 @@ function SmallProductCard(props) {
   console.log("user", user);
   console.log("logged", isLoggedIn);
 
+
   return (
+  
     <div className="small-card">
-       <Link key={eachProduct._id} to={`/${eachProduct._id}`}>
-      <div
-        className="small-product-image"
-        style={{ backgroundImage: `url (${eachProduct.image})` }}
-      >
-        <img src={eachProduct.image} alt="" />
-        <button
-          className="fav-button"
-          onClick={(event) => {
-            event.preventDefault();
-            handleWishlist(eachProduct._id);
-          }}
+      <Link key={eachProduct._id} to={`/${eachProduct._id}`}>
+        <div
+          className="small-product-image"
+          style={{ backgroundImage: `url (${eachProduct.image})` }}
         >
-          <Icon icon={ic_favorite} />
-        </button>
-      </div>
+          <img src={eachProduct.image} alt="" />
+          <button
+            className="fav-button"
+            onClick={(event) => {
+              event.preventDefault();
+              handleWishlist(eachProduct._id);
+            }}
+          >
+            <Icon icon={ic_favorite} />
+          </button>
+        </div>
       </Link>
+      
       <div className="small-card-info">
         <h2>{eachProduct.title}</h2>
         <p>{eachProduct.price} €</p>
 
         {type === "cart" ? (
           <>
-          <button
-            id="remove-item-btn"
-            onClick={(event) => {
-              event.preventDefault();
-              handleDeleteCart(eachProduct._id);
-            }}
-          >
-            Remove from cart
-          </button>
 
-          <div>
-          { 
-            showPaymentIntent === false
-            ? <button onClick={() => setShowPaymentIntent(true)}>Purchase</button> 
-            : <PaymentIntent productDetails={eachProduct} /> 
-          }
-          </div>
+<Button variant="secondary" 
+              id="remove-item-btn"
+              onClick={(event) => {
+                event.preventDefault();
+                handleDeleteCart(eachProduct._id);
+              }}
+            >
+              Remove from cart
+              </Button>{' '}
+
+            <div className="buy-button">
+              {showPaymentIntent === false ? (
+               
+               <Button variant="primary" 
+               onClick={() => setShowPaymentIntent(true)}>
+                  Purchase
+                  </Button>
+              ) : (
+                <PaymentIntent productDetails={eachProduct} />
+              )}
+            </div>
           </>
-
         ) : (
           ""
         )}
