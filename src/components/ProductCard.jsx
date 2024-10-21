@@ -1,17 +1,17 @@
 import React from "react";
-
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 function ProductCard(props) {
   const { eachProduct } = props;
   return (
-    <div className="product-card" key={eachProduct._id}>
-      <div>
-        <img src={eachProduct.image} alt="" />
-      </div>
-
-      <div className="product-info">
-        <h1 className="product-price">{eachProduct.price} €</h1>
-        <h2>{eachProduct.title}</h2>
-      </div>
+    <div className="cards-container">
+      <Card style={{ width: "18rem" }} key={eachProduct._id}>
+        <Card.Img variant="top" src={eachProduct.image} />
+        <Card.Body>
+          <Card.Title>{eachProduct.title}</Card.Title>
+          <Card.Text>{eachProduct.price} €</Card.Text>
+        </Card.Body>
+      </Card>
     </div>
   );
 }

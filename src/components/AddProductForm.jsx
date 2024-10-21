@@ -132,6 +132,28 @@ function AddProductForm(props) {
       [name]: value,
     });
   };
+  const handleImageUpload = () => {
+    window.cloudinary.openUploadWidget(
+      {
+        cloudName: "df3wnbw9q",
+        uploadPreset: "ppvoj5fx",
+        sources: ["local", "url", "camera"],
+        multiple: false,
+        cropping: true,
+      },
+      (error, result) => {
+        if (!error && result && result.event === "success") {
+          console.log("Image succesfully uploaded: ", result.info.secure_url);
+          setUserFormData({ ...userFormData, image: result.info.secure_url });
+          setFormData({ ...formData, image: result.info.secure_url });
+          setProduct({
+            ...DEFAULT_PRODUCT_FORM_VALUES,
+            image: result.info.secure_url,
+          });
+        }
+      }
+    );
+  };
   if (props.type === "add") {
     return (
       <>
@@ -146,6 +168,25 @@ function AddProductForm(props) {
 
           <Modal.Body>
             <Form onSubmit={handleSubmit}>
+              <Form.Group>
+                <Form.Label>Product Image: </Form.Label>{" "}
+                <Button variant="primary" onClick={handleImageUpload}>
+                  Upload an image for your Product
+                </Button>
+                {product.image && (
+                  <div className="mt-3">
+                    <img
+                      src={product.image}
+                      alt="Profile"
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  </div>
+                )}
+              </Form.Group>
               <Form.Group>
                 <Form.Label>Title:</Form.Label>
                 <Form.Control
@@ -205,17 +246,7 @@ function AddProductForm(props) {
                   <option value="Painting">Painting</option>
                 </Form.Select>
               </Form.Group>
-              <Form.Group>
-                <Form.Label>Add an URL for an image of your product</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="image"
-                  onChange={handleChange}
-                  value={product.image}
-                  placeholder="Image Url"
-                  required
-                />
-              </Form.Group>
+
               <Button type="submit">Add</Button>
               <Button onClick={closeModal} variant="secondary">
                 Close
@@ -239,6 +270,25 @@ function AddProductForm(props) {
 
           <Modal.Body>
             <Form onSubmit={handleUpdate}>
+              <Form.Group>
+                <Form.Label>Product Image: </Form.Label>{" "}
+                <Button variant="primary" onClick={handleImageUpload}>
+                  Upload new Product Image
+                </Button>
+                {formData.image && (
+                  <div className="mt-3">
+                    <img
+                      src={formData.image}
+                      alt="Profile"
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  </div>
+                )}
+              </Form.Group>
               <Form.Group>
                 <Form.Label>Title:</Form.Label>
                 <Form.Control
@@ -299,20 +349,8 @@ function AddProductForm(props) {
                   <option value="Painting">Painting</option>
                 </Form.Select>
               </Form.Group>
-              <Form.Group>
-                <Form.Label>
-                  Edit the URL for the image of your product
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  name="image"
-                  onChange={handleChange}
-                  value={formData.image}
-                  placeholder="Image Url"
-                  required
-                />
-              </Form.Group>
-              <Button type="submit">Add</Button>
+
+              <Button type="submit">Save Changes</Button>
               <Button onClick={closeModal} variant="secondary">
                 Close
               </Button>
@@ -335,6 +373,25 @@ function AddProductForm(props) {
 
           <Modal.Body>
             <Form onSubmit={handleUserUpdate}>
+              <Form.Group>
+                <Form.Label>Profile Picture: </Form.Label>{" "}
+                <Button variant="primary" onClick={handleImageUpload}>
+                  Upload new Profile Picture
+                </Button>
+                {userFormData.image && (
+                  <div className="mt-3">
+                    <img
+                      src={userFormData.image}
+                      alt="Profile"
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  </div>
+                )}
+              </Form.Group>
               <Form.Group>
                 <Form.Label>Username:</Form.Label>
                 <Form.Control
@@ -395,18 +452,7 @@ function AddProductForm(props) {
                 <Form.Text className="text-muted">Edit your PFP</Form.Text>
               </Form.Group>
 
-              <Form.Group>
-                <Form.Label>Edit the URL for the image of your PFP</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="image"
-                  onChange={handleChange}
-                  value={userFormData.image}
-                  placeholder="Image Url"
-                  required
-                />
-              </Form.Group>
-              <Button type="submit">Add</Button>
+              <Button type="submit">Save changes</Button>
               <Button onClick={closeModal} variant="secondary">
                 Close
               </Button>

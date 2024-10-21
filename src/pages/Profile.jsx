@@ -6,9 +6,9 @@ import AddProductForm from "../components/AddProductForm";
 import { Button } from "react-bootstrap";
 
 function Profile() {
-  const [userProfile, setUserProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
   const { user, isLoggedIn, authenticateUser } = useContext(AuthContext);
+  const [userProfile, setUserProfile] = useState(user);
+  const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const navigate = useNavigate();
 
@@ -21,6 +21,7 @@ function Profile() {
           service
             .get(`/users/${user._id}`)
             .then((response) => {
+              console.log(response);
               setUserProfile(response.data);
               setLoading(false);
             })
@@ -124,6 +125,12 @@ function Profile() {
               <br />
               <strong>Address: </strong> {userProfile.address}
             </div>
+            {userProfile.isAdmin === true ? (
+              <div className="admin-controls">
+                <p>Admin controls:</p>
+                <AddProductForm type="add" />
+              </div>
+            ) : null}
             <div className="profile-buttons">
               <Button variant="danger" onClick={handleDelete}>
                 Delete account
@@ -139,13 +146,6 @@ function Profile() {
                 id={userProfile._id}
               />
             </div>
-
-            {userProfile.isAdmin === true ? (
-              <div className="admin-controls">
-                <p>Admin controls:</p>
-                <AddProductForm type="add" />
-              </div>
-            ) : null}
           </div>
         )}
       </div>
