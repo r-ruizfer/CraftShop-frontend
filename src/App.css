@@ -17,67 +17,7 @@ body {
   background-color: white;
 }
 
-/*.title {
-  text-align: center;
-  color: #343a40;
-  margin-top: 20px;
-}
-.category select {
-  display: block;
-  margin: 0 auto 20px auto;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ced4da;
-  background-color: #ffffff;
-}
-.cards-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
-}
 
-.card {
-  border: 2px solid black;
-  max-width: 300px;
-  overflow: hidden;
-  white-space: normal;
-  text-align: center;
-  text-decoration: none;
-  transition: transform 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card:hover {
-  transform: scale(1.05);
-}
-
-.card-img-top {
-  width: 100%;
-  height: 60%;
-  object-fit: cover;
-  border-radius: 10px 10px 0 0;
-}
-
-.card-body {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 40%;
-}
-
-.card-title {
-  font-weight: bold;
-  color: #495057;
-}
-
-.card-text {
-  font-size: 1.2rem;
-  color: #6c757d;
-}
-*/
 /* NAVBAR*/
 #navbar {
   height: 20%;
@@ -93,11 +33,15 @@ body {
 #navbar li {
   list-style-type: none;
   padding: 0.6rem;
+  color: #fff;
   transition: background-color 0.3s;
+  border-radius: 50%;
+  margin: 5px;
+  
 }
 
 #navbar li:hover {
-  background-color: #ff9e00;
+  background-color: #C77DFF;
 }
 
 #navbar a {
@@ -105,17 +49,9 @@ body {
   color: black;
 }
 
-#burger-menu-button {
-  background-color: transparent;
-  border: none;
-}
 
-/* #searchbar {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-} */
+
+
 #searchbar input {
   padding: 0.5rem 0.8rem;
   border: none;

@@ -5,10 +5,11 @@ import { Icon } from "react-icons-kit";
 import service from "../services/config";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
-import { width } from "@fortawesome/free-brands-svg-icons/fa42Group";
+import { height, width } from "@fortawesome/free-brands-svg-icons/fa42Group";
 import { justify } from "@cloudinary/url-gen/qualifiers/textAlignment";
 import { background } from "@cloudinary/url-gen/qualifiers/focusOn";
 import { BackgroundColor } from "@cloudinary/url-gen/actions/background/actions/BackgroundColor";
+import "../assets/styles/offcanvas.css"
 
 function OffCanvasProfile(props) {
   const [show, setShow] = useState(false);
@@ -45,7 +46,7 @@ function OffCanvasProfile(props) {
     };
     getUser();
   }, [isLoggedIn, user]);
-  if (!user){
+  if (loading){
     return <p>loading</p>
   }
 
@@ -53,71 +54,50 @@ function OffCanvasProfile(props) {
     <div>
       <Icon icon={person} size={15} onClick={handleShow} />
       <Offcanvas
-        style={{ width: "200px" }}
+        className="offcanvas-container"
+       
         show={show}
         onHide={handleClose}
         placement="end"
       >
-        <Offcanvas.Header closeButton>
+        <Offcanvas.Header closeButton className="offcanvas-header">
           <Offcanvas.Title>Profile Options</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body onClick={handleClose}>
-          {isLoggedIn && user ? (
-            <Link
-              to="/profile/"
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <img
-                src={userProfile.image}
-                alt="profile-photo"
-                className="offcanvas-profile-photo"
-              />
-              <p>{userProfile.username}</p>
-              View Profile
-            </Link>
-          ) : null}
+          </Offcanvas.Header>
+         <Offcanvas.Body className="offcanvas-body" onClick={handleClose}>
+           {isLoggedIn && user ? (
+             <Link to="/profile/" className="offcanvas-link">
+               <div>
+                 <img
+                   src={userProfile.image}
+                   alt="profile-photo"
+                   className="offcanvas-profile-photo"
+                 />
+                 <p className="offcanvas-username">{userProfile.username}</p>
+               </div>
+               <p>View Profile</p>
+             </Link>
+           ) : null}
 
-          {!isLoggedIn && (
-            <Link
-              to="/signup"
-              style={{
-                listStyle: "none",
-                textDecoration: "none",
-                color: "black",
-              }}
-            >
-              <li> Sign Up</li>
-            </Link>
-          )}
-          {!isLoggedIn && (
-            <Link
-              to="/login"
-              style={{
-                listStyle: "none",
-                textDecoration: "none",
-                color: "black",
-              }}
-            >
-              <li>Log In</li>
-            </Link>
-          )}
+           {!isLoggedIn && (
+             <Link to="/signup" className="offcanvas-link">
+               Sign Up
+             </Link>
+           )}
+           {!isLoggedIn && (
+             <Link to="/login" className="offcanvas-link">
+               Log In
+             </Link>
+           )}
 
-          {isLoggedIn && (
-            <Link
-              onClick={props.handleLogout}
-              style={{
-                listStyle: "none",
-                textDecoration: "none",
-                color: "black",
-              }}
-            >
-              <li>Log Out</li>
-            </Link>
-          )}
-        </Offcanvas.Body>
-      </Offcanvas>
-    </div>
-  );
+           {isLoggedIn && (
+             <Link onClick={props.handleLogout} className="offcanvas-link offcanvas-logout">
+               Log Out
+             </Link>
+           )}
+         </Offcanvas.Body>
+       </Offcanvas>
+     </div>
+   );
 }
 
 export default OffCanvasProfile;

@@ -117,7 +117,7 @@ function Profile() {
             />
             <h1>{userProfile.username}</h1>
 
-            <div>
+            <div className="profile-info">
               <strong>Email: </strong> {userProfile.email}
               <br />
               <strong>Name: </strong> {userProfile.firstName}

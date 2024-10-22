@@ -11,6 +11,7 @@ function SearchBar() {
     e.preventDefault();
     if (query.trim()) {
       navigate(`/products/searchresults/${query}`);
+      setQuery("")
     }
   };
 
