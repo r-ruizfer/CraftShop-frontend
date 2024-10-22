@@ -15,17 +15,18 @@ import Private from "./components/auth/Private";
 import SearchResults from "./pages/SearchResults";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import Error500 from "./pages/Error500";
-import "./App.css";
-import "./assets/styles/small-product-card.css"
-import "./assets/styles/signup.css"
-import "./assets/styles/login.css"
-import "./assets/styles/homepage.css"
-import "./assets/styles/profile.css"
-import "./assets/styles/error-page.css"    
-import "./assets/styles/product-detail.css"
-import "./assets/styles/search-result.css"
-import "./assets/styles/payment-success.css"
+import "bootstrap/dist/css/bootstrap.min.css";
 
+import "./App.css";
+import "./assets/styles/small-product-card.css";
+import "./assets/styles/signup.css";
+import "./assets/styles/login.css";
+import "./assets/styles/homepage.css";
+import "./assets/styles/profile.css";
+import "./assets/styles/error-page.css";
+import "./assets/styles/product-detail.css";
+import "./assets/styles/search-result.css";
+import "./assets/styles/payment-success.css";
 
 function App() {
   console.log("URL backend", import.meta.env.VITE_SERVER_URL);
@@ -51,23 +52,21 @@ function App() {
             />
           }
         />
-        <Route
-          path="/cart"
-          element={
-            <Cart />
-          }
-        />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/profile/" element={<Profile />} />
-        <Route path="/wishlist" element={<WishList wishlist={wishlist} setWishlist={setWishlist} />} />
+        <Route
+          path="/wishlist"
+          element={<WishList wishlist={wishlist} setWishlist={setWishlist} />}
+        />
         <Route path="*" element={<ErrorPage />} />
-        <Route path="/error" element={<Error500/>}/>
+        <Route path="/error" element={<Error500 />} />
 
         <Route
           path="/products/searchresults/:query"
           element={<SearchResults />}
         />
 
-<Route path="/payment-success" element={ <PaymentSuccess/> }/>
+        <Route path="/payment-success" element={<PaymentSuccess />} />
       </Routes>
       <Footer />
     </>

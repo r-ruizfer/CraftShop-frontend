@@ -1,0 +1,62 @@
+.offcanvas-container {
+  width: 250px !important;
+  background-color: #6c63ff !important;
+  color: white !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 10px !important;
+}
+
+/* Header styles */
+.offcanvas-header {
+  color: white !important;
+}
+
+/* Body styles */
+.offcanvas-body {
+  text-align: center !important;
+}
+
+/* Profile section */
+.offcanvas-profile-photo {
+  width: 100px !important;
+  height: 100px !important;
+  border-radius: 50% !important; /* Foto de perfil redonda */
+  border: 2px solid white !important; /* Borde blanco */
+  margin-bottom: 10px !important;
+}
+
+.offcanvas-username {
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  margin-bottom: 20px !important;
+}
+
+/* Link styles */
+.offcanvas-link {
+  list-style: none !important;
+  text-decoration: none !important;
+  color: white !important;
+  font-size: 1.1rem !important;
+  padding: 10px 0 !important;
+  display: block !important;
+  text-align: center !important;
+  font-weight: 500 !important;
+}
+
+.offcanvas-link:hover {
+  background-color: #5348cc !important; /* Más oscuro en hover */
+  cursor: pointer !important;
+}
+
+/* Button link (Log Out) */
+.offcanvas-logout {
+  cursor: pointer !important;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .offcanvas-container {
+    width: 100% !important;
+    border-radius: 0 !important; /* Sin bordes redondeados en móviles */
+  }
+}

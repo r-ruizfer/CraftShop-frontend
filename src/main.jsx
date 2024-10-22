@@ -5,7 +5,6 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthWrapper } from "./context/auth.context.jsx";
 import { ProductsWrapper } from "./context/products.context";
 import { CartWrapper } from "./context/cart.context";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 createRoot(document.getElementById("root")).render(
   <AuthWrapper>

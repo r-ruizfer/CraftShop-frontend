@@ -141,11 +141,15 @@ body {
 #navbar li {
   list-style-type: none;
   padding: 0.6rem;
+  color: #fff;
   transition: background-color 0.3s;
+  border-radius: 50%;
+  margin: 5px;
+  
 }
 
 #navbar li:hover {
-  background-color: #ff9e00;
+  background-color: #C77DFF;
 }
 
 #navbar a {
@@ -153,17 +157,9 @@ body {
   color: black;
 }
 
-#burger-menu-button {
-  background-color: transparent;
-  border: none;
-}
 
-/* #searchbar {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-} */
+
+
 #searchbar input {
   padding: 0.5rem 0.8rem;
   border: none;
