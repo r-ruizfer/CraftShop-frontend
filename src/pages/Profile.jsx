@@ -131,8 +131,8 @@ function Profile() {
                 <AddProductForm type="add" />
               </div>
             ) : null}
-            <div >
-              <Button variant="outline-danger" onClick={handleDelete}>
+            <div className="profile-buttons">
+              <Button className="delete-button" variant="outline-danger" onClick={handleDelete}>
                 Delete account
               </Button>
               <AddProductForm

@@ -4,7 +4,7 @@ import { Modal } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import service from "../services/config";
 import { useNavigate } from "react-router-dom";
-
+import "../assets/styles/profile.css";
 const DEFAULT_PRODUCT_FORM_VALUES = {
   title: "",
   description: "",
@@ -157,7 +157,7 @@ function AddProductForm(props) {
   if (props.type === "add") {
     return (
       <>
-        <Button className="profile-buttons" variant="primary" onClick={openModal}>
+        <Button variant="primary" onClick={openModal}>
           Add a product
         </Button>
 
@@ -362,9 +362,11 @@ function AddProductForm(props) {
   } else if (props.type === "edit user") {
     return (
       <>
-        <Button variant="primary" onClick={openModal}>
-          Edit User Details
-        </Button>
+        <div className="edit-button" >
+          <Button  onClick={openModal}>
+            Edit User Details
+          </Button>
+        </div>
 
         <Modal show={modalIsOpen} onHide={closeModal}>
           <Modal.Header closeButton>

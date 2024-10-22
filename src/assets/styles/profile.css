@@ -32,12 +32,12 @@
   flex-wrap: wrap;
 }
 
-.profile-buttons button {
+.edit-button button{
   margin: 10px;
   background-color: #3c096c;
   border: none;
 }
-.profile-buttons button:hover {
+.edit-button button:hover {
   background-color: #363673;
 }
 .admin-controls {
