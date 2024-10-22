@@ -32,9 +32,13 @@
   flex-wrap: wrap;
 }
 
-.edit-button button{
+.edit-button button {
   margin: 10px;
   background-color: #3c096c;
+  border: none;
+}
+.delete-button{
+  margin: 10px;
   border: none;
 }
 .edit-button button:hover {
@@ -54,7 +58,6 @@
 .admin-controls button {
   background-color: #3c096c;
   border: none;
-
 }
 .admin-controls button:hover {
   background-color: #363673;
