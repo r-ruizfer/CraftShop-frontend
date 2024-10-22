@@ -30,7 +30,7 @@ function HomePage() {
     setCategory(e.target.value);
   };
 
-  if (loading) {
+  if (loading || !products) {
     return <p>Loading products...</p>;
   }
 

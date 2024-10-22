@@ -33,12 +33,9 @@ function Navbar() {
             <Icon icon={threeBars} size={15} />
           </button>
         </li> */}
-        <li>
-          <img src={logo} alt="logo" style={{ width: "75px" }} />
-        </li>
         <Link to={"/"}>
           <li>
-            <Icon icon={basic_home} size={15} />
+            <img src={logo} alt="logo" style={{ width: "75px" }} />
           </li>
         </Link>
 

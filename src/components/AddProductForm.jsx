@@ -460,7 +460,7 @@ function AddProductForm(props) {
                   value={userFormData.address}
                   placeholder="Add a profile picture"
                 />
-                <Form.Text className="text-muted">Edit your PFP</Form.Text>
+                <Form.Text className="text-muted">Edit your Address</Form.Text>
               </Form.Group>
               <Button
                 style={{ backgroundColor: "#3C096C", border: "none" }}

@@ -45,6 +45,9 @@ function OffCanvasProfile(props) {
     };
     getUser();
   }, [isLoggedIn, user]);
+  if (!user){
+    return <p>loading</p>
+  }
 
   return (
     <div>
