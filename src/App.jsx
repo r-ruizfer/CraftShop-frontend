@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import NavBar from "./components/NavBar";
@@ -15,6 +14,18 @@ import ErrorPage from "./pages/ErrorPage";
 import Private from "./components/auth/Private";
 import SearchResults from "./pages/SearchResults";
 import PaymentSuccess from "./pages/PaymentSuccess";
+import "./App.css";
+import "./assets/styles/small-product-card.css"
+import "./assets/styles/signup.css"
+import "./assets/styles/login.css"
+import "./assets/styles/homepage.css"
+import "./assets/styles/profile.css"
+import "./assets/styles/error-page.css"    
+import "./assets/styles/product-detail.css"
+import "./assets/styles/search-result.css"
+import "./assets/styles/payment-success.css"
+
+
 function App() {
   console.log("URL backend", import.meta.env.VITE_SERVER_URL);
 

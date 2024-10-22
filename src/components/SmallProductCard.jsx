@@ -72,10 +72,7 @@ function SmallProductCard(props) {
   
     <div className="small-card">
       <Link key={eachProduct._id} to={`/${eachProduct._id}`}>
-        <div
-          className="small-product-image"
-          style={{ backgroundImage: `url (${eachProduct.image})` }}
-        >
+        <div className="small-product-image" >
           <img src={eachProduct.image} alt="" />
           <button
             className="fav-button"
@@ -88,12 +85,12 @@ function SmallProductCard(props) {
           </button>
         </div>
       </Link>
-      
+      <div id="small-card-right">
       <div className="small-card-info">
         <h2>{eachProduct.title}</h2>
         <p>{eachProduct.price} €</p>
-
-        {type === "cart" ? (
+      </div>
+      {type === "cart" ? (
           <>
 
 <Button variant="secondary" 
