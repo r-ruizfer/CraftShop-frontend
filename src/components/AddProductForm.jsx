@@ -157,7 +157,7 @@ function AddProductForm(props) {
   if (props.type === "add") {
     return (
       <>
-        <Button variant="primary" onClick={openModal}>
+        <Button className="profile-buttons" variant="primary" onClick={openModal}>
           Add a product
         </Button>
 

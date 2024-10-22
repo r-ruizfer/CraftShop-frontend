@@ -1,0 +1,107 @@
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 100%;
+}
+
+.profile-content {
+  width: 100%;
+  max-width: 600px;
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.profile-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.profile-buttons {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.profile-buttons button {
+  margin: 10px;
+  background-color: #3c096c;
+  border: none;
+}
+.profile-buttons button:hover {
+  background-color: #363673;
+}
+.admin-controls {
+  margin-top: 20px;
+  background-color: #c77dff;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.admin-controls p {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.admin-controls button {
+  background-color: #3c096c;
+  border: none;
+
+}
+.admin-controls button:hover {
+  background-color: #363673;
+}
+@media (max-width: 480px) {
+  .profile-content {
+    padding: 15px;
+  }
+
+  .profile-content img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-content h1 {
+    font-size: 18px;
+  }
+
+  .profile-content p {
+    font-size: 14px;
+  }
+
+  .admin-controls button {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+@media (max-width: 768px) {
+  profile-content {
+    padding: 15px;
+  }
+
+  .profile-photo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .profile-buttons {
+    flex-direction: column;
+  }
+
+  .profile-buttons button {
+    width: 100%;
+    margin: 10px 0;
+  }
+  .admin-controls button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
