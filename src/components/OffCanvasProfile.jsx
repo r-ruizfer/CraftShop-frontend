@@ -60,30 +60,54 @@ function OffCanvasProfile(props) {
         </Offcanvas.Header>
         <Offcanvas.Body onClick={handleClose}>
           {isLoggedIn && user ? (
-            <Link to="/profile/">
+            <Link
+              to="/profile/"
+              style={{ textDecoration: "none", color: "black" }}
+            >
               <img
                 src={userProfile.image}
                 alt="profile-photo"
                 className="offcanvas-profile-photo"
               />
-              <p style={{ textDecoration: "none" }}>{userProfile.username}</p>
+              <p>{userProfile.username}</p>
               View Profile
             </Link>
           ) : null}
 
           {!isLoggedIn && (
-            <Link to="/signup">
+            <Link
+              to="/signup"
+              style={{
+                listStyle: "none",
+                textDecoration: "none",
+                color: "black",
+              }}
+            >
               <li> Sign Up</li>
             </Link>
           )}
           {!isLoggedIn && (
-            <Link to="/login">
+            <Link
+              to="/login"
+              style={{
+                listStyle: "none",
+                textDecoration: "none",
+                color: "black",
+              }}
+            >
               <li>Log In</li>
             </Link>
           )}
 
           {isLoggedIn && (
-            <Link onClick={props.handleLogout}>
+            <Link
+              onClick={props.handleLogout}
+              style={{
+                listStyle: "none",
+                textDecoration: "none",
+                color: "black",
+              }}
+            >
               <li>Log Out</li>
             </Link>
           )}
