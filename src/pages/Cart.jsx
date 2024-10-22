@@ -41,6 +41,8 @@ function Cart() {
     getUser();
   }, [isLoggedIn, user]);
 
+  
+
   if (errorMessage) return <div>{errorMessage}</div>;
 
   if (!userProfile) {
@@ -51,7 +53,7 @@ function Cart() {
 
   if (!productsInCart || productsInCart.length === 0)
     return (
-      <div className="no-products">
+      <div className="info-page">
         <p>No products yet in you cart</p>
         <Link to={"/"}>
           <button className="keep-looking-btn" >Keep looking</button>

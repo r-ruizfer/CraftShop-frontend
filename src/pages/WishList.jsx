@@ -50,7 +50,7 @@ function WishList(props) {
 
   if (!wishlist || wishlist.length === 0)
     return (
-      <div className="no-products" >
+      <div className="info-page" >
         <p>No products yet in your wishlist</p>
         <Link to={"/"}>
           <button className="keep-looking-btn" >Keep looking</button>
@@ -59,7 +59,7 @@ function WishList(props) {
     );
 
   return (
-    <div>
+    <div className="screen">
       <ProductList
         products={wishlist}
         setWishlist={setWishlist}

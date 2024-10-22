@@ -34,9 +34,9 @@ function Navbar() {
           </button>
         </li> */}
         <Link to={"/"}>
-          <li>
+          <div className="logo-navbar">
             <img src={logo} alt="logo" style={{ width: "75px" }} />
-          </li>
+            </div>
         </Link>
 
         <SearchBar />

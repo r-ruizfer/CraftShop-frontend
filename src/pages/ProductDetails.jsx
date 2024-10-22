@@ -181,7 +181,7 @@ function ProductDetails(props) {
   console.log(wishlist, "lista de deseos");
 
   return (
-    <>
+    <div className="product-detail-screen">
       {!currentProduct ? (
         <div id="product-detail-card">
           <p>Product not found :(</p>{" "}
@@ -205,13 +205,15 @@ function ProductDetails(props) {
             <h1>{currentProduct.price} €</h1>
             <h2>{currentProduct.title}</h2>
             <p>{currentProduct.description}</p>
-            <button onClick={handleAddToCart} id="add-cart-button">
-              <Icon icon={ic_add_shopping_cart} /> Add to cart
-            </button>
+            <div className="box-buttons">
+            <Button onClick={handleAddToCart} id="add-cart-button">
+              <Icon icon={ic_add_shopping_cart} /> Add
+              </Button>
             <div>
+            </div>
           { 
             showPaymentIntent === false
-            ? <button  className="purchase-button" onClick={() => setShowPaymentIntent(true)}>Purchase</button> 
+            ? <Button  className="purchase-button" onClick={() => setShowPaymentIntent(true)}>Purchase</Button> 
             : <PaymentIntent productDetails={currentProduct} /> 
           }
           </div>
@@ -221,8 +223,11 @@ function ProductDetails(props) {
       )}
 
       {isLoggedIn && user.isAdmin === true ? (
-        <div className="profile-buttons">
-          <Button variant="danger" onClick={handleDelete}>
+        <div id="admin-product-box">
+          <h3>ADMIN CONTROL PANNEL</h3>
+          <p>Here you can handle products of your store.</p>
+        <div className="box-buttons">
+          <Button id="delete-admin-btn"  variant="outline-danger" onClick={handleDelete}>
             Delete Product
           </Button>
           <AddProductForm
@@ -234,6 +239,7 @@ function ProductDetails(props) {
             id={productId}
             type={"edit"}
           />
+        </div>
         </div>
       ) : null}
 
@@ -262,7 +268,7 @@ function ProductDetails(props) {
               value={commentText}
               onChange={handleCommentTextChange}
             />
-            <button id="post-button" type="submit"><Icon icon={send} /></button>
+            <button id="post-button" type="submit"><Icon icon={send} size={10} /></button>
           </form>
         </div>
       </div>
@@ -275,7 +281,7 @@ function ProductDetails(props) {
           <ProductList products={moreItems} type="product list" />
         )}
       </div>
-    </>
+    </div>
   );
 }
 

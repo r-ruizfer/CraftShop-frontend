@@ -50,14 +50,14 @@ const Footer = () => {
             <h4>Angela Ruiz:</h4>
             <div className="social-icons">
               <a
-                href="https://github.com/"
+                href="https://github.com/anruiz-r"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <FontAwesomeIcon icon={faGithub} size="2x" />
               </a>
               <a
-                href="https://linkedin.com/in/"
+                href="www.linkedin.com/in/angela-ruiz-rodriguez"
                 target="_blank"
                 rel="noopener noreferrer"
               >

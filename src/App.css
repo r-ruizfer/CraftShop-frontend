@@ -4,7 +4,7 @@ morado claro: #9D4EDD
 lila: #C77DFF */
 
 #root {
-  min-width: 100vh;
+  width: 100vw;
   margin: 0;
   padding: 0;
   text-align: center;
@@ -12,8 +12,9 @@ lila: #C77DFF */
 }
 
 body {
+  width: 100%;
   height: 100%;
-  margin: 0;
+  margin: 0 auto;
   background-color: white;
 }
 
@@ -30,7 +31,7 @@ body {
   color: black;
   list-style: none;
   text-decoration: none;
-  border-bottom: solid 3px #9D4EDD;
+  border-bottom: solid 3px #9d4edd;
 }
 
 #not-login li {
@@ -40,11 +41,10 @@ body {
 }
 
 #not-login li:hover {
-  color:  #9D4EDD;
-  
+  color: #9d4edd;
 }
 
-.no-products {
+.info-page {
   height: 75vh;
   padding: 5rem;
   display: flex;
@@ -53,17 +53,30 @@ body {
   align-items: center;
 }
 
+#payment-success-link {
+  color: black;
+  list-style: none;
+  text-decoration: none;
+  border-bottom: solid 3px #9d4edd;
+  margin: 1rem;
+  font-size: 1.5rem;
+}
+
+#payment-success-link:hover {
+  color: #9d4edd;
+}
+
 .no-products p {
   font-size: 2rem;
 }
 
 .keep-looking-btn {
-  background-color: #9D4EDD;
-  font-size: 2rem;
+  background-color: #9d4edd;
+  font-size: 1.5rem;
   color: white;
   margin: 1rem;
+  border-radius: 15px;
 }
-
 
 /*.title {
   text-align: center;
@@ -133,7 +146,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #7b2cbf;
+  background-color: #6c63ff;
+  /* background-color: #7b2cbf; */
   margin: 0;
   flex-wrap: nowrap;
 }
@@ -143,22 +157,18 @@ body {
   padding: 0.6rem;
   color: #fff;
   transition: background-color 0.3s;
-  border-radius: 50%;
+  border-radius:20%;
   margin: 5px;
-  
 }
 
 #navbar li:hover {
-  background-color: #C77DFF;
+  background-color: #c77dff;
 }
 
 #navbar a {
   text-decoration: none;
   color: black;
 }
-
-
-
 
 #searchbar input {
   padding: 0.5rem 0.8rem;
@@ -179,7 +189,7 @@ body {
 }
 
 #searchbar button:hover {
-  background-color: #ff6d00; /* Color de fondo al pasar el ratón */
+  background-color: #c77dff;
 }
 
 /*HOMEPAGE*/
@@ -257,7 +267,6 @@ body {
   margin: 0.1rem;
 }*/
 
-
 /* FOOTER*/
 
 .footer {
@@ -307,13 +316,26 @@ body {
 }
 
 @media (max-width: 768px) {
+
+  #navbar {
+    flex-wrap: wrap; 
+    justify-content: space-around;
+  }
+
+  #searchbar {
+    order: 1; 
+    width: 90%; 
+    margin-top:0; 
+    margin-bottom: 1rem;
+  }
+
   #searchbar input {
-    width: 100%;
+    width: 80%;
     margin-right: 0;
   }
 
   #searchbar button {
-    margin-top: 0.5rem;
+    margin: 0.5rem;
     width: max-content;
   }
 

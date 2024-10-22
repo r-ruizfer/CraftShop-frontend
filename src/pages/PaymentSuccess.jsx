@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import service from "../services/config";
+import capibara from "../assets/images/capibara.png"
 
 import axios from "axios";
 
@@ -46,11 +47,10 @@ const PaymentSuccess = () => {
   }
 
   return (
-    <div>
-      <div>
+    <div className="info-page">
         <h1>Thank you for your order!</h1>
-        <Link to={"/"}>Go back to Home</Link>
-      </div>
+        <Link id="payment-success-link" to={"/"}>Go back to Home</Link>
+        <img src={capibara} alt="capibara ilustration" />
     </div>
   );
 };

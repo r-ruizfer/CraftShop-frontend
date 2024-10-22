@@ -271,7 +271,7 @@ function AddProductForm(props) {
   } else if (props.type === "edit") {
     return (
       <>
-        <Button variant="primary" onClick={openModal}>
+        <Button id="edit-admin-btn"  variant="outline-danger" onClick={openModal}>
           Edit product
         </Button>
 

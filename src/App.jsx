@@ -42,7 +42,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route
-          path="/product/:productId"
+          path="/:productId"
           element={
             <ProductDetails
               productsInCart={productsInCart}

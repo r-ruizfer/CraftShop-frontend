@@ -5,10 +5,9 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ProductsContext } from "../context/products.context.jsx";
 
-
 function ProductList(props) {
   // const { products } = useContext(ProductsContext);
-  
+const {setWishlist}=props
   if (props.type === "product list") {
     return (
       <>
@@ -17,7 +16,7 @@ function ProductList(props) {
             .sort((a, b) => b._id.localeCompare(a._id))
             .map((eachProduct) => {
               return (
-                <Link key={eachProduct._id} to={`/product/${eachProduct._id}`}>
+                <Link key={eachProduct._id} to={`/${eachProduct._id}`}>
                   <ProductCard eachProduct={eachProduct} />
                 </Link>
               );
@@ -34,8 +33,20 @@ function ProductList(props) {
             .map((eachProduct) => {
               return (
                 <div key={eachProduct._id}>
-                  {props.type === "cart" ? (<SmallProductCard eachProduct={eachProduct} type= "cart" />) : (<SmallProductCard eachProduct={eachProduct}  wishlist={props.products}
-              setWishlist={props.setWishlist} />)}
+                  {props.type === "cart" ? (
+                    <SmallProductCard
+                      eachProduct={eachProduct}
+                      wishlist={props.products}
+                      setWishlist={setWishlist}
+                      type="cart"
+                    />
+                  ) : (
+                    <SmallProductCard
+                      eachProduct={eachProduct}
+                      wishlist={props.products}
+                      setWishlist={setWishlist}
+                    />
+                  )}
                 </div>
               );
             })}

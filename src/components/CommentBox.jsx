@@ -4,6 +4,7 @@ import { AuthContext } from "../context/auth.context";
 import service from "../services/config";
 import { Icon } from 'react-icons-kit'
 import {bin} from 'react-icons-kit/icomoon/bin'
+import { Button } from "react-bootstrap";
 
 function CommentBox(props) {
   const { eachComment, comments } = props;
@@ -34,8 +35,8 @@ function CommentBox(props) {
       </div>
 
       {user && user.isAdmin === true ? (
-        <div className="admin-controls">
-          <button id="delete-comment" onClick={handleDeleteComment}><Icon icon={bin} /> <br />Delete</button>
+        <div id="delete-comment-box">
+          <Button variant="outline-danger" id="delete-comment-btn" onClick={handleDeleteComment}><Icon icon={bin} size={10}/> <br />Delete</Button>
         </div>
       ) : null}
     </div>
