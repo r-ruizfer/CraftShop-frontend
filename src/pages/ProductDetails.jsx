@@ -11,9 +11,10 @@ import { CartContext } from "../context/cart.context.jsx";
 import { Icon } from "react-icons-kit";
 import { ic_favorite } from "react-icons-kit/md/ic_favorite";
 import { ic_favorite_border } from "react-icons-kit/md/ic_favorite_border";
-import { check } from "react-icons-kit/oct/check";
+import {send} from 'react-icons-kit/fa/send'
 import { Button } from "react-bootstrap";
 import PaymentIntent from "../components/PaymentIntent";
+import {ic_add_shopping_cart} from 'react-icons-kit/md/ic_add_shopping_cart'
 
 function ProductDetails(props) {
   const { productId } = useParams();
@@ -205,12 +206,12 @@ function ProductDetails(props) {
             <h2>{currentProduct.title}</h2>
             <p>{currentProduct.description}</p>
             <button onClick={handleAddToCart} id="add-cart-button">
-              Add to cart
+              <Icon icon={ic_add_shopping_cart} /> Add to cart
             </button>
             <div>
           { 
             showPaymentIntent === false
-            ? <button onClick={() => setShowPaymentIntent(true)}>Purchase</button> 
+            ? <button  className="purchase-button" onClick={() => setShowPaymentIntent(true)}>Purchase</button> 
             : <PaymentIntent productDetails={currentProduct} /> 
           }
           </div>
@@ -261,9 +262,7 @@ function ProductDetails(props) {
               value={commentText}
               onChange={handleCommentTextChange}
             />
-            <button id="post-button" type="submit">
-              <Icon icon={check} />
-            </button>
+            <button id="post-button" type="submit"><Icon icon={send} /></button>
           </form>
         </div>
       </div>

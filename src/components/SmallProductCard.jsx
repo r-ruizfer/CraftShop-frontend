@@ -8,6 +8,8 @@ import { ic_favorite } from "react-icons-kit/md/ic_favorite";
 import PaymentIntent from "./PaymentIntent";
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
+import {shopping_cart_remove} from 'react-icons-kit/ikons/shopping_cart_remove'
+
 
 function SmallProductCard(props) {
   const { eachProduct, type, wishlist, setWishlist } = props;
@@ -91,7 +93,7 @@ function SmallProductCard(props) {
         <p>{eachProduct.price} €</p>
       </div>
       {type === "cart" ? (
-          <>
+         <div id="cart-buttons-box">
 
 <Button variant="secondary" 
               id="remove-item-btn"
@@ -100,21 +102,20 @@ function SmallProductCard(props) {
                 handleDeleteCart(eachProduct._id);
               }}
             >
-              Remove from cart
+              <Icon icon={shopping_cart_remove}/> Remove
               </Button>{' '}
 
             <div className="buy-button">
               {showPaymentIntent === false ? (
                
-               <Button variant="primary" 
-               onClick={() => setShowPaymentIntent(true)}>
+               <Button id="purchase-btn" variant="primary" onClick={() => setShowPaymentIntent(true)}>
                   Purchase
                   </Button>
               ) : (
                 <PaymentIntent productDetails={eachProduct} />
               )}
             </div>
-          </>
+            </div>
         ) : (
           ""
         )}
