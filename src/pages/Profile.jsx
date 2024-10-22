@@ -28,6 +28,7 @@ function Profile() {
             .catch((err) => {
               const errorDescription = err.response.data.message;
               setErrorMessage(errorDescription);
+              navigate("/error")
             });
         } else {
           setErrorMessage("User ID is not available.");

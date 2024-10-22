@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import ProductList from "../components/ProductList";
 import service from "../services/config";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/cart.context.jsx";
 import { AuthContext } from "../context/auth.context";
 
@@ -11,8 +11,7 @@ function Cart() {
   const { user, isLoggedIn } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [userProfile, setUserProfile] = useState(null);
-
-
+  const navigate = useNavigate()
 
   useEffect(() => {
     const getUser = () => {
@@ -29,6 +28,8 @@ function Cart() {
             })
             .catch((err) => {
               setErrorMessage(err.response.data.message);
+              navigate("/error");
+              ;
             });
         } else {
           setErrorMessage("User ID is not available.");
@@ -40,7 +41,6 @@ function Cart() {
   }, [isLoggedIn, user]);
 
   if (errorMessage) return <div>{errorMessage}</div>;
-
 
   if (!userProfile) {
     return (
@@ -74,7 +74,7 @@ function Cart() {
 
   return (
     <div id="cart-screen">
-      <ProductList type="cart" products ={productsInCart} />
+      <ProductList type="cart" products={productsInCart} />
     </div>
   );
 }

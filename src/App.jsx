@@ -14,6 +14,7 @@ import ErrorPage from "./pages/ErrorPage";
 import Private from "./components/auth/Private";
 import SearchResults from "./pages/SearchResults";
 import PaymentSuccess from "./pages/PaymentSuccess";
+import Error500 from "./pages/Error500";
 import "./App.css";
 import "./assets/styles/small-product-card.css"
 import "./assets/styles/signup.css"
@@ -59,6 +60,8 @@ function App() {
         <Route path="/profile/" element={<Profile />} />
         <Route path="/wishlist" element={<WishList wishlist={wishlist} setWishlist={setWishlist} />} />
         <Route path="*" element={<ErrorPage />} />
+        <Route path="/error" element={<Error500/>}/>
+
         <Route
           path="/products/searchresults/:query"
           element={<SearchResults />}

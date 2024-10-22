@@ -2,7 +2,7 @@ import service from "../../services/config.js";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context.jsx";
-
+import { Link } from "react-router-dom";
 function Login() {
   const navigate = useNavigate();
   const {authenticateUser} = useContext(AuthContext);
@@ -46,6 +46,7 @@ function Login() {
   return (
     <div className="login-container">
       <h1>Log In</h1>
+      <p style={{color: "gray"}}>Don't have an account? <Link to={"/signup"}>Sign up here!</Link> </p>
 
       <form onSubmit={handleLogin}>
         <label>Email:</label>

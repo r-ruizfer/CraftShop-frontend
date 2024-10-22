@@ -2,7 +2,7 @@ import service from "../services/config";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import ProductList from "../components/ProductList";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function WishList(props) {
   const [userProfile, setUserProfile] = useState(null);
@@ -10,6 +10,7 @@ function WishList(props) {
   const { user, isLoggedIn } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const { wishlist, setWishlist } = props;
+  const navigate= useNavigate()
 
   useEffect(() => {
     const getUser = () => {
@@ -27,6 +28,7 @@ function WishList(props) {
             .catch((err) => {
               const errorDescription = err.response.data.message;
               setErrorMessage(errorDescription);
+              navigate("/error")
             });
         } else {
           setErrorMessage("User ID is not available.");

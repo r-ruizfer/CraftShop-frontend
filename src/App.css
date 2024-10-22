@@ -1,26 +1,22 @@
-
 /* morado oscuro: #3C096C
 morado mas claro: #5A189A
 morado claro: #9D4EDD
 lila: #C77DFF */
-
-
-
-
 
 #root {
   min-width: 100vh;
   margin: 0;
   padding: 0;
   text-align: center;
-  background-color: white;
+  background-color: whitesmoke;
 }
+
 body {
   height: 100%;
   margin: 0;
 }
 
-.title {
+/*.title {
   text-align: center;
   color: #343a40;
   margin-top: 20px;
@@ -79,63 +75,7 @@ body {
   font-size: 1.2rem;
   color: #6c757d;
 }
-
-/* SIGN UP*/
-
-/*LOG IN*/
-.login-container {
-  width: 100%;
-  max-width: 400px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #f0f0f0;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.login-container h1 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.login-container form {
-  display: flex;
-  flex-direction: column;
-}
-
-.login-container label {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.login-container input {
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.login-container button {
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.login-container button:hover {
-  background-color: #0056b3;
-}
-
-.login-container p {
-  color: red;
-  text-align: center;
-}
-
+*/
 /* NAVBAR*/
 #navbar {
   height: 20%;
@@ -143,7 +83,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #7B2CBF;
+  background-color: #7b2cbf;
   margin: 0;
   flex-wrap: nowrap;
 }
@@ -155,7 +95,7 @@ body {
 }
 
 #navbar li:hover {
-  background-color: #FF9E00;
+  background-color: #ff9e00;
 }
 
 #navbar a {
@@ -185,7 +125,7 @@ body {
 #searchbar button {
   padding: 0.5rem;
   border: none;
-  background-color: #007bff;
+  background-color: #3c096c;
   color: white;
   border-radius: 15px;
   cursor: pointer;
@@ -193,7 +133,7 @@ body {
 }
 
 #searchbar button:hover {
-  background-color: #0056b3; /* Color de fondo al pasar el ratón */
+  background-color: #ff6d00; /* Color de fondo al pasar el ratón */
 }
 
 /*HOMEPAGE*/
@@ -222,6 +162,11 @@ body {
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
+}
+
+#product-grid a {
+  text-decoration: none;
+  color: black;
 }
 
 /* product card*/
@@ -325,48 +270,6 @@ body {
   margin: auto;
 }
 
-/* SMALL CARD */
-#small-product-screen a {
-  text-decoration: none;
-  color: black;
-}
-
-.small-card {
-  width: 80%;
-  height: 30rem;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding: 1rem;
-}
-.small-product-image {
-  position: relative;
-  margin: 0.2rem;
-  width: 40%;
-  height: 30%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-color: pink;
-}
-
-.small-product-image img {
-  width: 20rem;
-}
-
-.small-card-info {
-  padding: 1rem;
-  text-align: left;
-}
-
-.small-card-info h2 {
-  color: black;
-  margin-bottom: 0.2rem;
-}
-
-.small-card-info p {
-  margin-top: 0;
-}
-
 /* COMMENT-BOX */
 
 .comment-box {
@@ -419,7 +322,7 @@ body {
 
 #post-button {
   margin: 1rem;
-  background-color: #007bff;
+  background-color: #9d4edd;
   border: solid 0, 5px black;
   border-radius: 50px;
   height: 2.5rem;
@@ -431,7 +334,7 @@ body {
 /* FOOTER*/
 
 .footer {
-  background-color:#3C096C;
+  background-color: #3c096c;
   color: #fff;
   text-align: center;
   padding: 20px 0;
@@ -467,36 +370,16 @@ body {
 }
 
 .social-icons a:hover {
-  color: #363673;
+  color: #1da1f2; /* Cambia el color al pasar el cursor */
 }
-
-/*PROFILE PAGE*/
 
 .offcanvas-profile-photo {
   width: 100px;
   border: #363673 5px solid;
   border-radius: 50%;
 }
-@media (max-width: 480px) {
- 
-  .login-container {
-    padding: 10px;
-  }
-
-  .login-container input {
-    font-size: 14px;
-    padding: 7px;
-  }
-
-  .login-container button {
-    font-size: 14px;
-    padding: 7px;
-  }
- 
-}
 
 @media (max-width: 768px) {
- 
   #searchbar input {
     width: 100%;
     margin-right: 0;
@@ -516,17 +399,4 @@ body {
   #product-grid a {
     width: 40%;
   }
-
-  .login-container {
-    padding: 15px;
-  }
-
-  .login-container input {
-    padding: 8px;
-  }
-
-  .login-container button {
-    padding: 8px;
-  }
-  .
 }

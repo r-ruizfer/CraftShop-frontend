@@ -170,7 +170,7 @@ function ProductDetails(props) {
     }
   };
 
-  if (!currentProduct) return <p>Product not found :(</p>;
+  if (!currentProduct) return <p>Loading</p>;
 
   //CONSOLE LOGS
   console.log("products", products);

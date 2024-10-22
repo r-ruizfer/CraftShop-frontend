@@ -4,7 +4,7 @@ import service from "../../services/config";
 import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context.jsx";
 import { Button } from "react-bootstrap";
-
+import { Link } from "react-router-dom";
 function Signup() {
   const navigate = useNavigate();
 
@@ -71,6 +71,7 @@ function Signup() {
   return (
     <div className="signup-container">
       <h1>Sign Up Here</h1>
+      <p style={{color: "gray"}}>Already have an account? <Link to={"/login"}>Log in here!</Link> </p>
       <form onSubmit={handleSignup}>
         <label>Email:</label>
         <input

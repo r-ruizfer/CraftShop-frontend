@@ -60,7 +60,10 @@ function AddProductForm(props) {
         navigate("/");
         window.location.reload("/");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        navigate("/error");
+      });
   };
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -170,7 +173,10 @@ function AddProductForm(props) {
             <Form onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Label>Product Image: </Form.Label>{" "}
-                <Button variant="primary" onClick={handleImageUpload}>
+                <Button
+                  style={{ backgroundColor: "#3C096C", border: "none" }}
+                  onClick={handleImageUpload}
+                >
                   Upload an image for your Product
                 </Button>
                 {product.image && (
@@ -200,7 +206,6 @@ function AddProductForm(props) {
                   Add a title to your product
                 </Form.Text>
               </Form.Group>
-
               <Form.Group>
                 <Form.Label>Description:</Form.Label>
                 <Form.Control
@@ -246,9 +251,16 @@ function AddProductForm(props) {
                   <option value="Painting">Painting</option>
                 </Form.Select>
               </Form.Group>
-
-              <Button type="submit">Add</Button>
-              <Button onClick={closeModal} variant="secondary">
+              <Button
+                style={{ backgroundColor: "#3C096C", border: "none" }}
+                type="submit"
+              >
+                Add
+              </Button>{" "}
+              <Button
+                style={{ backgroundColor: "#C77DFF", border: "none" }}
+                onClick={closeModal}
+              >
                 Close
               </Button>
             </Form>
@@ -362,10 +374,8 @@ function AddProductForm(props) {
   } else if (props.type === "edit user") {
     return (
       <>
-        <div className="edit-button" >
-          <Button  onClick={openModal}>
-            Edit User Details
-          </Button>
+        <div className="edit-button">
+          <Button onClick={openModal}>Edit User Details</Button>
         </div>
 
         <Modal show={modalIsOpen} onHide={closeModal}>
@@ -377,7 +387,10 @@ function AddProductForm(props) {
             <Form onSubmit={handleUserUpdate}>
               <Form.Group>
                 <Form.Label>Profile Picture: </Form.Label>{" "}
-                <Button variant="primary" onClick={handleImageUpload}>
+                <Button
+                  style={{ backgroundColor: "#3C096C", border: "none" }}
+                  onClick={handleImageUpload}
+                >
                   Upload new Profile Picture
                 </Button>
                 {userFormData.image && (
@@ -405,7 +418,6 @@ function AddProductForm(props) {
                 />
                 <Form.Text className="text-muted">Edit your username</Form.Text>
               </Form.Group>
-
               <Form.Group>
                 <Form.Label>email:</Form.Label>
                 <Form.Control
@@ -417,7 +429,6 @@ function AddProductForm(props) {
                 />
                 <Form.Text className="text-muted">Edit your email</Form.Text>
               </Form.Group>
-
               <Form.Group>
                 <Form.Label>First Name:</Form.Label>
                 <Form.Control
@@ -429,7 +440,6 @@ function AddProductForm(props) {
                 />
                 <Form.Text className="text-muted">Edit your name</Form.Text>
               </Form.Group>
-
               <Form.Group>
                 <Form.Label>Last Name:</Form.Label>
                 <Form.Control
@@ -441,7 +451,6 @@ function AddProductForm(props) {
                 />
                 <Form.Text className="text-muted">Edit your surname</Form.Text>
               </Form.Group>
-
               <Form.Group>
                 <Form.Label>Address:</Form.Label>
                 <Form.Control
@@ -453,9 +462,17 @@ function AddProductForm(props) {
                 />
                 <Form.Text className="text-muted">Edit your PFP</Form.Text>
               </Form.Group>
-
-              <Button type="submit">Save changes</Button>
-              <Button onClick={closeModal} variant="secondary">
+              <Button
+                style={{ backgroundColor: "#3C096C", border: "none" }}
+                type="submit"
+              >
+                Save changes
+              </Button>{" "}
+              <Button
+                style={{ backgroundColor: "#C77DFF", border: "none" }}
+                onClick={closeModal}
+                variant="secondary"
+              >
                 Close
               </Button>
             </Form>
