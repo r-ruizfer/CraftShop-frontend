@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import ProductList from "../components/ProductList";
 import { ProductsContext } from "../context/products.context";
 import service from "../services/config"; // Aquí deberías tener la configuración de tus solicitudes a la API
+import { Dropdown } from "react-bootstrap";
+
 
 function HomePage() {
   const { products, setProducts } = useContext(ProductsContext); // Asumiendo que usas context para manejar productos
@@ -39,6 +41,7 @@ function HomePage() {
       <div className="category">
         <h2>Filter by Category</h2>
         <select onChange={handleCategoryChange} value={category}>
+          
           <option value="">All Categories</option>
           <option value="Prints">Prints</option>
           <option value="Stickers">Stickers</option>

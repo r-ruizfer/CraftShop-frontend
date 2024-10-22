@@ -11,6 +11,8 @@ import { person } from "react-icons-kit/oct/person";
 import { threeBars } from "react-icons-kit/oct/threeBars";
 import OffCanvasProfile from "./OffCanvasProfile";
 import { end } from "@cloudinary/url-gen/qualifiers/textAlignment";
+import logo from "../assets/images/logo.png";
+import { width } from "@fortawesome/free-brands-svg-icons/fa42Group";
 function Navbar() {
   const navigate = useNavigate();
   const { isLoggedIn, authenticateUser } = useContext(AuthContext);
@@ -31,14 +33,17 @@ function Navbar() {
             <Icon icon={threeBars} size={15} />
           </button>
         </li> */}
+        <li>
+          <img src={logo} alt="logo" style={{ width: "75px" }} />
+        </li>
         <Link to={"/"}>
           <li>
             <Icon icon={basic_home} size={15} />
           </li>
         </Link>
-       
-          <SearchBar />
-      
+
+        <SearchBar />
+
         <Link to={"/wishlist"}>
           <li>
             <Icon icon={basic_heart} size={15} />
