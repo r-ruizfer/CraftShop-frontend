@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import ProductList from "../components/ProductList";
+import NotLogin from "../components/NotLogin";
 import service from "../services/config";
 import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/cart.context.jsx";
@@ -44,29 +45,16 @@ function Cart() {
 
   if (!userProfile) {
     return (
-      <>
-        <h1>You are not logged in!</h1>
-        {!isLoggedIn && (
-          <Link to="/signup">
-            {" "}
-            <li>Sign Up</li>
-          </Link>
-        )}
-        {!isLoggedIn && (
-          <Link to="/login">
-            <li>Log In</li>
-          </Link>
-        )}
-      </>
+      <NotLogin/>
     );
   }
 
   if (!productsInCart || productsInCart.length === 0)
     return (
-      <div>
+      <div className="no-products">
         <p>No products yet in you cart</p>
         <Link to={"/"}>
-          <button>Keep looking</button>
+          <button className="keep-looking-btn" >Keep looking</button>
         </Link>
       </div>
     );

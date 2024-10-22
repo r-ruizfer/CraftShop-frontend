@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import ProductList from "../components/ProductList";
 import { Link, useNavigate } from "react-router-dom";
+import NotLogin from "../components/NotLogin";
 
 function WishList(props) {
   const [userProfile, setUserProfile] = useState(null);
@@ -42,30 +43,17 @@ function WishList(props) {
   if (errorMessage) return <div>{errorMessage}</div>;
   if (!userProfile) {
     return (
-      <>
-        <h1>You are not logged in!</h1>
-        {!isLoggedIn && (
-          <Link to="/signup">
-            {" "}
-            <li>Sign Up</li>
-          </Link>
-        )}
-        {!isLoggedIn && (
-          <Link to="/login">
-            <li>Log In</li>
-          </Link>
-        )}
-      </>
+      <NotLogin/>
     );
   }
   if (loading) return <div>Loading</div>;
 
   if (!wishlist || wishlist.length === 0)
     return (
-      <div>
+      <div className="no-products" >
         <p>No products yet in your wishlist</p>
         <Link to={"/"}>
-          <button>Keep looking</button>
+          <button className="keep-looking-btn" >Keep looking</button>
         </Link>
       </div>
     );

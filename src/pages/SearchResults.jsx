@@ -23,7 +23,7 @@ const SearchResults = () => {
   }, [query]);
 
   return (
-    <div>
+    <div className="homepage-container">
       <h2>Search results for: "{query}"</h2>
       <ul>
         {products.length > 0 ? (
