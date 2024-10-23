@@ -1,18 +1,33 @@
-import service from "../services/config";
+import React from "react";
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/auth.context";
-import ProductList from "../components/ProductList";
 import { Link, useNavigate } from "react-router-dom";
-import NotLogin from "../components/NotLogin";
+import service from "../services/config";
 import { Spinner } from "react-bootstrap";
 
-function WishList(props) {
+import ProductList from "../components/ProductList";
+import NotLogin from "../components/NotLogin";
+
+import { AuthContext } from "../context/auth.context";
+import { WishlistContext } from "../context/wishlist.context";
+
+
+
+function WishList() {
+  const [errorMessage, setErrorMessage] = useState(undefined);
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+
   const { user, isLoggedIn } = useContext(AuthContext);
-  const [errorMessage, setErrorMessage] = useState(undefined);
-  const { wishlist, setWishlist } = props;
-  const navigate= useNavigate()
+  const {
+    wishlist,
+    setWishlist,
+    isWishlisted,
+    setIsWishlisted,
+    handleWishlist,
+  } = useContext(WishlistContext);
+
 
   useEffect(() => {
     const getUser = () => {
@@ -30,7 +45,7 @@ function WishList(props) {
             .catch((err) => {
               const errorDescription = err.response.data.message;
               setErrorMessage(errorDescription);
-              navigate("/error")
+              navigate("/error");
             });
         } else {
           setErrorMessage("User ID is not available.");
@@ -41,36 +56,36 @@ function WishList(props) {
     getUser();
   }, [isLoggedIn, user]);
 
+
+
   if (errorMessage) return <div>{errorMessage}</div>;
-  if (!userProfile) {
+  if (!userProfile) return <NotLogin />;
+
+  if (loading)
     return (
-      <NotLogin/>
+      <>
+        <Spinner
+          animation="border"
+          variant="dark"
+          className="homepage-spinner"
+        />
+        <p>...Loading Wishlist...</p>
+      </>
     );
-  }
-  if (loading) return (
-    <>
-      <Spinner animation="border" variant="dark"  className="homepage-spinner" />
-      <p>...Loading Wishlist...</p>
-    </>
-  );
 
   if (!wishlist || wishlist.length === 0)
     return (
-      <div className="info-page" >
+      <div className="info-page">
         <p>No products yet in your wishlist</p>
         <Link to={"/"}>
-          <button className="keep-looking-btn" >Keep looking</button>
+          <button className="keep-looking-btn">Keep looking</button>
         </Link>
       </div>
     );
 
   return (
     <div className="screen">
-      <ProductList
-        products={wishlist}
-        setWishlist={setWishlist}
-        type="wishlist"
-      />
+      <ProductList products={wishlist} type="wishlist" />
     </div>
   );
 }

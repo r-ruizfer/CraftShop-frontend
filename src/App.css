@@ -145,6 +145,7 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
+  gap: 3rem;
   align-items: center;
   background-color: #6c63ff;
   /* background-color: #7b2cbf; */
@@ -165,10 +166,6 @@ body {
   transition: background-color 0.3s;
   border-radius:20%;
   margin: 5px;
-}
-.logo-navbar:hover{
-  background-color: #c77dff;
-
 }
 
 #navbar li:hover {
@@ -330,6 +327,7 @@ body {
   #navbar {
     flex-wrap: wrap; 
     justify-content: space-around;
+    gap: 0;
   }
 
   #searchbar {

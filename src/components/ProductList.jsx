@@ -1,13 +1,16 @@
 import React from "react";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+
 import ProductCard from "../components/ProductCard";
 import SmallProductCard from "../components/SmallProductCard";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
+
 import { ProductsContext } from "../context/products.context.jsx";
+
 
 function ProductList(props) {
   // const { products } = useContext(ProductsContext);
-const {setWishlist}=props
+
   if (props.type === "product list") {
     return (
       <>
@@ -36,15 +39,11 @@ const {setWishlist}=props
                   {props.type === "cart" ? (
                     <SmallProductCard
                       eachProduct={eachProduct}
-                      wishlist={props.products}
-                      setWishlist={setWishlist}
                       type="cart"
                     />
                   ) : (
                     <SmallProductCard
                       eachProduct={eachProduct}
-                      wishlist={props.products}
-                      setWishlist={setWishlist}
                     />
                   )}
                 </div>

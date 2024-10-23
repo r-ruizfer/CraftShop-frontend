@@ -1,19 +1,32 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import service from "../services/config";
+import { Spinner } from "react-bootstrap";
+
 import ProductList from "../components/ProductList";
 import NotLogin from "../components/NotLogin";
-import service from "../services/config";
-import { Link, useNavigate } from "react-router-dom";
+
 import { CartContext } from "../context/cart.context.jsx";
 import { AuthContext } from "../context/auth.context";
-import { Spinner } from "react-bootstrap";
+import { WishlistContext } from "../context/wishlist.context";
+
 function Cart() {
-  const { productsInCart, setProductsInCart } = useContext(CartContext);
-  const { user, isLoggedIn } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [userProfile, setUserProfile] = useState(null);
-  const [loading, setLoading] = useState(true)
-  const navigate = useNavigate()
+  const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+
+  const { productsInCart, setProductsInCart } = useContext(CartContext);
+  const { user, isLoggedIn } = useContext(AuthContext);
+  const {
+    wishlist,
+    setWishlist,
+    isWishlisted,
+    setIsWishlisted,
+    handleWishlist,
+  } = useContext(WishlistContext);
 
   useEffect(() => {
     const getUser = () => {
@@ -25,14 +38,13 @@ function Cart() {
             .get(`/users/${user._id}`)
             .then((response) => {
               setUserProfile(response.data);
-              /*setWishlist(response.data.wishlistedItems);*/
+              setWishlist(response.data.wishlistedItems);
               setLoading(false);
             })
             .catch((err) => {
               setErrorMessage(err.response.data.message);
               navigate("/error");
-              console.log(err)
-              ;
+              console.log(err);
             });
         } else {
           setErrorMessage("User ID is not available.");
@@ -43,14 +55,10 @@ function Cart() {
     getUser();
   }, [isLoggedIn, user]);
 
-  
-
   if (errorMessage) return <div>{errorMessage}</div>;
 
   if (!userProfile) {
-    return (
-      <NotLogin/>
-    );
+    return <NotLogin />;
   }
 
   if (!productsInCart || productsInCart.length === 0)
@@ -58,17 +66,22 @@ function Cart() {
       <div className="info-page">
         <p>No products yet in you cart</p>
         <Link to={"/"}>
-          <button className="keep-looking-btn" >Keep looking</button>
+          <button className="keep-looking-btn">Keep looking</button>
         </Link>
       </div>
     );
- /* console.log("carrito desde pagina cart", productsInCart);*/
-  if (loading) return (
-    <>
-      <Spinner animation="border" variant="dark"  className="homepage-spinner" />
-      <p>...Loading Cart...</p>
-    </>
-  );
+  /* console.log("carrito desde pagina cart", productsInCart);*/
+  if (loading)
+    return (
+      <>
+        <Spinner
+          animation="border"
+          variant="dark"
+          className="homepage-spinner"
+        />
+        <p>...Loading Cart...</p>
+      </>
+    );
 
   return (
     <div id="cart-screen">
