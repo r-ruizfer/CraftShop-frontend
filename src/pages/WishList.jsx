@@ -78,7 +78,7 @@ function WishList() {
   if (errorMessage) return <div>{errorMessage}</div>;
   if (!userProfile) return <NotLogin />;
 
-  if (loading)
+  if (loading){
     return (
       <>
         {wlBreadcrumb}
@@ -86,7 +86,7 @@ function WishList() {
       </>
     );
   }
-  if (loading)
+  if (loading){
     return (
       <>
         {wlBreadcrumb}
@@ -99,7 +99,7 @@ function WishList() {
         <p>...Loading Wishlist...</p>
       </>
     );
-
+  }
   if (!wishlist || wishlist.length === 0)
     return (
       <>

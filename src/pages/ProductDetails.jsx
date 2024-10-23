@@ -19,7 +19,7 @@ import { ic_favorite_border } from "react-icons-kit/md/ic_favorite_border";
 import { send } from "react-icons-kit/fa/send";
 
 import { Button } from "react-bootstrap";
-import PaymentIntent from "../components/PaymentIntent";
+
 import { ic_add_shopping_cart } from "react-icons-kit/md/ic_add_shopping_cart";
 import { Spinner, Breadcrumb } from "react-bootstrap";
 
@@ -28,7 +28,7 @@ import ToastContainer from "react-bootstrap/ToastContainer";
 
 
 function ProductDetails(props) {
-  const navigate = useNavigate();
+
   const { productId } = useParams();
 
   const [currentProduct, setCurrentProduct] = useState(null);

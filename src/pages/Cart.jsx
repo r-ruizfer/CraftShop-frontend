@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import service from "../services/config";
-import { Spinner } from "react-bootstrap";
 
 import ProductList from "../components/ProductList";
 import NotLogin from "../components/NotLogin";
@@ -13,24 +12,18 @@ import { WishlistContext } from "../context/wishlist.context";
 
 import { Spinner, Breadcrumb } from "react-bootstrap";
 function Cart() {
-  const [errorMessage, setErrorMessage] = useState(undefined);
-  const [userProfile, setUserProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  const navigate = useNavigate();
-
   const { productsInCart, setProductsInCart } = useContext(CartContext);
   const { user, isLoggedIn } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const goHome = ()=>{
-    navigate("/")
-  }
-  const goWL = ()=>{
-    navigate("/wishlist")
-  }
+  const goHome = () => {
+    navigate("/");
+  };
+  const goWL = () => {
+    navigate("/wishlist");
+  };
   const cartBreadcrumb = (
     <Breadcrumb>
       <Breadcrumb.Item onClick={goHome}>Home</Breadcrumb.Item>
@@ -102,7 +95,7 @@ function Cart() {
   if (loading)
     return (
       <>
-      {cartBreadcrumb}
+        {cartBreadcrumb}
         <Spinner
           animation="border"
           variant="dark"
@@ -114,7 +107,7 @@ function Cart() {
 
   return (
     <>
-    {cartBreadcrumb}
+      {cartBreadcrumb}
       <div id="cart-screen">
         <ProductList type="cart" products={productsInCart} />
       </div>
