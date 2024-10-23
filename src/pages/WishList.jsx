@@ -4,6 +4,7 @@ import { AuthContext } from "../context/auth.context";
 import ProductList from "../components/ProductList";
 import { Link, useNavigate } from "react-router-dom";
 import NotLogin from "../components/NotLogin";
+import { Spinner } from "react-bootstrap";
 
 function WishList(props) {
   const [userProfile, setUserProfile] = useState(null);
@@ -46,7 +47,12 @@ function WishList(props) {
       <NotLogin/>
     );
   }
-  if (loading) return <div>Loading</div>;
+  if (loading) return (
+    <>
+      <Spinner animation="border" variant="dark"  className="homepage-spinner" />
+      <p>...Loading Wishlist...</p>
+    </>
+  );
 
   if (!wishlist || wishlist.length === 0)
     return (

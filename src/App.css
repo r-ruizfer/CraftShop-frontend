@@ -160,6 +160,16 @@ body {
   border-radius:20%;
   margin: 5px;
 }
+.logo-navbar{
+  color: #fff;
+  transition: background-color 0.3s;
+  border-radius:20%;
+  margin: 5px;
+}
+.logo-navbar:hover{
+  background-color: #c77dff;
+
+}
 
 #navbar li:hover {
   background-color: #c77dff;

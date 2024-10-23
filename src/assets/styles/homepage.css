@@ -1,4 +1,3 @@
-
 .homepage-container {
   display: flex;
   flex-direction: column;
@@ -6,128 +5,124 @@
   align-items: center;
 }
 
-
 .cards-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-    gap: 20px; 
-    justify-items: center; 
-    padding: 20px;
-    align-items:center ;
-    
-  }
-  
-  
-  .product-card {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 300px;
-    aspect-ratio: 3 / 4; 
-    justify-content: space-between; 
-    box-sizing: border-box;
-  }
-  
- 
-  .product-card img {
-    object-fit: cover;
-    height: auto;
-    max-height: 300px;
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  justify-items: center;
+  padding: 20px;
+  align-items: center;
+}
 
-  .product-card .card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 1; 
+.product-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 3 / 4;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+}
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px #9d4edd;
+}
+
+.product-card img {
+  object-fit: cover;
+  height: auto;
+  max-height: 300px;
+}
+
+.product-card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+.homepage-container {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.homepage-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.filter-label {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.filter-select {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 2px solid #ccc;
+  background-color: #f9f9f9;
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.filter-select:hover {
+  border-color: #c77dff;
+}
+.homepage-spinner {
+  margin: 50px;
+}
+
+.filter-select:focus {
+  border-color: #c77dff;
+  box-shadow: 0 0 5px rgba(197, 13, 214, 0.5);
+}
+
+@media (max-width: 768px) {
+  .cards-container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    justify-content: center;
   }
-  .homepage-container {
-    text-align: center; 
-    padding: 40px 20px;
-  }
-  
   .homepage-title {
-    font-size: 3rem; 
-    font-weight: bold;
-    color: #333; 
-    margin-bottom: 20px; 
-    text-transform: uppercase; 
-    letter-spacing: 2px; 
+    font-size: 2.5rem;
   }
-  
 
   .filter-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 40px; 
+    margin-bottom: 30px;
   }
-  
-  .filter-label {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 10px;
-    text-transform: uppercase; 
-    letter-spacing: 1px;
-  }
-  
- 
+
   .filter-select {
-    padding: 10px 20px; 
-    font-size: 1rem; 
-    border-radius: 8px; 
-    border: 2px solid #ccc; 
-    background-color: #f9f9f9; 
-    color: #333;
-    outline: none; 
-    transition: border-color 0.3s ease; 
+    font-size: 0.9rem;
+    padding: 8px 16px;
   }
-  
-  .filter-select:hover {
-    border-color: #C77DFF; 
+}
+
+@media (max-width: 576px) {
+  .product-card {
+    max-width: 100%;
+    aspect-ratio: 1 / 1.2;
   }
-  
- 
-  .filter-select:focus {
-    border-color: #C77DFF;
-    box-shadow: 0 0 5px rgba(197, 13, 214, 0.5); 
+  .homepage-title {
+    font-size: 2rem;
   }
-  
-  
-  /* Ajustes para pantallas más pequeñas */
-  @media (max-width: 768px) {
-    .cards-container {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-      justify-content: center; 
-    }
-    .homepage-title {
-        font-size: 2.5rem; 
-      }
-    
-      .filter-container {
-        margin-bottom: 30px; 
-      }
-    
-      .filter-select {
-        font-size: 0.9rem;
-        padding: 8px 16px;
-      }
-    }
-    
-  
-  @media (max-width: 576px) {
-    .product-card {
-      max-width: 100%;
-      aspect-ratio: 1 / 1.2; 
-    }
-    .homepage-title {
-        font-size: 2rem; 
-      }
-    
-      .filter-select {
-        font-size: 0.8rem;
-        padding: 6px 14px;
-      }
+
+  .filter-select {
+    font-size: 0.8rem;
+    padding: 6px 14px;
   }
-  
+}

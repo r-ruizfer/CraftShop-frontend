@@ -1,16 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import ProductList from "../components/ProductList";
 import { ProductsContext } from "../context/products.context";
-import service from "../services/config"; // Aquí deberías tener la configuración de tus solicitudes a la API
-import { Dropdown } from "react-bootstrap";
-
+import service from "../services/config";
+import { Spinner } from "react-bootstrap";
 function HomePage() {
-  const { products, setProducts } = useContext(ProductsContext); // Asumiendo que usas context para manejar productos
-  const [category, setCategory] = useState(""); // Estado para la categoría seleccionada
+  const { products, setProducts } = useContext(ProductsContext);
+  const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Obtener productos cuando cambie la categoría
     const fetchProducts = async () => {
       setLoading(true);
       try {
@@ -24,14 +22,23 @@ function HomePage() {
     };
 
     fetchProducts();
-  }, [category, setProducts]); // Cambia los productos cuando cambia la categoría
+  }, [category, setProducts]);
 
   const handleCategoryChange = (e) => {
     setCategory(e.target.value);
   };
 
   if (loading || !products) {
-    return <p>Loading products...</p>;
+    return (
+      <>
+        <Spinner
+          animation="border"
+          variant="dark"
+          className="homepage-spinner"
+        />
+        <p>Loading products...</p>
+      </>
+    );
   }
 
   return (

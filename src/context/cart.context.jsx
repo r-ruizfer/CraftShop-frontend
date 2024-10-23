@@ -8,18 +8,15 @@ const CartContext = createContext();
 function CartWrapper({ children }) {
   const [productsInCart, setProductsInCart] = useState([]);
 
-
- 
   // Recuperar el carrito
 
-    useEffect(() => {
-        const savedCart = localStorage.getItem("cart");
-        console.log("savedcart", savedCart);
-        if (savedCart) {
-          setProductsInCart(JSON.parse(savedCart));
-        }
-      }, []);
-
+  useEffect(() => {
+    const savedCart = localStorage.getItem("cart");
+    /* console.log("savedcart", savedCart);*/
+    if (savedCart) {
+      setProductsInCart(JSON.parse(savedCart));
+    }
+  }, []);
 
   return (
     <CartContext.Provider value={{ productsInCart, setProductsInCart }}>

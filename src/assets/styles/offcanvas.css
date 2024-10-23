@@ -21,7 +21,7 @@
   width: 100px !important;
   height: 100px !important;
   border-radius: 50% !important; /* Foto de perfil redonda */
-  border: 2px solid white !important; /* Borde blanco */
+  border: 2px solid #9d4edd !important; /* Borde blanco */
   margin-bottom: 10px !important;
 }
 

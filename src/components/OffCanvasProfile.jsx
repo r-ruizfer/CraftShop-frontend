@@ -5,10 +5,9 @@ import { Icon } from "react-icons-kit";
 import service from "../services/config";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
-import { height, width } from "@fortawesome/free-brands-svg-icons/fa42Group";
-import { justify } from "@cloudinary/url-gen/qualifiers/textAlignment";
-import { background } from "@cloudinary/url-gen/qualifiers/focusOn";
-import { BackgroundColor } from "@cloudinary/url-gen/actions/background/actions/BackgroundColor";
+import Spinner from 'react-bootstrap/Spinner';
+
+
 import "../assets/styles/offcanvas.css"
 
 function OffCanvasProfile(props) {
@@ -46,9 +45,12 @@ function OffCanvasProfile(props) {
     };
     getUser();
   }, [isLoggedIn, user]);
-  if (loading){
-    return <p>loading</p>
-  }
+ 
+ if(loading === true && isLoggedIn){
+  return  <Spinner animation="border" variant="primary" size="sm" />
+ }
+ 
+
 
   return (
     <div>

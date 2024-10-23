@@ -15,6 +15,8 @@ import {send} from 'react-icons-kit/fa/send'
 import { Button } from "react-bootstrap";
 import PaymentIntent from "../components/PaymentIntent";
 import {ic_add_shopping_cart} from 'react-icons-kit/md/ic_add_shopping_cart'
+import { Spinner } from "react-bootstrap";
+
 
 function ProductDetails(props) {
   const { productId } = useParams();
@@ -171,7 +173,12 @@ function ProductDetails(props) {
     }
   };
 
-  if (!currentProduct) return <p>Loading</p>;
+  if (!currentProduct) return (
+    <>
+      <Spinner animation="border" variant="dark"  className="homepage-spinner" />
+      <p>...Loading info...</p>
+    </>
+  );
 
   //CONSOLE LOGS
   console.log("products", products);

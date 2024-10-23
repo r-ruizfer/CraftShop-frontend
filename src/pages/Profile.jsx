@@ -3,7 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import { Link, useNavigate } from "react-router-dom";
 import AddProductForm from "../components/AddProductForm";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
+import NotLogin from "../components/NotLogin";
 
 function Profile() {
   const { user, isLoggedIn, authenticateUser } = useContext(AuthContext);
@@ -28,7 +29,7 @@ function Profile() {
             .catch((err) => {
               const errorDescription = err.response.data.message;
               setErrorMessage(errorDescription);
-              navigate("/error")
+              navigate("/error");
             });
         } else {
           setErrorMessage("User ID is not available.");
@@ -68,24 +69,14 @@ function Profile() {
 
   if (errorMessage) return <div>{errorMessage}</div>;
   if (!userProfile) {
-    return (
-      <>
-        <h1>You are not logged in!</h1>
-        {!isLoggedIn && (
-          <Link to="/signup">
-            {" "}
-            <li>Sign Up</li>
-          </Link>
-        )}
-        {!isLoggedIn && (
-          <Link to="/login">
-            <li>Log In</li>
-          </Link>
-        )}
-      </>
-    );
+    return <NotLogin />;
   }
-  if (loading) return <div>Loading</div>;
+  if (loading) return (
+    <>
+      <Spinner animation="border" variant="dark"  className="homepage-spinner" />
+      <p>...Loading Profile Details...</p>
+    </>
+  );
   console.log(userProfile._id);
   if (!userProfile) {
     return (
@@ -133,7 +124,11 @@ function Profile() {
               </div>
             ) : null}
             <div className="profile-buttons">
-              <Button className="delete-button" variant="outline-danger" onClick={handleDelete}>
+              <Button
+                className="delete-button"
+                variant="outline-danger"
+                onClick={handleDelete}
+              >
                 Delete account
               </Button>
               <AddProductForm

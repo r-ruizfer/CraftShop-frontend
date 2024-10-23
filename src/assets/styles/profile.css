@@ -14,7 +14,7 @@
   background-color: #f8f8f8;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px #9d4edd;
   text-align: center;
 }
 .profile-info{
@@ -26,6 +26,7 @@
   width: 150px;
   height: 150px;
   border-radius: 50%;
+  border: 3px solid #9d4edd;
   object-fit: cover;
   margin-bottom: 15px;
 }
@@ -38,12 +39,12 @@
 
 .edit-button button {
   margin: 10px;
-  background-color: #3c096c;
+  background-color: #9d4edd;
   border: none;
 }
 .delete-button{
   margin: 10px;
-  border: none;
+  
 }
 .edit-button button:hover {
   background-color: #363673;

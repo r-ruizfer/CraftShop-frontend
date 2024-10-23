@@ -87,7 +87,7 @@ function SmallProductCard(props) {
   return (
     <div className="small-card">
       <div className="small-product-image">
-        <Link key={eachProduct._id} to={`/${eachProduct._id}`}>
+        <Link key={eachProduct._id} to={`/product/${eachProduct._id}`}>
           <img src={eachProduct.image} alt="" />
         </Link>
         <button
