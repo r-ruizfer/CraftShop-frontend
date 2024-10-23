@@ -12,10 +12,18 @@ import { Icon } from "react-icons-kit";
 import { ic_favorite } from "react-icons-kit/md/ic_favorite";
 import { ic_favorite_border } from "react-icons-kit/md/ic_favorite_border";
 import { send } from "react-icons-kit/fa/send";
+
 import { Button } from "react-bootstrap";
 import PaymentIntent from "../components/PaymentIntent";
 import { ic_add_shopping_cart } from "react-icons-kit/md/ic_add_shopping_cart";
 import { Spinner, Breadcrumb } from "react-bootstrap";
+
+import Toast from "react-bootstrap/Toast";
+import ToastContainer from "react-bootstrap/ToastContainer";
+
+
+import { Spinner } from "react-bootstrap";
+
 
 function ProductDetails(props) {
   const { productId } = useParams();
@@ -52,6 +60,8 @@ function ProductDetails(props) {
 
   const [showPaymentIntent, setShowPaymentIntent] = useState(false);
 
+  const [showB, setShowB] = useState(false);
+
   //llamada para recibir el producto actual
   useEffect(() => {
     const loadProduct = async () => {
@@ -78,6 +88,11 @@ function ProductDetails(props) {
     localStorage.setItem("cart", JSON.stringify(currentCart));
 
     console.log("Añadido al carrito", productsInCart);
+
+    setShowB(true);
+    setTimeout(() => {
+      setShowB(false);
+    }, 3000);
   };
   console.log("carrito", productsInCart);
 
@@ -234,11 +249,33 @@ function ProductDetails(props) {
             <h1>{currentProduct.price} €</h1>
             <h2>{currentProduct.title}</h2>
             <p>{currentProduct.description}</p>
+
+            <ToastContainer
+              className="p-3"
+              position="middle-center"
+              style={{ zIndex: 1 }}
+            >
+              <Toast
+                onClose={() => {
+                  setShowB(false);
+                }}
+                show={showB}
+                animation={false}
+              >
+                <Toast.Header closeButton={false}>
+                  <Icon icon={ic_add_shopping_cart} />
+                  <strong className="me-auto"> CraftsShop</strong>
+                </Toast.Header>
+                <Toast.Body>Product added to your cart!</Toast.Body>
+              </Toast>
+            </ToastContainer>
+
             <div className="box-buttons">
               <Button onClick={handleAddToCart} id="add-cart-button">
                 <Icon icon={ic_add_shopping_cart} /> Add
               </Button>
-              <div></div>
+             
+
               {showPaymentIntent === false ? (
                 <Button
                   className="purchase-button"
@@ -253,6 +290,8 @@ function ProductDetails(props) {
           </div>
         </div>
       )}
+
+      {/* SECCION DE CONTROLES DE ADMINISTRADOR */}
 
       {isLoggedIn && user.isAdmin === true ? (
         <div id="admin-product-box">
@@ -278,6 +317,8 @@ function ProductDetails(props) {
           </div>
         </div>
       ) : null}
+
+      {/* SECCION DE COMENTARIOS */}
 
       <div id="comments-list">
         <h3>Comments section</h3>
@@ -310,6 +351,8 @@ function ProductDetails(props) {
           </form>
         </div>
       </div>
+
+      {/* SECCION VER MAS  */}
 
       <div id="see-more">
         <h3>Discover more items</h3>
