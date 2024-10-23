@@ -5,11 +5,12 @@ import service from "../services/config";
 
 import ProductList from "../components/ProductList";
 import NotLogin from "../components/NotLogin";
+import PaymentIntent from "../components/PaymentIntent";
 
 import { CartContext } from "../context/cart.context.jsx";
 import { AuthContext } from "../context/auth.context";
 import { WishlistContext } from "../context/wishlist.context";
-
+import { Button } from "react-bootstrap";
 import { Spinner, Breadcrumb } from "react-bootstrap";
 
 function Cart() {
@@ -18,6 +19,7 @@ function Cart() {
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showPaymentIntent, setShowPaymentIntent] = useState(false);
   const navigate = useNavigate();
   const goHome = () => {
     navigate("/");
@@ -108,6 +110,30 @@ function Cart() {
       {cartBreadcrumb}
       <div id="cart-screen">
         <ProductList type="cart" products={productsInCart} />
+        {showPaymentIntent === false ? (
+                <div className="box-buttons">
+                  <Button
+                    className="purchase-button"
+                    onClick={() => setShowPaymentIntent(true)}
+                  >
+                    Pay basket
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <PaymentIntent productDetails={productsInCart} />
+                  <Button
+                    onClick={() => {
+                      setShowPaymentIntent(false);
+                    }}
+                    id="back-pay-button"
+                  >
+                    Cancel
+                  </Button>
+                </>
+              )}
+
+        
       </div>
     </>
   );
