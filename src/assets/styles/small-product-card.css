@@ -1,4 +1,7 @@
 /* SMALL CARD */
+#small-product-screen {
+  min-height: 75dvh;
+}
 
 #small-product-screen a {
   text-decoration: none;
@@ -22,7 +25,7 @@
 
 .small-card:hover {
   transform: scale(1.03);
-  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 6px 10px #9d4edd;
 }
 
 .small-product-image {

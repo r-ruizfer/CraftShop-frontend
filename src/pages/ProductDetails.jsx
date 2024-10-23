@@ -12,6 +12,7 @@ import { ProductsContext } from "../context/products.context.jsx";
 import { AuthContext } from "../context/auth.context";
 import { CartContext } from "../context/cart.context.jsx";
 import { WishlistContext } from "../context/wishlist.context";
+import { CommentContext } from "../context/comments.context.jsx";
 
 import { Icon } from "react-icons-kit";
 import { ic_favorite } from "react-icons-kit/md/ic_favorite";
@@ -26,38 +27,17 @@ import { Spinner, Breadcrumb } from "react-bootstrap";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
-
-function ProductDetails(props) {
-
+function ProductDetails() {
   const { productId } = useParams();
 
   const [currentProduct, setCurrentProduct] = useState(null);
-  const [comments, setComments] = useState(null);
-  const [commentText, setCommentText] = useState("");
   const [moreItems, setMoreItems] = useState([]);
   const [showPaymentIntent, setShowPaymentIntent] = useState(false);
   const [showB, setShowB] = useState(false);
-  
-  const navigate = useNavigate();
-  const goHome = () => {
-    navigate("/");
-  };
-  const goWL = () => {
-    navigate("/wishlist");
-  };
-  const goCart = () => {
-    navigate("/cart");
-  };
-  const pdBreadcrumb = (
-    <Breadcrumb>
-      <Breadcrumb.Item onClick={goHome}>Home</Breadcrumb.Item>
-      <Breadcrumb.Item onClick={goWL}>Wishlist</Breadcrumb.Item>
-      <Breadcrumb.Item onClick={goCart}>Cart</Breadcrumb.Item>
-    </Breadcrumb>
-  );
 
-  const { products } = useContext(ProductsContext);
-  const { productsInCart, setProductsInCart } = useContext(CartContext);
+  const { products, setProducts, handleDelete } = useContext(ProductsContext);
+  const { productsInCart, setProductsInCart, handleDeleteCart } =
+    useContext(CartContext);
   const { user, isLoggedIn } = useContext(AuthContext);
   const {
     wishlist,
@@ -66,6 +46,30 @@ function ProductDetails(props) {
     setIsWishlisted,
     handleWishlist,
   } = useContext(WishlistContext);
+  const {
+    comments,
+    setComments,
+    commentText,
+    setCommentText,
+    loadComments,
+    handleCommentTextChange,
+    postComment,
+    handleDeleteComment,
+  } = useContext(CommentContext);
+
+  const navigate = useNavigate();
+  const goHome = () => {
+    navigate("/");
+  };
+  const goWL = () => {
+    navigate("/product/:productId");
+  };
+  const pdBreadcrumb = (
+    <Breadcrumb>
+      <Breadcrumb.Item onClick={goHome}>Home</Breadcrumb.Item>
+      <Breadcrumb.Item onClick={goWL}>Product details</Breadcrumb.Item>
+    </Breadcrumb>
+  );
 
   //llamada para recibir el producto actual
   useEffect(() => {
@@ -82,7 +86,7 @@ function ProductDetails(props) {
     loadProduct();
   }, [productId, wishlist]);
 
-  //AÑADIR PRODUCTO AL CARRITO 
+  //AÑADIR PRODUCTO AL CARRITO
 
   const handleAddToCart = () => {
     const currentCart = [currentProduct, ...productsInCart];
@@ -96,68 +100,9 @@ function ProductDetails(props) {
     console.log("Añadido al carrito", productsInCart);
   };
 
-  // BORRAR PRODUCTO (ADMIN)
-  const handleDelete = async () => {
-    try {
-      const storedToken = localStorage.getItem("authToken");
-      const confirmDelete = window.confirm(
-        "Are you sure you want to delete this product?"
-      );
-      if (confirmDelete) {
-        if (storedToken && isLoggedIn && user && user.isAdmin === true) {
-          await service.delete(`/products/${productId}/`);
-          navigate("/");
-          window.location.reload("/");
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-// CARGAR COMENTARIOS
-  const loadComments = async () => {
-    try {
-      const response = await service.get(`comments/products/${productId}`);
-      setComments(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    loadComments();
+    loadComments(productId);
   }, [productId]);
-
-  //publicar un comentario
-
-  const handleCommentTextChange = (evento) => {
-    let value = evento.target.value;
-    setCommentText(value);
-  };
-
-  const postComment = async (event) => {
-    event.preventDefault();
-    const newComment = {
-      text: commentText,
-      user: user._id,
-      product: productId,
-    };
-    try {
-      const storedToken = localStorage.getItem("authToken");
-      if (user && storedToken && isLoggedIn === true) {
-        await service.post(`/comments/`, newComment, {
-          headers: { Authorization: `Bearer ${storedToken}` },
-        });
-        setCommentText("");
-        loadComments();
-      } else {
-        console.log("usuario sin autentificación");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   if (!currentProduct)
     return (
@@ -184,145 +129,153 @@ function ProductDetails(props) {
 
   return (
     <>
-    {pdBreadcrumb}
-    <div className="product-detail-screen">
-      {!currentProduct ? (
-        <div id="product-detail-card">
-          <p>Product not found :(</p>{" "}
-        </div>
-      ) : (
-        <div id="product-detail-card">
-          <div className="product-detail-img">
-            <img src={currentProduct.image} alt={currentProduct.title} />
-            <button
-              className="fav-button"
-              onClick={() => handleWishlist(productId)}
-            >
-              {isWishlisted ? (
-                <Icon icon={ic_favorite} />
-              ) : (
-                <Icon icon={ic_favorite_border} />
-              )}
-            </button>
+      {pdBreadcrumb}
+      <div className="product-detail-screen">
+        {!currentProduct ? (
+          <div id="product-detail-card">
+            <p>Product not found :(</p>{" "}
           </div>
-          <div id="product-detail-info">
-            <h1>{currentProduct.price} €</h1>
-            <h2>{currentProduct.title}</h2>
-            <p>{currentProduct.description}</p>
-
-            <ToastContainer
-              className="p-3"
-              position="middle-center"
-              style={{ zIndex: 1 }}
-            >
-              <Toast
-                onClose={() => {
-                  setShowB(false);
-                }}
-                show={showB}
-                animation={false}
+        ) : (
+          <div id="product-detail-card">
+            <div className="product-detail-img">
+              <img src={currentProduct.image} alt={currentProduct.title} />
+              <button
+                className="fav-button"
+                onClick={() => handleWishlist(productId)}
               >
-                <Toast.Header closeButton={false}>
-                  <Icon icon={ic_add_shopping_cart} />
-                  <strong className="me-auto"> CraftsShop</strong>
-                </Toast.Header>
-                <Toast.Body>Product added to your cart!</Toast.Body>
-              </Toast>
-            </ToastContainer>
+                {isWishlisted ? (
+                  <Icon icon={ic_favorite} />
+                ) : (
+                  <Icon icon={ic_favorite_border} />
+                )}
+              </button>
+            </div>
+            <div id="product-detail-info">
+              <h1>{currentProduct.price} €</h1>
+              <h2>{currentProduct.title}</h2>
+              <p>{currentProduct.description}</p>
 
-            <div className="box-buttons">
-              <Button onClick={handleAddToCart} id="add-cart-button">
-                <Icon icon={ic_add_shopping_cart} /> Add
-              </Button>
-             
+              <ToastContainer
+                className="p-3"
+                position="middle-center"
+                style={{ zIndex: 1 }}
+              >
+                <Toast
+                  onClose={() => {
+                    setShowB(false);
+                  }}
+                  show={showB}
+                  animation={false}
+                >
+                  <Toast.Header closeButton={false}>
+                    <Icon icon={ic_add_shopping_cart} />
+                    <strong className="me-auto"> CraftsShop</strong>
+                  </Toast.Header>
+                  <Toast.Body>Product added to your cart!</Toast.Body>
+                </Toast>
+              </ToastContainer>
 
               {showPaymentIntent === false ? (
-                <Button
-                  className="purchase-button"
-                  onClick={() => setShowPaymentIntent(true)}
-                >
-                  Purchase
-                </Button>
+                <div className="box-buttons">
+                  <Button onClick={handleAddToCart} id="add-cart-button">
+                    <Icon icon={ic_add_shopping_cart} /> Add
+                  </Button>
+                  <Button
+                    className="purchase-button"
+                    onClick={() => setShowPaymentIntent(true)}
+                  >
+                    Purchase
+                  </Button>
+                </div>
               ) : (
-                <PaymentIntent productDetails={currentProduct} />
+                <>
+                  <PaymentIntent productDetails={currentProduct} />
+                  <Button
+                    onClick={() => {
+                      setShowPaymentIntent(false);
+                    }}
+                    id="back-pay-button"
+                  >
+                    Cancel
+                  </Button>
+                </>
               )}
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* SECCION DE CONTROLES DE ADMINISTRADOR */}
+        {/* SECCION DE CONTROLES DE ADMINISTRADOR */}
 
-      {isLoggedIn && user.isAdmin === true ? (
-        <div id="admin-product-box">
-          <h3>ADMIN CONTROL PANNEL</h3>
-          <p>Here you can handle products of your store.</p>
-          <div className="box-buttons">
-            <Button
-              id="delete-admin-btn"
-              variant="outline-danger"
-              onClick={handleDelete}
-            >
-              Delete Product
-            </Button>
-            <AddProductForm
-              title={currentProduct.title}
-              description={currentProduct.description}
-              price={currentProduct.price}
-              image={currentProduct.image}
-              category={currentProduct.category}
-              id={productId}
-              type={"edit"}
-            />
+        {isLoggedIn && user.isAdmin === true ? (
+          <div id="admin-product-box">
+            <h3>ADMIN CONTROL PANNEL</h3>
+            <p>Here you can handle products of your store.</p>
+            <div className="box-buttons">
+              <Button
+                id="delete-admin-btn"
+                variant="outline-danger"
+                onClick={() => handleDelete(productId)}
+              >
+                Delete Product
+              </Button>
+              <AddProductForm
+                title={currentProduct.title}
+                description={currentProduct.description}
+                price={currentProduct.price}
+                image={currentProduct.image}
+                category={currentProduct.category}
+                id={productId}
+                type={"edit"}
+              />
+            </div>
+          </div>
+        ) : null}
+
+        {/* SECCION DE COMENTARIOS */}
+
+        <div id="comments-list">
+          <h3>Comments section</h3>
+          {!comments || comments.length === 0 ? (
+            <p>No comments yet for this product</p>
+          ) : (
+            comments.map((eachComment) => {
+              return (
+                <CommentBox
+                  key={eachComment._id}
+                  eachComment={eachComment}
+                  productId={productId}
+                />
+              );
+            })
+          )}
+
+          <div id="new-comment-box">
+            <form onSubmit={(event) => postComment(event, productId)}>
+              <input
+                id="post-area"
+                type="text"
+                placeholder="Say something nice here..."
+                value={commentText}
+                onChange={handleCommentTextChange}
+              />
+              <button id="post-button" type="submit">
+                <Icon icon={send} size={10} />
+              </button>
+            </form>
           </div>
         </div>
-      ) : null}
 
-      {/* SECCION DE COMENTARIOS */}
+        {/* SECCION VER MAS */}
 
-      <div id="comments-list">
-        <h3>Comments section</h3>
-        {!comments || comments.length === 0 ? (
-          <p>No comments yet for this product</p>
-        ) : (
-          comments.map((eachComment) => {
-            return (
-              <CommentBox
-                key={eachComment._id}
-                eachComment={eachComment}
-                comments={comments}
-              />
-            );
-          })
-        )}
-
-        <div id="new-comment-box">
-          <form onSubmit={postComment}>
-            <input
-              id="post-area"
-              type="text"
-              placeholder="Say something nice here..."
-              value={commentText}
-              onChange={handleCommentTextChange}
-            />
-            <button id="post-button" type="submit">
-              <Icon icon={send} size={10} />
-            </button>
-          </form>
+        <div id="see-more">
+          <h3>Discover more items</h3>
+          {!products || products.length === 0 ? (
+            <p>No products available</p>
+          ) : (
+            <ProductList products={moreItems} type="product list" />
+          )}
         </div>
       </div>
-
-      {/* SECCION VER MAS */}
-
-      <div id="see-more">
-        <h3>Discover more items</h3>
-        {!products || products.length === 0 ? (
-          <p>No products available</p>
-        ) : (
-          <ProductList products={moreItems} type="product list" />
-        )}
-      </div>
-    </div>
     </>
   );
 }

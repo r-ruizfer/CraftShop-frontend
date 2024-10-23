@@ -110,6 +110,7 @@
   width: 90%;
   gap: 1.5rem;
   border: solid 0.3px gray;
+  border-radius:5px;
   position: relative;
 }
 
@@ -188,6 +189,14 @@
 #see-more {
   width: 80%;
   margin: 1rem auto;
+}
+
+#back-pay-button {
+  background-color: #3c096c;
+  color: white;
+  border: none;
+  font-size: 0.7rem;
+  margin: 1rem;
 }
 
 @media (min-width: 768px) {

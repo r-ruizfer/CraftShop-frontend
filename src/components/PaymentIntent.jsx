@@ -4,8 +4,6 @@ import { Elements } from "@stripe/react-stripe-js";
 import service from "../services/config";
 import CheckoutForm from "./CheckoutForm";
 
-import axios from "axios";
-
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
 // This is your test publishable API key.
@@ -27,14 +25,14 @@ function PaymentIntent({ productDetails }) {
   const appearance = {
     theme: 'stripe',
   };
+
   const options = {
     clientSecret,
     appearance,
   };
 
-
   return (
-    <div className="App">
+    <div className="app">
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm />

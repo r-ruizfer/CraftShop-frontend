@@ -11,6 +11,7 @@ import { AuthContext } from "../context/auth.context";
 import { WishlistContext } from "../context/wishlist.context";
 
 import { Spinner, Breadcrumb } from "react-bootstrap";
+
 function Cart() {
   const { productsInCart, setProductsInCart } = useContext(CartContext);
   const { user, isLoggedIn } = useContext(AuthContext);
@@ -21,16 +22,13 @@ function Cart() {
   const goHome = () => {
     navigate("/");
   };
-  const goWL = () => {
-    navigate("/wishlist");
+  const goCart = () => {
+    navigate("/cart");
   };
   const cartBreadcrumb = (
     <Breadcrumb>
       <Breadcrumb.Item onClick={goHome}>Home</Breadcrumb.Item>
-
-      <Breadcrumb.Item onClick={goWL}>Wishlist</Breadcrumb.Item>
-
-      <Breadcrumb.Item active>Cart</Breadcrumb.Item>
+      <Breadcrumb.Item onClick={goCart}>Cart</Breadcrumb.Item>
     </Breadcrumb>
   );
   const {

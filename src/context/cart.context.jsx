@@ -7,6 +7,7 @@ const CartContext = createContext();
 
 function CartWrapper({ children }) {
   const [productsInCart, setProductsInCart] = useState([]);
+  
 
   // Recuperar el carrito
 
@@ -18,8 +19,20 @@ function CartWrapper({ children }) {
     }
   }, []);
 
+
+
+   // BORRAR DEL CARRITO
+
+   const handleDeleteCart = (productId) => {
+    const currentCart = productsInCart.filter(
+      (eachProduct) => eachProduct._id !== productId
+    );
+    setProductsInCart(currentCart);
+    localStorage.setItem("cart", JSON.stringify(currentCart));
+  };
+
   return (
-    <CartContext.Provider value={{ productsInCart, setProductsInCart }}>
+    <CartContext.Provider value={{ productsInCart, setProductsInCart, handleDeleteCart}}>
       {children}
     </CartContext.Provider>
   );

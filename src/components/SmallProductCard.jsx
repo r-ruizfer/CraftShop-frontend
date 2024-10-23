@@ -17,7 +17,7 @@ import { shopping_cart_remove } from "react-icons-kit/ikons/shopping_cart_remove
 function SmallProductCard(props) {
   const { eachProduct, type } = props;
 
-  const { productsInCart, setProductsInCart } = useContext(CartContext);
+  const { productsInCart, setProductsInCart, handleDeleteCart } = useContext(CartContext);
   const { user, isLoggedIn } = useContext(AuthContext);
   const {
     wishlist,
@@ -42,15 +42,6 @@ function SmallProductCard(props) {
     }
   }, [wishlist]);
 
-  // BORRAR DEL CARRITO
-
-  const handleDeleteCart = (productId) => {
-    const currentCart = productsInCart.filter(
-      (eachProduct) => eachProduct._id !== productId
-    );
-    setProductsInCart(currentCart);
-    localStorage.setItem("cart", JSON.stringify(currentCart));
-  };
 
   // CONSOLE LOGS
 

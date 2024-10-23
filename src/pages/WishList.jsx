@@ -10,8 +10,6 @@ import NotLogin from "../components/NotLogin";
 import { AuthContext } from "../context/auth.context";
 import { WishlistContext } from "../context/wishlist.context";
 
-
-
 function WishList() {
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [userProfile, setUserProfile] = useState(null);
@@ -20,6 +18,7 @@ function WishList() {
   const navigate = useNavigate();
 
   const { user, isLoggedIn } = useContext(AuthContext);
+
   const {
     wishlist,
     setWishlist,
@@ -28,21 +27,16 @@ function WishList() {
     handleWishlist,
   } = useContext(WishlistContext);
 
-  
-  
-  
-
   const goHome = () => {
     navigate("/");
   };
-  const goCart = () => {
-    navigate("/cart");
+  const goWishlist = () => {
+    navigate("/wishlist");
   };
   const wlBreadcrumb = (
     <Breadcrumb>
       <Breadcrumb.Item onClick={goHome}>Home</Breadcrumb.Item>
-      <Breadcrumb.Item active>Wishlist</Breadcrumb.Item>
-      <Breadcrumb.Item onClick={goCart}>Cart</Breadcrumb.Item>
+      <Breadcrumb.Item onClick={goWishlist}>Wishlist</Breadcrumb.Item>
     </Breadcrumb>
   );
 
@@ -73,12 +67,10 @@ function WishList() {
     getUser();
   }, [isLoggedIn, user]);
 
-
-
   if (errorMessage) return <div>{errorMessage}</div>;
   if (!userProfile) return <NotLogin />;
 
-  if (loading){
+  if (loading) {
     return (
       <>
         {wlBreadcrumb}
@@ -86,7 +78,7 @@ function WishList() {
       </>
     );
   }
-  if (loading){
+  if (loading) {
     return (
       <>
         {wlBreadcrumb}
