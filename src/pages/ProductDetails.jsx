@@ -11,10 +11,14 @@ import { CartContext } from "../context/cart.context.jsx";
 import { Icon } from "react-icons-kit";
 import { ic_favorite } from "react-icons-kit/md/ic_favorite";
 import { ic_favorite_border } from "react-icons-kit/md/ic_favorite_border";
-import {send} from 'react-icons-kit/fa/send'
+import { send } from "react-icons-kit/fa/send";
 import { Button } from "react-bootstrap";
 import PaymentIntent from "../components/PaymentIntent";
-import {ic_add_shopping_cart} from 'react-icons-kit/md/ic_add_shopping_cart'
+import { ic_add_shopping_cart } from "react-icons-kit/md/ic_add_shopping_cart";
+import Toast from "react-bootstrap/Toast";
+import ToastContainer from "react-bootstrap/ToastContainer";
+
+
 
 function ProductDetails(props) {
   const { productId } = useParams();
@@ -33,7 +37,9 @@ function ProductDetails(props) {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [moreItems, setMoreItems] = useState([]);
 
-  const [showPaymentIntent, setShowPaymentIntent] = useState(false)
+  const [showPaymentIntent, setShowPaymentIntent] = useState(false);
+
+  const [showB, setShowB] = useState(false);
 
   //llamada para recibir el producto actual
   useEffect(() => {
@@ -61,6 +67,11 @@ function ProductDetails(props) {
     localStorage.setItem("cart", JSON.stringify(currentCart));
 
     console.log("Añadido al carrito", productsInCart);
+
+    setShowB(true);
+    setTimeout(() => {
+      setShowB(false);
+    }, 3000);
   };
   console.log("carrito", productsInCart);
 
@@ -132,7 +143,6 @@ function ProductDetails(props) {
   };
 
   useEffect(() => {
-    
     loadComments();
   }, [productId]);
 
@@ -181,6 +191,7 @@ function ProductDetails(props) {
   console.log(wishlist, "lista de deseos");
 
   return (
+    // SECCION DE  DETALLE DE PRODUCTO
     <div className="product-detail-screen">
       {!currentProduct ? (
         <div id="product-detail-card">
@@ -205,43 +216,75 @@ function ProductDetails(props) {
             <h1>{currentProduct.price} €</h1>
             <h2>{currentProduct.title}</h2>
             <p>{currentProduct.description}</p>
-            <div className="box-buttons">
-            <Button onClick={handleAddToCart} id="add-cart-button">
-              <Icon icon={ic_add_shopping_cart} /> Add
-              </Button>
-            <div>
-            </div>
-          { 
-            showPaymentIntent === false
-            ? <Button  className="purchase-button" onClick={() => setShowPaymentIntent(true)}>Purchase</Button> 
-            : <PaymentIntent productDetails={currentProduct} /> 
-          }
-          </div>
 
+            <ToastContainer
+              className="p-3"
+              position="middle-center"
+              style={{ zIndex: 1 }}
+            >
+              <Toast
+                onClose={() => {
+                  setShowB(false);
+                }}
+                show={showB}
+                animation={false}
+              >
+                <Toast.Header closeButton={false}>
+                  <Icon icon={ic_add_shopping_cart} />
+                  <strong className="me-auto"> CraftsShop</strong>
+                </Toast.Header>
+                <Toast.Body>Product added to your cart!</Toast.Body>
+              </Toast>
+            </ToastContainer>
+
+            <div className="box-buttons">
+              <Button onClick={handleAddToCart} id="add-cart-button">
+                <Icon icon={ic_add_shopping_cart} /> Add
+              </Button>
+
+              {showPaymentIntent === false ? (
+                <Button
+                  className="purchase-button"
+                  onClick={() => setShowPaymentIntent(true)}
+                >
+                  Purchase
+                </Button>
+              ) : (
+                <PaymentIntent productDetails={currentProduct} />
+              )}
+            </div>
           </div>
         </div>
       )}
+
+      {/* SECCION DE CONTROLES DE ADMINISTRADOR */}
 
       {isLoggedIn && user.isAdmin === true ? (
         <div id="admin-product-box">
           <h3>ADMIN CONTROL PANNEL</h3>
           <p>Here you can handle products of your store.</p>
-        <div className="box-buttons">
-          <Button id="delete-admin-btn"  variant="outline-danger" onClick={handleDelete}>
-            Delete Product
-          </Button>
-          <AddProductForm
-            title={currentProduct.title}
-            description={currentProduct.description}
-            price={currentProduct.price}
-            image={currentProduct.image}
-            category={currentProduct.category}
-            id={productId}
-            type={"edit"}
-          />
-        </div>
+          <div className="box-buttons">
+            <Button
+              id="delete-admin-btn"
+              variant="outline-danger"
+              onClick={handleDelete}
+            >
+              Delete Product
+            </Button>
+            <AddProductForm
+              title={currentProduct.title}
+              description={currentProduct.description}
+              price={currentProduct.price}
+              image={currentProduct.image}
+              category={currentProduct.category}
+              id={productId}
+              type={"edit"}
+            />
+          </div>
         </div>
       ) : null}
+
+      {/* SECCION DE COMENTARIOS */}
 
       <div id="comments-list">
         <h3>Comments section</h3>
@@ -268,10 +311,14 @@ function ProductDetails(props) {
               value={commentText}
               onChange={handleCommentTextChange}
             />
-            <button id="post-button" type="submit"><Icon icon={send} size={10} /></button>
+            <button id="post-button" type="submit">
+              <Icon icon={send} size={10} />
+            </button>
           </form>
         </div>
       </div>
+
+      {/* SECCION VER MAS  */}
 
       <div id="see-more">
         <h3>Discover more items</h3>
