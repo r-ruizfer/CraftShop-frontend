@@ -17,11 +17,15 @@ import { Icon } from "react-icons-kit";
 import { ic_favorite } from "react-icons-kit/md/ic_favorite";
 import { ic_favorite_border } from "react-icons-kit/md/ic_favorite_border";
 import { send } from "react-icons-kit/fa/send";
-import { ic_add_shopping_cart } from "react-icons-kit/md/ic_add_shopping_cart";
+
 import { Button } from "react-bootstrap";
+import PaymentIntent from "../components/PaymentIntent";
+import { ic_add_shopping_cart } from "react-icons-kit/md/ic_add_shopping_cart";
+import { Spinner, Breadcrumb } from "react-bootstrap";
+
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
-import { Spinner } from "react-bootstrap";
+
 
 function ProductDetails(props) {
   const navigate = useNavigate();
@@ -33,6 +37,24 @@ function ProductDetails(props) {
   const [moreItems, setMoreItems] = useState([]);
   const [showPaymentIntent, setShowPaymentIntent] = useState(false);
   const [showB, setShowB] = useState(false);
+  
+  const navigate = useNavigate();
+  const goHome = () => {
+    navigate("/");
+  };
+  const goWL = () => {
+    navigate("/wishlist");
+  };
+  const goCart = () => {
+    navigate("/cart");
+  };
+  const pdBreadcrumb = (
+    <Breadcrumb>
+      <Breadcrumb.Item onClick={goHome}>Home</Breadcrumb.Item>
+      <Breadcrumb.Item onClick={goWL}>Wishlist</Breadcrumb.Item>
+      <Breadcrumb.Item onClick={goCart}>Cart</Breadcrumb.Item>
+    </Breadcrumb>
+  );
 
   const { products } = useContext(ProductsContext);
   const { productsInCart, setProductsInCart } = useContext(CartContext);
@@ -137,11 +159,10 @@ function ProductDetails(props) {
     }
   };
 
-  // ERRORES
-
   if (!currentProduct)
     return (
       <>
+        {pdBreadcrumb}
         <Spinner
           animation="border"
           variant="dark"
@@ -162,7 +183,8 @@ function ProductDetails(props) {
   console.log(wishlist, "lista de deseos");
 
   return (
-    // SECCION DE  DETALLE DE PRODUCTO
+    <>
+    {pdBreadcrumb}
     <div className="product-detail-screen">
       {!currentProduct ? (
         <div id="product-detail-card">
@@ -212,6 +234,7 @@ function ProductDetails(props) {
               <Button onClick={handleAddToCart} id="add-cart-button">
                 <Icon icon={ic_add_shopping_cart} /> Add
               </Button>
+             
 
               {showPaymentIntent === false ? (
                 <Button
@@ -300,6 +323,7 @@ function ProductDetails(props) {
         )}
       </div>
     </div>
+    </>
   );
 }
 

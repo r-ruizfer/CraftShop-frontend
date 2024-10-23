@@ -6,7 +6,7 @@ import service from "../services/config";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 import Spinner from 'react-bootstrap/Spinner';
-
+import LogoutModal from "./LogoutModal";
 
 import "../assets/styles/offcanvas.css"
 
@@ -14,11 +14,12 @@ function OffCanvasProfile(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [showModal, setShowModal] = useState(false);
   const { user, isLoggedIn, authenticateUser } = useContext(AuthContext);
   const [userProfile, setUserProfile] = useState(user);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(undefined);
-  const navigate = useNavigate();
+  
 
   useEffect(() => {
     const getUser = () => {
@@ -45,7 +46,17 @@ function OffCanvasProfile(props) {
     };
     getUser();
   }, [isLoggedIn, user]);
- 
+  const handleLogOutClick = () => {
+    setShowModal(true); 
+  };
+  const handleConfirmLogOut = () => {
+    setShowModal(false);
+    props.handleLogout()
+    console.log('Usuario cerró sesión');
+  };
+  const handleCloseModal = () => {
+    setShowModal(false); 
+  };
  if(loading === true && isLoggedIn){
   return  <Spinner animation="border" variant="primary" size="sm" />
  }
@@ -65,9 +76,9 @@ function OffCanvasProfile(props) {
         <Offcanvas.Header closeButton className="offcanvas-header">
           <Offcanvas.Title>Profile Options</Offcanvas.Title>
           </Offcanvas.Header>
-         <Offcanvas.Body className="offcanvas-body" onClick={handleClose}>
+         <Offcanvas.Body className="offcanvas-body" >
            {isLoggedIn && user ? (
-             <Link to="/profile/" className="offcanvas-link">
+             <Link to="/profile/" className="offcanvas-link" onClick={handleClose}>
                <div>
                  <img
                    src={userProfile.image}
@@ -81,20 +92,28 @@ function OffCanvasProfile(props) {
            ) : null}
 
            {!isLoggedIn && (
-             <Link to="/signup" className="offcanvas-link">
+             <Link to="/signup" className="offcanvas-link" onClick={handleClose}>
                Sign Up
              </Link>
            )}
            {!isLoggedIn && (
-             <Link to="/login" className="offcanvas-link">
+             <Link to="/login" className="offcanvas-link" onClick={handleClose}>
                Log In
              </Link>
            )}
 
            {isLoggedIn && (
-             <Link onClick={props.handleLogout} className="offcanvas-link offcanvas-logout">
-               Log Out
-             </Link>
+            <div>
+
+              <Link onClick={handleLogOutClick} className="offcanvas-link offcanvas-logout">
+                Log Out
+              </Link>
+              <LogoutModal
+              show={showModal}
+              onClose={handleCloseModal}
+              onConfirm={handleConfirmLogOut}
+            />
+            </div>
            )}
          </Offcanvas.Body>
        </Offcanvas>

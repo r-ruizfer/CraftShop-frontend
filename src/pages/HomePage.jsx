@@ -2,11 +2,29 @@ import React, { useContext, useEffect, useState } from "react";
 import ProductList from "../components/ProductList";
 import { ProductsContext } from "../context/products.context";
 import service from "../services/config";
-import { Spinner } from "react-bootstrap";
+import { Spinner, Breadcrumb } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 function HomePage() {
   const { products, setProducts } = useContext(ProductsContext);
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const goHome = () => {
+    navigate("/");
+  };
+  const goWL = () => {
+    navigate("/wishlist");
+  };
+  const goCart = () => {
+    navigate("/cart");
+  };
+  const homeBreadcrumb = (
+    <Breadcrumb>
+      <Breadcrumb.Item active>Home</Breadcrumb.Item>
+      <Breadcrumb.Item onClick={goWL}>Wishlist</Breadcrumb.Item>
+      <Breadcrumb.Item onClick={goCart}>Cart</Breadcrumb.Item>
+    </Breadcrumb>
+  );
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -42,27 +60,30 @@ function HomePage() {
   }
 
   return (
-    <div className="homepage-container">
-      <h1 className="homepage-title">HOME</h1>
-      <div className="filter-container">
-        <label htmlFor="category-filter" className="filter-label">
-          Filter by Category
-        </label>
-        <select
-          id="category-filter"
-          className="filter-select"
-          onChange={handleCategoryChange}
-          value={category}
-        >
-          <option value="">All Categories</option>
-          <option value="Prints">Prints</option>
-          <option value="Stickers">Stickers</option>
-          <option value="Merchandising">Merchandising</option>
-          <option value="Painting">Painting</option>
-        </select>
+    <>
+      {homeBreadcrumb}
+      <div className="homepage-container">
+        <h1 className="homepage-title">HOME</h1>
+        <div className="filter-container">
+          <label htmlFor="category-filter" className="filter-label">
+            Filter by Category
+          </label>
+          <select
+            id="category-filter"
+            className="filter-select"
+            onChange={handleCategoryChange}
+            value={category}
+          >
+            <option value="">All Categories</option>
+            <option value="Prints">Prints</option>
+            <option value="Stickers">Stickers</option>
+            <option value="Merchandising">Merchandising</option>
+            <option value="Painting">Painting</option>
+          </select>
+        </div>
+        <ProductList type="product list" products={products} />
       </div>
-      <ProductList type="product list" products={products} />
-    </div>
+    </>
   );
 }
 

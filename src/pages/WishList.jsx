@@ -2,7 +2,7 @@ import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import service from "../services/config";
-import { Spinner } from "react-bootstrap";
+import { Spinner, Breadcrumb } from "react-bootstrap";
 
 import ProductList from "../components/ProductList";
 import NotLogin from "../components/NotLogin";
@@ -28,6 +28,23 @@ function WishList() {
     handleWishlist,
   } = useContext(WishlistContext);
 
+  
+  
+  
+
+  const goHome = () => {
+    navigate("/");
+  };
+  const goCart = () => {
+    navigate("/cart");
+  };
+  const wlBreadcrumb = (
+    <Breadcrumb>
+      <Breadcrumb.Item onClick={goHome}>Home</Breadcrumb.Item>
+      <Breadcrumb.Item active>Wishlist</Breadcrumb.Item>
+      <Breadcrumb.Item onClick={goCart}>Cart</Breadcrumb.Item>
+    </Breadcrumb>
+  );
 
   useEffect(() => {
     const getUser = () => {
@@ -64,6 +81,16 @@ function WishList() {
   if (loading)
     return (
       <>
+        {wlBreadcrumb}
+        <NotLogin />
+      </>
+    );
+  }
+  if (loading)
+    return (
+      <>
+        {wlBreadcrumb}
+
         <Spinner
           animation="border"
           variant="dark"
@@ -75,18 +102,28 @@ function WishList() {
 
   if (!wishlist || wishlist.length === 0)
     return (
-      <div className="info-page">
-        <p>No products yet in your wishlist</p>
-        <Link to={"/"}>
-          <button className="keep-looking-btn">Keep looking</button>
-        </Link>
-      </div>
+      <>
+        {wlBreadcrumb}
+        <div className="info-page">
+          <p>No products yet in your wishlist</p>
+          <Link to={"/"}>
+            <button className="keep-looking-btn">Keep looking</button>
+          </Link>
+        </div>
+      </>
     );
 
   return (
-    <div className="screen">
-      <ProductList products={wishlist} type="wishlist" />
-    </div>
+    <>
+      {wlBreadcrumb}
+      <div className="screen">
+        <ProductList
+          products={wishlist}
+          setWishlist={setWishlist}
+          type="wishlist"
+        />
+      </div>
+    </>
   );
 }
 

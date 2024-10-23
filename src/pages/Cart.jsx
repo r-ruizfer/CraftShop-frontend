@@ -11,6 +11,7 @@ import { CartContext } from "../context/cart.context.jsx";
 import { AuthContext } from "../context/auth.context";
 import { WishlistContext } from "../context/wishlist.context";
 
+import { Spinner, Breadcrumb } from "react-bootstrap";
 function Cart() {
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [userProfile, setUserProfile] = useState(null);
@@ -20,6 +21,25 @@ function Cart() {
 
   const { productsInCart, setProductsInCart } = useContext(CartContext);
   const { user, isLoggedIn } = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState(undefined);
+  const [userProfile, setUserProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const goHome = ()=>{
+    navigate("/")
+  }
+  const goWL = ()=>{
+    navigate("/wishlist")
+  }
+  const cartBreadcrumb = (
+    <Breadcrumb>
+      <Breadcrumb.Item onClick={goHome}>Home</Breadcrumb.Item>
+
+      <Breadcrumb.Item onClick={goWL}>Wishlist</Breadcrumb.Item>
+
+      <Breadcrumb.Item active>Cart</Breadcrumb.Item>
+    </Breadcrumb>
+  );
   const {
     wishlist,
     setWishlist,
@@ -58,22 +78,31 @@ function Cart() {
   if (errorMessage) return <div>{errorMessage}</div>;
 
   if (!userProfile) {
-    return <NotLogin />;
+    return (
+      <>
+        {cartBreadcrumb}
+        <NotLogin />
+      </>
+    );
   }
 
   if (!productsInCart || productsInCart.length === 0)
     return (
-      <div className="info-page">
-        <p>No products yet in you cart</p>
-        <Link to={"/"}>
-          <button className="keep-looking-btn">Keep looking</button>
-        </Link>
-      </div>
+      <>
+        {cartBreadcrumb}
+        <div className="info-page">
+          <p>No products yet in you cart</p>
+          <Link to={"/"}>
+            <button className="keep-looking-btn">Keep looking</button>
+          </Link>
+        </div>
+      </>
     );
   /* console.log("carrito desde pagina cart", productsInCart);*/
   if (loading)
     return (
       <>
+      {cartBreadcrumb}
         <Spinner
           animation="border"
           variant="dark"
@@ -84,9 +113,12 @@ function Cart() {
     );
 
   return (
-    <div id="cart-screen">
-      <ProductList type="cart" products={productsInCart} />
-    </div>
+    <>
+    {cartBreadcrumb}
+      <div id="cart-screen">
+        <ProductList type="cart" products={productsInCart} />
+      </div>
+    </>
   );
 }
 
