@@ -11,12 +11,11 @@ import { CartContext } from "../context/cart.context.jsx";
 import { Icon } from "react-icons-kit";
 import { ic_favorite } from "react-icons-kit/md/ic_favorite";
 import { ic_favorite_border } from "react-icons-kit/md/ic_favorite_border";
-import {send} from 'react-icons-kit/fa/send'
+import { send } from "react-icons-kit/fa/send";
 import { Button } from "react-bootstrap";
 import PaymentIntent from "../components/PaymentIntent";
-import {ic_add_shopping_cart} from 'react-icons-kit/md/ic_add_shopping_cart'
-import { Spinner } from "react-bootstrap";
-
+import { ic_add_shopping_cart } from "react-icons-kit/md/ic_add_shopping_cart";
+import { Spinner, Breadcrumb } from "react-bootstrap";
 
 function ProductDetails(props) {
   const { productId } = useParams();
@@ -24,6 +23,22 @@ function ProductDetails(props) {
   const [comments, setComments] = useState(null);
   const { wishlist, setWishlist } = props;
   const navigate = useNavigate();
+  const goHome = () => {
+    navigate("/");
+  };
+  const goWL = () => {
+    navigate("/wishlist");
+  };
+  const goCart = () => {
+    navigate("/cart");
+  };
+  const pdBreadcrumb = (
+    <Breadcrumb>
+      <Breadcrumb.Item onClick={goHome}>Home</Breadcrumb.Item>
+      <Breadcrumb.Item onClick={goWL}>Wishlist</Breadcrumb.Item>
+      <Breadcrumb.Item onClick={goCart}>Cart</Breadcrumb.Item>
+    </Breadcrumb>
+  );
 
   const { products } = useContext(ProductsContext);
   const { productsInCart, setProductsInCart } = useContext(CartContext);
@@ -35,7 +50,7 @@ function ProductDetails(props) {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [moreItems, setMoreItems] = useState([]);
 
-  const [showPaymentIntent, setShowPaymentIntent] = useState(false)
+  const [showPaymentIntent, setShowPaymentIntent] = useState(false);
 
   //llamada para recibir el producto actual
   useEffect(() => {
@@ -134,7 +149,6 @@ function ProductDetails(props) {
   };
 
   useEffect(() => {
-    
     loadComments();
   }, [productId]);
 
@@ -173,12 +187,18 @@ function ProductDetails(props) {
     }
   };
 
-  if (!currentProduct) return (
-    <>
-      <Spinner animation="border" variant="dark"  className="homepage-spinner" />
-      <p>...Loading info...</p>
-    </>
-  );
+  if (!currentProduct)
+    return (
+      <>
+        {pdBreadcrumb}
+        <Spinner
+          animation="border"
+          variant="dark"
+          className="homepage-spinner"
+        />
+        <p>...Loading info...</p>
+      </>
+    );
 
   //CONSOLE LOGS
   console.log("products", products);
@@ -188,6 +208,8 @@ function ProductDetails(props) {
   console.log(wishlist, "lista de deseos");
 
   return (
+    <>
+    {pdBreadcrumb}
     <div className="product-detail-screen">
       {!currentProduct ? (
         <div id="product-detail-card">
@@ -213,18 +235,21 @@ function ProductDetails(props) {
             <h2>{currentProduct.title}</h2>
             <p>{currentProduct.description}</p>
             <div className="box-buttons">
-            <Button onClick={handleAddToCart} id="add-cart-button">
-              <Icon icon={ic_add_shopping_cart} /> Add
+              <Button onClick={handleAddToCart} id="add-cart-button">
+                <Icon icon={ic_add_shopping_cart} /> Add
               </Button>
-            <div>
+              <div></div>
+              {showPaymentIntent === false ? (
+                <Button
+                  className="purchase-button"
+                  onClick={() => setShowPaymentIntent(true)}
+                >
+                  Purchase
+                </Button>
+              ) : (
+                <PaymentIntent productDetails={currentProduct} />
+              )}
             </div>
-          { 
-            showPaymentIntent === false
-            ? <Button  className="purchase-button" onClick={() => setShowPaymentIntent(true)}>Purchase</Button> 
-            : <PaymentIntent productDetails={currentProduct} /> 
-          }
-          </div>
-
           </div>
         </div>
       )}
@@ -233,20 +258,24 @@ function ProductDetails(props) {
         <div id="admin-product-box">
           <h3>ADMIN CONTROL PANNEL</h3>
           <p>Here you can handle products of your store.</p>
-        <div className="box-buttons">
-          <Button id="delete-admin-btn"  variant="outline-danger" onClick={handleDelete}>
-            Delete Product
-          </Button>
-          <AddProductForm
-            title={currentProduct.title}
-            description={currentProduct.description}
-            price={currentProduct.price}
-            image={currentProduct.image}
-            category={currentProduct.category}
-            id={productId}
-            type={"edit"}
-          />
-        </div>
+          <div className="box-buttons">
+            <Button
+              id="delete-admin-btn"
+              variant="outline-danger"
+              onClick={handleDelete}
+            >
+              Delete Product
+            </Button>
+            <AddProductForm
+              title={currentProduct.title}
+              description={currentProduct.description}
+              price={currentProduct.price}
+              image={currentProduct.image}
+              category={currentProduct.category}
+              id={productId}
+              type={"edit"}
+            />
+          </div>
         </div>
       ) : null}
 
@@ -275,7 +304,9 @@ function ProductDetails(props) {
               value={commentText}
               onChange={handleCommentTextChange}
             />
-            <button id="post-button" type="submit"><Icon icon={send} size={10} /></button>
+            <button id="post-button" type="submit">
+              <Icon icon={send} size={10} />
+            </button>
           </form>
         </div>
       </div>
@@ -289,6 +320,7 @@ function ProductDetails(props) {
         )}
       </div>
     </div>
+    </>
   );
 }
 

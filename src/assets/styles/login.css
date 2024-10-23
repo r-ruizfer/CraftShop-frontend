@@ -34,12 +34,14 @@
 
 .login-container button {
   padding: 10px;
-  background-color: #5a189a;
+  background-color: #9d4edd;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-weight: bold;
+  font-size: large;
 }
 
 .login-container button:hover {

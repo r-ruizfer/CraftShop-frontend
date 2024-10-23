@@ -6,14 +6,29 @@ import service from "../services/config";
 import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/cart.context.jsx";
 import { AuthContext } from "../context/auth.context";
-import { Spinner } from "react-bootstrap";
+import { Spinner, Breadcrumb } from "react-bootstrap";
 function Cart() {
   const { productsInCart, setProductsInCart } = useContext(CartContext);
   const { user, isLoggedIn } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [userProfile, setUserProfile] = useState(null);
-  const [loading, setLoading] = useState(true)
-  const navigate = useNavigate()
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const goHome = ()=>{
+    navigate("/")
+  }
+  const goWL = ()=>{
+    navigate("/wishlist")
+  }
+  const cartBreadcrumb = (
+    <Breadcrumb>
+      <Breadcrumb.Item onClick={goHome}>Home</Breadcrumb.Item>
+
+      <Breadcrumb.Item onClick={goWL}>Wishlist</Breadcrumb.Item>
+
+      <Breadcrumb.Item active>Cart</Breadcrumb.Item>
+    </Breadcrumb>
+  );
 
   useEffect(() => {
     const getUser = () => {
@@ -31,8 +46,7 @@ function Cart() {
             .catch((err) => {
               setErrorMessage(err.response.data.message);
               navigate("/error");
-              console.log(err)
-              ;
+              console.log(err);
             });
         } else {
           setErrorMessage("User ID is not available.");
@@ -43,37 +57,50 @@ function Cart() {
     getUser();
   }, [isLoggedIn, user]);
 
-  
-
   if (errorMessage) return <div>{errorMessage}</div>;
 
   if (!userProfile) {
     return (
-      <NotLogin/>
+      <>
+        {cartBreadcrumb}
+        <NotLogin />
+      </>
     );
   }
 
   if (!productsInCart || productsInCart.length === 0)
     return (
-      <div className="info-page">
-        <p>No products yet in you cart</p>
-        <Link to={"/"}>
-          <button className="keep-looking-btn" >Keep looking</button>
-        </Link>
-      </div>
+      <>
+        {cartBreadcrumb}
+        <div className="info-page">
+          <p>No products yet in you cart</p>
+          <Link to={"/"}>
+            <button className="keep-looking-btn">Keep looking</button>
+          </Link>
+        </div>
+      </>
     );
- /* console.log("carrito desde pagina cart", productsInCart);*/
-  if (loading) return (
-    <>
-      <Spinner animation="border" variant="dark"  className="homepage-spinner" />
-      <p>...Loading Cart...</p>
-    </>
-  );
+  /* console.log("carrito desde pagina cart", productsInCart);*/
+  if (loading)
+    return (
+      <>
+      {cartBreadcrumb}
+        <Spinner
+          animation="border"
+          variant="dark"
+          className="homepage-spinner"
+        />
+        <p>...Loading Cart...</p>
+      </>
+    );
 
   return (
-    <div id="cart-screen">
-      <ProductList type="cart" products={productsInCart} />
-    </div>
+    <>
+    {cartBreadcrumb}
+      <div id="cart-screen">
+        <ProductList type="cart" products={productsInCart} />
+      </div>
+    </>
   );
 }
 

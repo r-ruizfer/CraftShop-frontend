@@ -73,7 +73,7 @@ function Login() {
 
         <br />
 
-        <button type="submit">Acceder</button>
+        <button type="submit">Log In</button>
 
         {errorMessage && <p>{errorMessage}</p>}
       </form>

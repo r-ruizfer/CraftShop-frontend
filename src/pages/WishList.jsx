@@ -4,7 +4,7 @@ import { AuthContext } from "../context/auth.context";
 import ProductList from "../components/ProductList";
 import { Link, useNavigate } from "react-router-dom";
 import NotLogin from "../components/NotLogin";
-import { Spinner } from "react-bootstrap";
+import { Spinner, Breadcrumb } from "react-bootstrap";
 
 function WishList(props) {
   const [userProfile, setUserProfile] = useState(null);
@@ -12,7 +12,20 @@ function WishList(props) {
   const { user, isLoggedIn } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const { wishlist, setWishlist } = props;
-  const navigate= useNavigate()
+  const navigate = useNavigate();
+  const goHome = () => {
+    navigate("/");
+  };
+  const goCart = () => {
+    navigate("/cart");
+  };
+  const wlBreadcrumb = (
+    <Breadcrumb>
+      <Breadcrumb.Item onClick={goHome}>Home</Breadcrumb.Item>
+      <Breadcrumb.Item active>Wishlist</Breadcrumb.Item>
+      <Breadcrumb.Item onClick={goCart}>Cart</Breadcrumb.Item>
+    </Breadcrumb>
+  );
 
   useEffect(() => {
     const getUser = () => {
@@ -30,7 +43,7 @@ function WishList(props) {
             .catch((err) => {
               const errorDescription = err.response.data.message;
               setErrorMessage(errorDescription);
-              navigate("/error")
+              navigate("/error");
             });
         } else {
           setErrorMessage("User ID is not available.");
@@ -44,34 +57,50 @@ function WishList(props) {
   if (errorMessage) return <div>{errorMessage}</div>;
   if (!userProfile) {
     return (
-      <NotLogin/>
+      <>
+        {wlBreadcrumb}
+        <NotLogin />
+      </>
     );
   }
-  if (loading) return (
-    <>
-      <Spinner animation="border" variant="dark"  className="homepage-spinner" />
-      <p>...Loading Wishlist...</p>
-    </>
-  );
+  if (loading)
+    return (
+      <>
+        {wlBreadcrumb}
+
+        <Spinner
+          animation="border"
+          variant="dark"
+          className="homepage-spinner"
+        />
+        <p>...Loading Wishlist...</p>
+      </>
+    );
 
   if (!wishlist || wishlist.length === 0)
     return (
-      <div className="info-page" >
-        <p>No products yet in your wishlist</p>
-        <Link to={"/"}>
-          <button className="keep-looking-btn" >Keep looking</button>
-        </Link>
-      </div>
+      <>
+        {wlBreadcrumb}
+        <div className="info-page">
+          <p>No products yet in your wishlist</p>
+          <Link to={"/"}>
+            <button className="keep-looking-btn">Keep looking</button>
+          </Link>
+        </div>
+      </>
     );
 
   return (
-    <div className="screen">
-      <ProductList
-        products={wishlist}
-        setWishlist={setWishlist}
-        type="wishlist"
-      />
-    </div>
+    <>
+      {wlBreadcrumb}
+      <div className="screen">
+        <ProductList
+          products={wishlist}
+          setWishlist={setWishlist}
+          type="wishlist"
+        />
+      </div>
+    </>
   );
 }
 
