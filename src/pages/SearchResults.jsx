@@ -29,7 +29,7 @@ const SearchResults = () => {
         {products.length > 0 ? (
           <ProductList products={products} type = "product list" />
         ) : (
-          <p>No Products match you query :(</p>
+          "No Products match you query :("
         )}
       </ul>
     </div>

@@ -7,7 +7,6 @@ import SmallProductCard from "../components/SmallProductCard";
 
 import { ProductsContext } from "../context/products.context.jsx";
 
-
 function ProductList(props) {
   // const { products } = useContext(ProductsContext);
 
@@ -18,11 +17,7 @@ function ProductList(props) {
           {props.products
             .sort((a, b) => b._id.localeCompare(a._id))
             .map((eachProduct) => {
-              return (
-                <Link key={eachProduct._id} to={`/product/${eachProduct._id}`}>
-                  <ProductCard eachProduct={eachProduct} />
-                </Link>
-              );
+              return <ProductCard eachProduct={eachProduct} />;
             })}
         </div>
       </>
@@ -37,14 +32,9 @@ function ProductList(props) {
               return (
                 <div key={eachProduct._id}>
                   {props.type === "cart" ? (
-                    <SmallProductCard
-                      eachProduct={eachProduct}
-                      type="cart"
-                    />
+                    <SmallProductCard eachProduct={eachProduct} type="cart" />
                   ) : (
-                    <SmallProductCard
-                      eachProduct={eachProduct}
-                    />
+                    <SmallProductCard eachProduct={eachProduct} />
                   )}
                 </div>
               );

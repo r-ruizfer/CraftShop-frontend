@@ -30,7 +30,7 @@ function Cart() {
   const cartBreadcrumb = (
     <Breadcrumb>
       <Breadcrumb.Item onClick={goHome}>Home</Breadcrumb.Item>
-      <Breadcrumb.Item onClick={goCart}>Cart</Breadcrumb.Item>
+      <Breadcrumb.Item active>Cart</Breadcrumb.Item>
     </Breadcrumb>
   );
   const {
