@@ -16,7 +16,7 @@ function Login() {
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handleGoogleLogin = () => {
     // Redirige a la ruta del backend que inicia el proceso de autenticación de Google
-    window.location.href = "http://localhost:5000/api/auth/google/login";
+    window.location.href = `${import.meta.env.VITE_SERVER_URL}/auth/google/login`;
   };
   const location = useLocation();
 

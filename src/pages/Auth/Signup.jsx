@@ -27,7 +27,7 @@ function Signup() {
   const handleAddressChange = (e) => setAddress(e.target.value);
 
   const handleGoogleSignup = () => {
-    window.location.href = "http://localhost:5000/api/auth/google";
+    window.location.href = `${import.meta.env.VITE_SERVER_URL}/auth/google`;
   };
 
   const handleSignup = async (e) => {
