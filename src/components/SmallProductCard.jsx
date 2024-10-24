@@ -17,16 +17,17 @@ import { shopping_cart_remove } from "react-icons-kit/ikons/shopping_cart_remove
 function SmallProductCard(props) {
   const { eachProduct, type } = props;
 
-  const { productsInCart, setProductsInCart, handleDeleteCart } = useContext(CartContext);
+  const { productsInCart, setProductsInCart, handleDeleteCart } =
+    useContext(CartContext);
   const { user, isLoggedIn } = useContext(AuthContext);
   const {
     wishlist,
     setWishlist,
-    isWishlisted,
-    setIsWishlisted,
+    
     handleWishlist,
   } = useContext(WishlistContext);
 
+  const [isWishlisted, setIsWishlisted] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [showPaymentIntent, setShowPaymentIntent] = useState(false);
 
@@ -40,8 +41,12 @@ function SmallProductCard(props) {
     } else {
       setIsWishlisted(false);
     }
-  }, [wishlist]);
-
+  }, [wishlist, eachProduct._id]);
+  
+  const toggleWishlist = () => {
+    handleWishlist(eachProduct._id); // Añadir o quitar del wishlist
+    setIsWishlisted(!isWishlisted); // Cambiar el estado de este producto
+  };
 
   // CONSOLE LOGS
 
@@ -60,7 +65,7 @@ function SmallProductCard(props) {
         </Link>
         <button
           className="fav-button"
-          onClick={() => handleWishlist(eachProduct._id)}
+          onClick={toggleWishlist}
         >
           {isWishlisted ? (
             <Icon icon={ic_favorite} />
@@ -74,10 +79,12 @@ function SmallProductCard(props) {
         <div className="small-card-info">
           <h2>{eachProduct.title}</h2>
           <p>{eachProduct.price} €</p>
+          {type === "cart" ? <p>{eachProduct.quantity} units</p> : ""}
         </div>
 
-
-        {type === "cart" ? (
+        {type === "cart" ? 
+       (<>
+        {!showPaymentIntent ? (
           <div className="box-buttons">
             <Button
               id="remove-item-btn"
@@ -87,24 +94,29 @@ function SmallProductCard(props) {
               }}
             >
               <Icon icon={shopping_cart_remove} /> Remove
-            </Button>{" "}
-            <div className="buy-button">
-              {!showPaymentIntent ? (
-                <Button
-                  id="purchase-btn"
-                  onClick={() => setShowPaymentIntent(true)}
-                >
-                  Purchase
-                </Button>
-              ) : (
-                <PaymentIntent productDetails={eachProduct} />
-              )}
-
-            </div>
+            </Button>
+            <Button
+              id="purchase-btn"
+              onClick={() => setShowPaymentIntent(true)}
+            >
+              Purchase
+            </Button>
           </div>
         ) : (
-          ""
+          <>
+            <PaymentIntent productDetails={eachProduct} />
+            <Button
+              onClick={() => {
+                setShowPaymentIntent(false);
+              }}
+              id="back-pay-button"
+            >
+              Cancel
+            </Button>
+          </>
         )}
+        </>) : ("")
+      }
       </div>
     </div>
   );

@@ -23,9 +23,25 @@ function CartWrapper({ children }) {
 
    // BORRAR DEL CARRITO
 
-   const handleDeleteCart = (productId) => {
-    const currentCart = productsInCart.filter(
-      (eachProduct) => eachProduct._id !== productId
+  //  const handleDeleteCart = (productId) => {
+  //   const currentCart = productsInCart.filter(
+  //     (eachProduct) => eachProduct._id !== productId 
+  //   );
+  //   setProductsInCart(currentCart);
+  //   localStorage.setItem("cart", JSON.stringify(currentCart));
+  // };
+
+  const handleDeleteCart = (productId) => {
+    let currentCart = [...productsInCart]
+    productsInCart.forEach((eachProduct, index) => {
+      if (productId === eachProduct._id) {
+        currentCart[index]={
+          ...eachProduct,
+          quantity: eachProduct.quantity - 1};
+      } 
+    });
+    currentCart= currentCart.filter(
+      (eachProduct) => eachProduct.quantity !== 0 
     );
     setProductsInCart(currentCart);
     localStorage.setItem("cart", JSON.stringify(currentCart));

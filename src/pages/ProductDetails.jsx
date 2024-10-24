@@ -89,15 +89,36 @@ function ProductDetails() {
   //AÑADIR PRODUCTO AL CARRITO
 
   const handleAddToCart = () => {
-    const currentCart = [currentProduct, ...productsInCart];
+    let productExists = false;
+    console.log("carrito antes  products in cart", productsInCart);
+    const currentCart=[...productsInCart] //clon del carrito
+    productsInCart.forEach((eachProduct, index) => {
+      if (currentProduct._id === eachProduct._id) {
+        currentCart[index]={
+          ...eachProduct,
+          quantity: eachProduct.quantity + 1};
+          productExists = true
+      } 
+    });
+
+      if (!productExists) {
+        currentCart.push({ ...currentProduct, quantity: 1 });
+      } //si el producto no existia en el carrito lo añadimos con cantidad 1
+   
+
+    
     setProductsInCart(currentCart);
     //guardar carrito para despues
-    localStorage.setItem("cart", JSON.stringify(currentCart));
+    localStorage.setItem("cart", JSON.stringify(productsInCart));
     setShowB(true);
     setTimeout(() => {
       setShowB(false);
     }, 3000);
-    console.log("Añadido al carrito", productsInCart);
+
+    console.log("currentProduct", currentProduct);
+    console.log("carrito mandado al localstorage  products in cart", productsInCart);
+    console.log("carrito modificado con catidades, carrito actual para hacer el cambio", currentCart);
+    
   };
 
   useEffect(() => {
