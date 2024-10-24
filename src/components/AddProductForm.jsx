@@ -458,7 +458,7 @@ function AddProductForm(props) {
                   type="text"
                   onChange={handleChange}
                   value={userFormData.address}
-                  placeholder="Add a profile picture"
+                  placeholder="Add your address"
                 />
                 <Form.Text className="text-muted">Edit your Address</Form.Text>
               </Form.Group>

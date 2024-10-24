@@ -67,7 +67,7 @@ function ProductDetails() {
   const pdBreadcrumb = (
     <Breadcrumb>
       <Breadcrumb.Item onClick={goHome}>Home</Breadcrumb.Item>
-      <Breadcrumb.Item onClick={goWL}>Product details</Breadcrumb.Item>
+      <Breadcrumb.Item active>Product details</Breadcrumb.Item>
     </Breadcrumb>
   );
 

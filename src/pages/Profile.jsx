@@ -71,12 +71,17 @@ function Profile() {
   if (!userProfile) {
     return <NotLogin />;
   }
-  if (loading) return (
-    <>
-      <Spinner animation="border" variant="dark"  className="homepage-spinner" />
-      <p>...Loading Profile Details...</p>
-    </>
-  );
+  if (loading)
+    return (
+      <>
+        <Spinner
+          animation="border"
+          variant="dark"
+          className="homepage-spinner"
+        />
+        <p>...Loading Profile Details...</p>
+      </>
+    );
   console.log(userProfile._id);
   if (!userProfile) {
     return (
