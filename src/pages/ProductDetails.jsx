@@ -165,7 +165,7 @@ function ProductDetails() {
               </button>
             </div>
             <div id="product-detail-info">
-              <h1>{currentProduct.price} €</h1>
+              <h1>{currentProduct.price.toFixed(2)} €</h1>
               <h2>{currentProduct.title}</h2>
               <p>{currentProduct.description}</p>
 
@@ -203,7 +203,7 @@ function ProductDetails() {
                 </div>
               ) : (
                 <>
-                  <PaymentIntent productDetails={currentProduct} />
+                  <PaymentIntent productDetails={[currentProduct]} />
                   <Button
                     onClick={() => {
                       setShowPaymentIntent(false);

@@ -1,6 +1,7 @@
 /* SMALL CARD */
 #small-product-screen {
-  min-height: 75dvh;
+  min-height: 30dvh;
+  height: fit-content;
 }
 
 #small-product-screen a {
@@ -62,11 +63,13 @@
 .small-card-info h2 {
   color: black;
   margin-bottom: 0.05rem;
+
 }
 
 .small-card-info p {
   margin-top: 0;
   font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .buy-button,
@@ -86,7 +89,51 @@
   background-color: #3c096c;
 }
 
+#checkout-btn {
+  width: fit-content;
+  margin: 1rem;
+}
+
+#cart-screen {
+  min-height: 75dvh;
+}
+
+
+#cart-total {
+  width: 60%;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  text-align: right;
+}
+
+#cart-total h2 {
+  display: block;
+  padding: 0.7rem;
+  font-size: 1rem;
+}
+
+#cart-total p {
+  display: block;
+  padding: 0.8rem;
+  font-size: 0.9rem;
+}
+
 @media (min-width: 768px) {
+  #cart-total h2 {
+    display: inline;
+    padding: 0.8rem;
+    font-size: 1.4rem;
+  }
+  
+  #cart-total p { 
+    display: inline;
+    padding: 0.8rem;
+    font-size: 1.3rem;
+  }
   .small-card {
     flex-direction: row;
     justify-content: space-between;
@@ -96,4 +143,5 @@
     width: 150px;
     height: 150px;
   }
+  
 }

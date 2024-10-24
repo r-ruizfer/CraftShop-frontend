@@ -64,7 +64,7 @@ const toggleWishlist = () => {
           <Card.Img variant="top" src={eachProduct.image} />
           <Card.Body className="d-flex flex-column">
             <Card.Title>{eachProduct.title}</Card.Title>
-            <Card.Text className="mt-auto">{eachProduct.price} €</Card.Text>
+            <Card.Text className="mt-auto">{eachProduct.price.toFixed(2)} €</Card.Text>
           </Card.Body>
         </Link>
       </Card>

@@ -2,8 +2,6 @@ import React from "react";
 import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 
-import PaymentIntent from "./PaymentIntent";
-
 import { AuthContext } from "../context/auth.context";
 import { CartContext } from "../context/cart.context.jsx";
 import { WishlistContext } from "../context/wishlist.context";
@@ -122,7 +120,7 @@ function SmallProductCard(props) {
       <div id="small-card-right">
         <div className="small-card-info">
           <h2>{eachProduct.title}</h2>
-          <p>{eachProduct.price} €</p>
+          <p>{eachProduct.price.toFixed(2)} €</p>
           {type === "cart" ? <p>{eachProduct.quantity} units</p> : ""}
         </div>
         {type === "cart" ? (
@@ -135,37 +133,15 @@ function SmallProductCard(props) {
 
         {type === "cart" ? (
           <>
-            {!showPaymentIntent ? (
-              <div className="box-buttons">
-                <Button
-                  id="remove-item-btn"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    handleDeleteCart(eachProduct._id);
-                  }}
-                >
-                  <Icon icon={shopping_cart_remove} /> Remove
-                </Button>
-                <Button
-                  id="purchase-btn"
-                  onClick={() => setShowPaymentIntent(true)}
-                >
-                  Purchase
-                </Button>
-              </div>
-            ) : (
-              <>
-                <PaymentIntent productDetails={eachProduct} />
-                <Button
-                  onClick={() => {
-                    setShowPaymentIntent(false);
-                  }}
-                  id="back-pay-button"
-                >
-                  Cancel
-                </Button>
-              </>
-            )}
+            <Button
+              id="remove-item-btn"
+              onClick={(event) => {
+                event.preventDefault();
+                handleDeleteCart(eachProduct._id);
+              }}
+            >
+              <Icon icon={shopping_cart_remove} /> Remove
+            </Button>
           </>
         ) : (
           ""

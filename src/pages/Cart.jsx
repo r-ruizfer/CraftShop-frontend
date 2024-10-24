@@ -41,6 +41,8 @@ function Cart() {
     handleWishlist,
   } = useContext(WishlistContext);
 
+  console.log(productsInCart, "products in cart");
+
   useEffect(() => {
     const getUser = () => {
       const storedToken = localStorage.getItem("authToken");
@@ -68,6 +70,12 @@ function Cart() {
     getUser();
   }, [isLoggedIn, user]);
 
+  // TOTAL A PAGAR DEL CARRITO
+  let totalPrice = 0;
+  for (let i = 0; i < productsInCart.length; i++) {
+    totalPrice += productsInCart[i].price * productsInCart[i].quantity;
+  }
+
   if (errorMessage) return <div>{errorMessage}</div>;
 
   if (!userProfile) {
@@ -91,7 +99,7 @@ function Cart() {
         </div>
       </>
     );
-  /* console.log("carrito desde pagina cart", productsInCart);*/
+
   if (loading)
     return (
       <>
@@ -110,30 +118,37 @@ function Cart() {
       {cartBreadcrumb}
       <div id="cart-screen">
         <ProductList type="cart" products={productsInCart} />
-        {showPaymentIntent === false ? (
-                <div className="box-buttons">
-                  <Button
-                    className="purchase-button"
-                    onClick={() => setShowPaymentIntent(true)}
-                  >
-                    Pay basket
-                  </Button>
-                </div>
-              ) : (
-                <>
-                  <PaymentIntent productDetails={productsInCart} />
-                  <Button
-                    onClick={() => {
-                      setShowPaymentIntent(false);
-                    }}
-                    id="back-pay-button"
-                  >
-                    Cancel
-                  </Button>
-                </>
-              )}
 
-        
+        <div id="cart-total">
+          <div>
+            <h2>Total amount to pay:</h2>
+            <p>{totalPrice.toFixed(2)} €</p>
+          </div>
+
+          {showPaymentIntent === false ? (
+            <div className="box-buttons">
+              <Button
+                className="purchase-button"
+                id="checkout-btn"
+                onClick={() => setShowPaymentIntent(true)}
+              >
+                Proceed to checkout
+              </Button>
+            </div>
+          ) : (
+            <>
+              <PaymentIntent productDetails={productsInCart} />
+              <Button
+                onClick={() => {
+                  setShowPaymentIntent(false);
+                }}
+                id="back-pay-button"
+              >
+                Cancel
+              </Button>
+            </>
+          )}
+        </div>
       </div>
     </>
   );
