@@ -49,8 +49,9 @@ const toggleWishlist = () => {
   }
   return (
     <div className="cards-container">
+      
       <Card className="product-card" key={eachProduct.id}>
-        <button
+      <button
           className="fav-button"
           onClick={toggleWishlist}
         >
@@ -60,6 +61,7 @@ const toggleWishlist = () => {
             <Icon icon={ic_favorite_border} />
           )}
         </button>
+        
         <Link key={eachProduct._id} to={`/product/${eachProduct._id}`}>
           <Card.Img className="card-image" variant="top" src={eachProduct.image} />
           <Card.Body className="d-flex flex-column">
