@@ -2,7 +2,8 @@ import React from 'react'
 import { AuthContext } from "../context/auth.context";
 import {useContext } from "react";
 import { Link } from "react-router-dom";
-
+import alto from "../assets/images/alto.jpg"
+import { width } from '@fortawesome/free-brands-svg-icons/fa42Group';
 function notLogIn() {
 const { user, isLoggedIn } = useContext(AuthContext);
 
@@ -20,6 +21,7 @@ const { user, isLoggedIn } = useContext(AuthContext);
             <li>Log In</li>
           </Link>
         )}
+        <img src={alto} alt="Alto ahi hermano" style={{width:"500px", marginTop:"20px"}} />
     </div>
   )
 }

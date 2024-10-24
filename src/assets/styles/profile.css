@@ -1,3 +1,7 @@
+.profile-body{
+  height: 100vh;
+}
+
 .profile-container {
   display: flex;
   justify-content: center;
@@ -18,8 +22,8 @@
   text-align: center;
 }
 .profile-info{
-    text-align: left;
-    margin-left: 150px
+    text-align: center;
+    
 }
 
 .profile-photo {
@@ -84,6 +88,10 @@
   .profile-content p {
     font-size: 14px;
   }
+  .profile-info{
+    text-align: left;
+    
+}
 
   .admin-controls button {
     font-size: 12px;
@@ -91,9 +99,13 @@
   }
 }
 @media (max-width: 768px) {
-  profile-content {
+  .profile-content {
     padding: 15px;
   }
+  .profile-info{
+    text-align: left;
+    
+}
 
   .profile-photo {
     width: 120px;

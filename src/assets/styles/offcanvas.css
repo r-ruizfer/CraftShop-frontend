@@ -6,22 +6,19 @@
   border-radius: 10px !important;
 }
 
-/* Header styles */
 .offcanvas-header {
   color: white !important;
 }
 
-/* Body styles */
 .offcanvas-body {
   text-align: center !important;
 }
 
-/* Profile section */
 .offcanvas-profile-photo {
   width: 100px !important;
   height: 100px !important;
-  border-radius: 50% !important; /* Foto de perfil redonda */
-  border: 2px solid #9d4edd !important; /* Borde blanco */
+  border-radius: 50% !important;
+  /border: 2px solid #9d4edd !important;
   margin-bottom: 10px !important;
 }
 
@@ -31,7 +28,6 @@
   margin-bottom: 20px !important;
 }
 
-/* Link styles */
 .offcanvas-link {
   list-style: none !important;
   text-decoration: none !important;
@@ -44,19 +40,10 @@
 }
 
 .offcanvas-link:hover {
-  background-color: #5348cc !important; /* Más oscuro en hover */
+  background-color: #5348cc !important;
   cursor: pointer !important;
 }
 
-/* Button link (Log Out) */
 .offcanvas-logout {
   cursor: pointer !important;
-}
-
-/* Responsive styles */
-@media (max-width: 768px) {
-  .offcanvas-container {
-    width: 100% !important;
-    border-radius: 0 !important; /* Sin bordes redondeados en móviles */
-  }
 }

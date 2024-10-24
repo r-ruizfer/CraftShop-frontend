@@ -77,12 +77,26 @@ function Cart() {
   }
 
   if (errorMessage) return <div>{errorMessage}</div>;
-
+  
+  
   if (!userProfile) {
     return (
       <>
         {cartBreadcrumb}
         <NotLogin />
+      </>
+    );
+  }
+  if (loading) {
+    return (
+      <>
+        {cartBreadcrumb}
+        <Spinner
+          animation="border"
+          variant="dark"
+          className="homepage-spinner"
+        />
+        <p>...Loading Cart...</p>
       </>
     );
   }
@@ -100,18 +114,7 @@ function Cart() {
       </>
     );
 
-  if (loading)
-    return (
-      <>
-        {cartBreadcrumb}
-        <Spinner
-          animation="border"
-          variant="dark"
-          className="homepage-spinner"
-        />
-        <p>...Loading Cart...</p>
-      </>
-    );
+ 
 
   return (
     <>
