@@ -17,7 +17,7 @@ function Login() {
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handleGoogleLogin = async () => {
-    window.location.href = "http://localhost:5000/api/auth/google/login";
+    window.location.href = `${import.meta.env.VITE_SERVER_URL}/auth/google`;
   };
 
   const handleLogin = async (e) => {
