@@ -77,6 +77,18 @@ body {
   margin: 1rem;
   border-radius: 15px;
 }
+.google-buttons-content {
+  display: flex;
+  gap: 10px;
+}
+.google-buttons button {
+  background-color: White !important;
+  color: black !important;
+  border-radius: 50px !important;
+}
+.google-buttons img {
+  width: 25px;
+}
 
 /*.title {
   text-align: center;
@@ -158,13 +170,13 @@ body {
   padding: 0.6rem;
   color: #fff;
   transition: background-color 0.3s;
-  border-radius:20%;
+  border-radius: 20%;
   margin: 5px;
 }
-.logo-navbar{
+.logo-navbar {
   color: #fff;
   transition: background-color 0.3s;
-  border-radius:20%;
+  border-radius: 20%;
   margin: 5px;
 }
 
@@ -323,17 +335,16 @@ body {
 }
 
 @media (max-width: 768px) {
-
   #navbar {
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     justify-content: space-around;
     gap: 0;
   }
 
   #searchbar {
-    order: 1; 
-    width: 90%; 
-    margin-top:0; 
+    order: 1;
+    width: 90%;
+    margin-top: 0;
     margin-bottom: 1rem;
   }
 

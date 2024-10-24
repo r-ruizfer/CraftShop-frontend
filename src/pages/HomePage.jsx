@@ -3,12 +3,53 @@ import ProductList from "../components/ProductList";
 import { ProductsContext } from "../context/products.context";
 import service from "../services/config";
 import { Spinner, Breadcrumb } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { AuthContext } from "../context/auth.context";
+
 function HomePage() {
   const { products, setProducts } = useContext(ProductsContext);
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(true);
+  const { authenticateUser } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  //esto para recibir token del usuario con passport oath
+
+  const [queries, setQueries] = useSearchParams();
+  const authToken = queries.get("authToken");
+  useEffect(() => {
+    if (authToken) {
+      localStorage.setItem("authToken", authToken);
+
+      authenticateUser();
+
+      navigate("/profile");
+    }
+  }, [navigate]);
+  // poner esto en un useEffect
+  // si el authToken existe, todo lo del login
+  // guardar el token, authenticateUser, navigate a perfil
+
+  /* try {
+      
+    const response = await service.get("/auth/google/login", {withCredentials: true});
+
+    console.log(response);
+
+    localStorage.setItem("authToken", response.data.authToken);
+
+    await authenticateUser();
+
+    navigate("/");
+  } catch (error) {
+    console.log(error);
+    if (error.response.status === 400) {
+      setErrorMessage(error.response.data.message);
+    } else {
+      navigate("*");
+    }
+  }*/
+
   const goHome = () => {
     navigate("/");
   };
@@ -62,7 +103,7 @@ function HomePage() {
   return (
     <>
       {homeBreadcrumb}
-      
+
       <div className="homepage-container">
         <h1 className="homepage-title">HOME</h1>
         <div className="filter-container">
@@ -82,7 +123,9 @@ function HomePage() {
             <option value="Painting">Painting</option>
           </select>
           <div>
-            {category ? `Currently browsing:${category}` : `Currently browsing: All Products`}
+            {category
+              ? `Currently browsing:${category}`
+              : `Currently browsing: All Products`}
           </div>
         </div>
         <ProductList type="product list" products={products} />

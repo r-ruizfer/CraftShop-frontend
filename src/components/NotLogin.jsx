@@ -4,8 +4,8 @@ import {useContext } from "react";
 import { Link } from "react-router-dom";
 
 function notLogIn() {
-
 const { user, isLoggedIn } = useContext(AuthContext);
+
   return (
     <div id='not-login'>
       <h1>You are not logged in!</h1>
