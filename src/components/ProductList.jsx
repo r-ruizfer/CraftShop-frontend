@@ -13,13 +13,13 @@ function ProductList(props) {
   if (props.type === "product list") {
     return (
       <>
-        <div id="product-grid">
+        <>
           {props.products
             .sort((a, b) => b._id.localeCompare(a._id))
             .map((eachProduct) => {
               return <ProductCard eachProduct={eachProduct} />;
             })}
-        </div>
+        </>
       </>
     );
   } else if (props.type === "wishlist" || props.type === "cart") {
