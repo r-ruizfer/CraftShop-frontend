@@ -103,6 +103,7 @@ function Profile() {
   }
   if (userProfile && isLoggedIn) {
     return (
+      <div className="profile-body">
       <div className="profile-container">
         {userProfile && (
           <div className="profile-content">
@@ -149,6 +150,7 @@ function Profile() {
             </div>
           </div>
         )}
+      </div>
       </div>
     );
   }

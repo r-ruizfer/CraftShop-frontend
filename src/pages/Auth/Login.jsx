@@ -3,8 +3,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context.jsx";
 import { Link } from "react-router-dom";
-import  googleLogo  from "../../assets/images/google-logo.png";
-
+import googleLogo from "../../assets/images/google-logo.png";
 
 function Login() {
   const navigate = useNavigate();
@@ -72,48 +71,50 @@ function Login() {
     );
   } else {
     return (
-      <div className="login-container">
-        <h1>Log In</h1>
-        <p style={{ color: "gray" }}>
-          Don't have an account? <Link to={"/signup"}>Sign up here!</Link>{" "}
-        </p>
-        <div className="google-buttons">
-          <button onClick={handleGoogleLogin}>
-            <div className="google-buttons-content">
-              <img src={googleLogo} alt="google logo" />
-              Login with Google
-            </div>
-          </button>
+      <div className="login-body">
+        <div className="login-container">
+          <h1>Log In</h1>
+          <p style={{ color: "gray" }}>
+            Don't have an account? <Link to={"/signup"}>Sign up here!</Link>{" "}
+          </p>
+          <div className="google-buttons">
+            <button onClick={handleGoogleLogin}>
+              <div className="google-buttons-content">
+                <img src={googleLogo} alt="google logo" />
+                Login with Google
+              </div>
+            </button>
+          </div>
+          <form onSubmit={handleLogin}>
+            <label>Email:</label>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleEmailChange}
+              placeholder="Enter your email"
+              required
+            />
+
+            <br />
+
+            <label>Password:</label>
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder="Enter your password"
+              required
+            />
+
+            <br />
+
+            <button type="submit">Log In</button>
+
+            {errorMessage && <p>{errorMessage}</p>}
+          </form>
         </div>
-        <form onSubmit={handleLogin}>
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleEmailChange}
-            placeholder="Enter your email"
-            required
-          />
-
-          <br />
-
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handlePasswordChange}
-            placeholder="Enter your password"
-            required
-          />
-
-          <br />
-
-          <button type="submit">Log In</button>
-
-          {errorMessage && <p>{errorMessage}</p>}
-        </form>
       </div>
     );
   }
