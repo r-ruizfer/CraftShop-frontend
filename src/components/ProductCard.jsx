@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Spinner } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 
@@ -13,10 +13,27 @@ function ProductCard(props) {
   const {
     wishlist,
     setWishlist,
-    isWishlisted,
-    setIsWishlisted,
     handleWishlist,
   } = useContext(WishlistContext);
+  const [isWishlisted, setIsWishlisted] = useState(false);
+
+// COMPROBAR SI LISTA DE DESEOS CAMBIA
+useEffect(() => {
+  if (
+    wishlist &&
+    wishlist.some((product) => product._id === eachProduct._id)
+  ) {
+    setIsWishlisted(true);
+  } else {
+    setIsWishlisted(false);
+  }
+}, [wishlist, eachProduct._id]);
+
+const toggleWishlist = () => {
+  handleWishlist(eachProduct._id); // Añadir o quitar del wishlist
+  setIsWishlisted(!isWishlisted); // Cambiar el estado de este producto
+};
+
 
   if (!eachProduct) {
     return (
@@ -35,7 +52,7 @@ function ProductCard(props) {
       <Card className="product-card" key={eachProduct.id}>
         <button
           className="fav-button"
-          onClick={() => handleWishlist(eachProduct._id)}
+          onClick={toggleWishlist}
         >
           {isWishlisted ? (
             <Icon icon={ic_favorite} />

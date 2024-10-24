@@ -43,6 +43,7 @@ function WishlistWrapper({ children }) {
         }
       } else {
         setErrorMessage("User ID no available");
+        setIsWishlisted(false);
         alert("Sorry, you need to log in to add items to wishlist.");
       }
     } catch (error) {
