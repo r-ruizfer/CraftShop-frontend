@@ -62,6 +62,7 @@ function HomePage() {
   return (
     <>
       {homeBreadcrumb}
+      
       <div className="homepage-container">
         <h1 className="homepage-title">HOME</h1>
         <div className="filter-container">
@@ -80,6 +81,9 @@ function HomePage() {
             <option value="Merchandising">Merchandising</option>
             <option value="Painting">Painting</option>
           </select>
+          <div>
+            {category ? `Currently browsing:${category}` : `Currently browsing: All Products`}
+          </div>
         </div>
         <ProductList type="product list" products={products} />
       </div>

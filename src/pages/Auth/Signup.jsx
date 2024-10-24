@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useHref, useNavigate } from "react-router-dom";
 import service from "../../services/config";
 import { useContext } from "react";
 import { AuthContext } from "../../context/auth.context.jsx";
@@ -25,6 +25,10 @@ function Signup() {
   const handlefirstNameChange = (e) => setFirstName(e.target.value);
   const handleImageChange = (e) => setImage(e.target.value);
   const handleAddressChange = (e) => setAddress(e.target.value);
+
+  const handleGoogleSignup = () => {
+    window.location.href = "http://localhost:5000/api/auth/google";
+  };
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -71,7 +75,10 @@ function Signup() {
   return (
     <div className="signup-container">
       <h1>Sign Up Here</h1>
-      <p style={{color: "gray"}}>Already have an account? <Link to={"/login"}>Log in here!</Link> </p>
+      <p style={{ color: "gray" }}>
+        Already have an account? <Link to={"/login"}>Log in here!</Link>{" "}
+      </p>
+      <button onClick={handleGoogleSignup}>signup with google</button>
       <form onSubmit={handleSignup}>
         <label>Email:</label>
         <input

@@ -30,13 +30,11 @@ function WishList() {
   const goHome = () => {
     navigate("/");
   };
-  const goWishlist = () => {
-    navigate("/wishlist");
-  };
+
   const wlBreadcrumb = (
     <Breadcrumb>
       <Breadcrumb.Item onClick={goHome}>Home</Breadcrumb.Item>
-      <Breadcrumb.Item onClick={goWishlist}>Wishlist</Breadcrumb.Item>
+      <Breadcrumb.Item active>Wishlist</Breadcrumb.Item>
     </Breadcrumb>
   );
 
@@ -66,6 +64,7 @@ function WishList() {
     };
     getUser();
   }, [isLoggedIn, user]);
+  
 
   if (errorMessage) return <div>{errorMessage}</div>;
   if (!userProfile) return <NotLogin />;

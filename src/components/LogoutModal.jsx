@@ -6,7 +6,7 @@ function LogoutModal({ show, onClose, onConfirm }) {
   return (
     <div className="logout-modal-overlay">
       <div className="logout-modal-content">
-        <h2>Are you sure you want to Log Out?</h2>
+        <h6>Are you sure you want to Log Out?</h6>
         <button onClick={onConfirm}>Yes, Log Out</button>
         <button onClick={onClose}>Cancel</button>
       </div>

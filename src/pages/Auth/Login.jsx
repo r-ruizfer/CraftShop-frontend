@@ -1,11 +1,12 @@
 import service from "../../services/config.js";
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context.jsx";
 import { Link } from "react-router-dom";
+
 function Login() {
   const navigate = useNavigate();
-  const {authenticateUser} = useContext(AuthContext);
+  const { authenticateUser } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,6 +14,20 @@ function Login() {
 
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
+  const handleGoogleLogin = () => {
+    // Redirige a la ruta del backend que inicia el proceso de autenticación de Google
+    window.location.href = "http://localhost:5000/api/auth/google/login";
+  };
+  const location = useLocation();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const token = queryParams.get("token");
+
+    if (token) {
+      localStorage.setItem("token", token);
+    }
+  }, [location]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -23,7 +38,6 @@ function Login() {
         password,
       };
 
-  
       const response = await service.post("/auth/login", userCredentials);
 
       console.log(response);
@@ -46,8 +60,10 @@ function Login() {
   return (
     <div className="login-container">
       <h1>Log In</h1>
-      <p style={{color: "gray"}}>Don't have an account? <Link to={"/signup"}>Sign up here!</Link> </p>
-
+      <p style={{ color: "gray" }}>
+        Don't have an account? <Link to={"/signup"}>Sign up here!</Link>{" "}
+      </p>
+      <button onClick={handleGoogleLogin}>Login with Google</button>
       <form onSubmit={handleLogin}>
         <label>Email:</label>
         <input
