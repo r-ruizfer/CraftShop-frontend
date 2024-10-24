@@ -41,7 +41,7 @@ function CartWrapper({ children }) {
       } 
     });
     currentCart= currentCart.filter(
-      (eachProduct) => eachProduct.quantity !== 0 
+      (eachProduct) => eachProduct.quantity > 0 
     );
     setProductsInCart(currentCart);
     localStorage.setItem("cart", JSON.stringify(currentCart));
