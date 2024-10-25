@@ -9,6 +9,7 @@ import { ProductsContext } from "../context/products.context.jsx";
 
 function ProductList(props) {
   // const { products } = useContext(ProductsContext);
+  
 
   if (props.type === "product list") {
     return (
@@ -17,6 +18,7 @@ function ProductList(props) {
           {props.products
             .sort((a, b) => b._id.localeCompare(a._id))
             .map((eachProduct) => {
+            
               return <ProductCard eachProduct={eachProduct} />;
             })}
         </>

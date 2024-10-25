@@ -61,15 +61,18 @@ function ProductDetails() {
   const goHome = () => {
     navigate("/");
   };
-  const goWL = () => {
-    navigate("/product/:productId");
-  };
   const pdBreadcrumb = (
     <Breadcrumb>
       <Breadcrumb.Item onClick={goHome}>Home</Breadcrumb.Item>
       <Breadcrumb.Item active>Product details</Breadcrumb.Item>
     </Breadcrumb>
   );
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "auto",
+    });
+  };
 
   //llamada para recibir el producto actual
   useEffect(() => {
@@ -79,6 +82,7 @@ function ProductDetails() {
         setCurrentProduct(response.data);
         setIsWishlisted(wishlist.some((product) => product._id === productId));
         setMoreItems(products.filter((product) => product._id !== productId));
+        scrollToTop()
       } catch (error) {
         console.log(error);
       }
@@ -117,6 +121,7 @@ function ProductDetails() {
   useEffect(() => {
     loadComments(productId);
   }, [productId]);
+ 
 
   if (!currentProduct)
     return (
