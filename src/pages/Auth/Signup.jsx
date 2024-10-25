@@ -8,7 +8,7 @@ function Signup() {
   const navigate = useNavigate();
   const { isLoggedIn } = useContext(AuthContext);
 
-  // Estado para todos los campos
+ 
   const [formData, setFormData] = useState({
     email: "",
     username: "",
@@ -20,7 +20,7 @@ function Signup() {
   });
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Maneja los cambios en todos los campos de entrada
+ 
   const handleChange = (e) => {
     setFormData({
       ...formData,

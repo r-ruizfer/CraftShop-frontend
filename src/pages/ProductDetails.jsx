@@ -286,7 +286,9 @@ function ProductDetails() {
           {!products || products.length === 0 ? (
             <p>No products available</p>
           ) : (
-            <ProductList products={moreItems} type="product list" />
+            <div className="homepage-container">
+              <ProductList type="product list" products={moreItems} />
+            </div>
           )}
         </div>
       </div>
