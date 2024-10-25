@@ -26,29 +26,7 @@ function HomePage() {
       navigate("/profile");
     }
   }, [navigate]);
-  // poner esto en un useEffect
-  // si el authToken existe, todo lo del login
-  // guardar el token, authenticateUser, navigate a perfil
-
-  /* try {
-      
-    const response = await service.get("/auth/google/login", {withCredentials: true});
-
-    console.log(response);
-
-    localStorage.setItem("authToken", response.data.authToken);
-
-    await authenticateUser();
-
-    navigate("/");
-  } catch (error) {
-    console.log(error);
-    if (error.response.status === 400) {
-      setErrorMessage(error.response.data.message);
-    } else {
-      navigate("*");
-    }
-  }*/
+ 
 
   const goHome = () => {
     navigate("/");
