@@ -21,7 +21,7 @@ const { user, isLoggedIn } = useContext(AuthContext);
             <li>Log In</li>
           </Link>
         )}
-        <img src={alto} alt="Alto ahi hermano" style={{width:"500px", marginTop:"20px"}} />
+       
     </div>
   )
 }
