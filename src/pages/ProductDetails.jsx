@@ -82,7 +82,7 @@ function ProductDetails() {
         setCurrentProduct(response.data);
         setIsWishlisted(wishlist.some((product) => product._id === productId));
         setMoreItems(products.filter((product) => product._id !== productId));
-        scrollToTop()
+        scrollToTop();
       } catch (error) {
         console.log(error);
       }
@@ -121,7 +121,6 @@ function ProductDetails() {
   useEffect(() => {
     loadComments(productId);
   }, [productId]);
- 
 
   if (!currentProduct)
     return (
