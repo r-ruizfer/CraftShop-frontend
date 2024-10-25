@@ -1,31 +1,26 @@
 .homepage-container {
   min-height: 60dvh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
 
 .cards-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  justify-items: center;
-  padding: 20px;
-  align-items: center;
+  padding: 50px;
   
 }
 
 .product-card {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 300px;
-  aspect-ratio: 3 / 4;
-  justify-content: space-between;
-  box-sizing: border-box;
+  border: 2px solid black;
+  width: 300px;
+  overflow: hidden;
+  white-space: normal;
+  text-align: center;
+  text-decoration: none;
   transition: transform 0.3s ease;
-  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .product-card:hover {
   transform: scale(1.05);

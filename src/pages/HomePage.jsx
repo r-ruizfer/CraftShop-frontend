@@ -104,30 +104,30 @@ function HomePage() {
     <>
       {homeBreadcrumb}
 
-      <div className="homepage-container">
-        <h1 className="homepage-title">HOME</h1>
-        <div className="filter-container">
-          <label htmlFor="category-filter" className="filter-label">
-            Filter by Category
-          </label>
-          <select
-            id="category-filter"
-            className="filter-select"
-            onChange={handleCategoryChange}
-            value={category}
-          >
-            <option value="">All Categories</option>
-            <option value="Prints">Prints</option>
-            <option value="Stickers">Stickers</option>
-            <option value="Merchandising">Merchandising</option>
-            <option value="Painting">Painting</option>
-          </select>
-          <div>
-            {category
-              ? `Currently browsing:${category}`
-              : `Currently browsing: All Products`}
-          </div>
+      <h1 className="homepage-title">HOME</h1>
+      <div className="filter-container">
+        <label htmlFor="category-filter" className="filter-label">
+          Filter by Category
+        </label>
+        <select
+          id="category-filter"
+          className="filter-select"
+          onChange={handleCategoryChange}
+          value={category}
+        >
+          <option value="">All Categories</option>
+          <option value="Prints">Prints</option>
+          <option value="Stickers">Stickers</option>
+          <option value="Merchandising">Merchandising</option>
+          <option value="Painting">Painting</option>
+        </select>
+        <div>
+          {category
+            ? `Currently browsing:${category}`
+            : `Currently browsing: All Products`}
         </div>
+      </div>
+      <div className="homepage-container">
         <ProductList type="product list" products={products} />
       </div>
     </>

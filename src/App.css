@@ -173,23 +173,6 @@ body {
 
 /* product list*/
 
-#product-grid {
-  width: fit-content;
-  margin: 3rem;
-  padding: 0;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-#product-grid a {
-  text-decoration: none;
-  color: black;
-}
-
 /* FOOTER*/
 
 .footer {
