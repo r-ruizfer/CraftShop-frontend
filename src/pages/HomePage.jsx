@@ -26,7 +26,6 @@ function HomePage() {
       navigate("/profile");
     }
   }, [navigate]);
- 
 
   const goHome = () => {
     navigate("/");
@@ -82,7 +81,6 @@ function HomePage() {
     <>
       {homeBreadcrumb}
 
-      <h1 className="homepage-title">HOME</h1>
       <div className="filter-container">
         <label htmlFor="category-filter" className="filter-label">
           Filter by Category
