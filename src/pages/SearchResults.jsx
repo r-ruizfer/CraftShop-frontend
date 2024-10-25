@@ -9,12 +9,14 @@ const SearchResults = () => {
   useEffect(() => {
     const searchProducts = async () => {
       try {
-        const response = await service.get(`/products/search?title=${encodeURIComponent(query)}`);
-       
+        const response = await service.get(
+          `/products/search?title=${encodeURIComponent(query)}`
+        );
+
         const data = await response.data;
         setProducts(data);
       } catch (error) {
-        console.log(query)
+        console.log(query);
         console.log(error);
       }
     };
@@ -23,16 +25,16 @@ const SearchResults = () => {
   }, [query]);
 
   return (
-    <div className="homepage-container">
-      <h2>Search results for: "{query}"</h2>
-      <ul>
+    <>
+      <h2 style={{marginTop:"20px"}}>Search results for: "{query}"</h2>
+      <div className="homepage-container">
         {products.length > 0 ? (
-          <ProductList products={products} type = "product list" />
+          <ProductList products={products} type="product list" />
         ) : (
           "No Products match you query :("
         )}
-      </ul>
-    </div>
+      </div>
+    </>
   );
 };
 
